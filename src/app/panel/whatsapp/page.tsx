@@ -340,6 +340,7 @@ export default function WhatsAppPage() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAttachMenu, setShowAttachMenu] = useState(false);
   const [showFollowupPicker, setShowFollowupPicker] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [followupDateTime, setFollowupDateTime] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
@@ -1349,6 +1350,7 @@ export default function WhatsAppPage() {
     msgInputRef.current?.focus();
   };
 
+  const deleteChat = async () => {    if (!selectedContact) return;    try {      const res = await fetch("/api/sequoia-chat/contacts/delete", {        method: "DELETE",        headers: { "Content-Type": "application/json" },        body: JSON.stringify({ sessionId: selectedContact.session_id }),      });      if (res.ok) {        setContacts(prev => prev.filter(c => c.session_id !== selectedContact.session_id));        setSelectedContact(null);        setMessages([]);        setShowDeleteConfirm(false);      }    } catch (err) {      console.error("Error deleting chat:", err);    }  };
   const toggleLabel = async (labelId: number) => {
     if (!selectedContact) return;
     const hasLabel = contactLabels.some((l) => l.id === labelId);
@@ -1907,6 +1909,7 @@ export default function WhatsAppPage() {
                   title={soundEnabled ? "Silenciar notificaciones" : "Activar sonido"}
                 >{soundEnabled ? "🔔" : "🔕"}</button>
 
+                <button                  onClick={() => setShowDeleteConfirm(true)}                  className={`px-2 md:px-2.5 py-1.5 rounded-lg text-xs transition ${t.inputBg} ${t.textMuted} hover:text-red-400 hover:bg-red-900/30`}                  title="Eliminar chat"                >                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>                </button>
                 <button
                   onClick={() => { setShowContactInfo(!showContactInfo); if (!showContactInfo) setMobileView("info"); else setMobileView("chat"); }}
                   className={`px-2 md:px-2.5 py-1.5 rounded-lg text-xs transition ${showContactInfo ? `${t.accentBg} text-white` : `${t.inputBg} ${t.textMuted} hover:${t.text}`}`}
@@ -1930,6 +1933,7 @@ export default function WhatsAppPage() {
             )}
 
             <div className="flex-1 flex overflow-hidden relative">
+            {/* Delete confirmation modal */}            {showDeleteConfirm && selectedContact && (              <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center" onClick={() => setShowDeleteConfirm(false)}>                <div className={`${t.sidebar} border ${t.sidebarBorder} rounded-xl p-6 max-w-sm mx-4 shadow-2xl`} onClick={e => e.stopPropagation()}>                  <p className={`${t.text} text-sm font-medium mb-2`}>Eliminar chat</p>                  <p className={`${t.textMuted} text-xs mb-4`}>Se eliminara todo el historial de mensajes con <strong className={`${t.text}`}>{selectedContact.nombre || selectedContact.session_id}</strong>. Esta accion no se puede deshacer.</p>                  <div className="flex gap-2 justify-end">                    <button onClick={() => setShowDeleteConfirm(false)} className={`px-3 py-1.5 rounded-lg text-xs ${t.inputBg} ${t.textMuted} hover:${t.text}`}>Cancelar</button>                    <button onClick={deleteChat} className="px-3 py-1.5 rounded-lg text-xs bg-red-600 text-white hover:bg-red-500">Eliminar</button>                  </div>                </div>              </div>            )}
               {/* Messages */}
               <div className="flex-1 flex flex-col">
                 <div className={`flex-1 overflow-y-auto px-4 py-4 ${t.scrollTrack} ${t.scrollThumb} [&::-webkit-scrollbar]:w-1.5`} style={{ backgroundImage: "radial-gradient(circle at 20% 50%, rgba(34,197,94,0.02) 0%, transparent 50%)" }}>
