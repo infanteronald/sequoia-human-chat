@@ -1,0 +1,23 @@
+{
+  "name": "Sequoia Speed - Indumentaria para Motociclistas",
+  "short_name": "Sequoia Speed",
+  "description": "Tienda online de chaquetas, guantes, botas, cascos e impermeables para motociclistas en Colombia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#f97316",
+  "lang": "es-CO",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

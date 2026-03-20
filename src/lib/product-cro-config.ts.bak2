@@ -1,0 +1,909 @@
+/* ── Per-Product CRO Configuration ─────────────────────
+ * Personalized content for each product:
+ * - subtitle: descriptive tagline below the title
+ * - benefits: 3 outcome-oriented bullet points specific to this product
+ * - reviews: 3 realistic reviews specific to this product
+ * - faq: 3-4 product-specific questions
+ * - targetAudience: specific buyer personas for this product
+ * - salesCount: realistic sales count for social proof
+ * ───────────────────────────────────────────────────── */
+
+export interface ProductCROConfig {
+  subtitle: string;
+  benefits: { icon: string; text: string }[];
+  reviews: { name: string; city: string; rating: number; text: string }[];
+  faq: { q: string; a: string }[];
+  targetAudience: string[];
+  salesCount: number;
+}
+
+export const productCROConfig: Record<string, ProductCROConfig> = {
+  // ══════════════════════════════════════════════════
+  // BOTAS
+  // ══════════════════════════════════════════════════
+  "botas-de-caucho-impermeables-dakar-negra-moto-motociclismo": {
+    subtitle: "Protección impermeable para tus pies en cualquier clima",
+    benefits: [
+      { icon: "💧", text: "100% impermeables — tus pies secos bajo lluvia fuerte" },
+      { icon: "🦶", text: "Suela antideslizante para mejor apoyo en el piso" },
+      { icon: "🏍️", text: "Diseñadas para uso diario en moto, cómodas todo el día" },
+    ],
+    reviews: [
+      { name: "Andrés G.", city: "Bogotá", rating: 5, text: "Las uso todos los días para trabajar en moto. Son cómodas y no entra nada de agua. Buena inversión." },
+      { name: "Felipe R.", city: "Manizales", rating: 5, text: "Llevaba tiempo buscando unas botas impermeables que sirvieran para moto. Estas son perfectas." },
+      { name: "Carolina T.", city: "Medellín", rating: 4, text: "Buenas botas para la lluvia. La suela agarra bien y son fáciles de poner y quitar." },
+    ],
+    faq: [
+      { q: "¿Son realmente impermeables?", a: "Sí, están fabricadas en caucho 100% impermeable. No entra agua ni siquiera en lluvia fuerte." },
+      { q: "¿Sirven para caminar o solo para moto?", a: "Sirven para ambas. La suela es cómoda para caminar y antideslizante." },
+      { q: "¿Las tallas son estándar?", a: "Sí, el tallaje es estándar colombiano. Si estás entre dos tallas, elige la más grande." },
+    ],
+    targetAudience: ["Motociclistas que ruedan bajo lluvia frecuente en ciudades como Bogotá o Manizales", "Trabajadores que usan moto como transporte diario y necesitan calzado resistente", "Domiciliarios que necesitan los pies secos durante toda la jornada laboral"],
+    salesCount: 22,
+  },
+
+  "zapatones-impermeables-para-motociclista-moto-motociclismo-motero": {
+    subtitle: "Cubrebotas impermeable que se pone sobre tu calzado habitual",
+    benefits: [
+      { icon: "💧", text: "Impermeables con suela dura antideslizante" },
+      { icon: "👟", text: "Se ponen sobre tus zapatos — no necesitas cambiarte" },
+      { icon: "📦", text: "Plegables y fáciles de guardar en la moto" },
+    ],
+    reviews: [
+      { name: "Ricardo M.", city: "Bogotá", rating: 5, text: "Excelentes para llegar seco al trabajo. Los pongo encima de mis zapatos formales y listo." },
+      { name: "Paola S.", city: "Cali", rating: 5, text: "La suela dura hace toda la diferencia. Se siente seguro al pisar y no entra agua." },
+      { name: "Diego L.", city: "Bucaramanga", rating: 4, text: "Muy prácticos. Los llevo siempre en la moto por si llueve. Se guardan fácil." },
+    ],
+    faq: [
+      { q: "¿Se ponen encima de los zapatos?", a: "Sí, son zapatones que se colocan sobre tu calzado habitual para protegerlo de la lluvia." },
+      { q: "¿La suela es dura o flexible?", a: "La suela es dura y antideslizante, lo que permite caminar cómodamente con ellos puestos." },
+      { q: "¿Se pueden plegar para guardar?", a: "Sí, son plegables y ocupan poco espacio. Ideales para llevar en la moto." },
+    ],
+    targetAudience: ["Profesionales de oficina que van al trabajo en moto y necesitan proteger sus zapatos formales", "Motociclistas que prefieren cubrir su calzado habitual en vez de llevar botas aparte", "Repartidores y mensajeros que necesitan una solución rápida de poner y quitar contra la lluvia"],
+    salesCount: 28,
+  },
+
+  // ══════════════════════════════════════════════════
+  // CHAQUETAS
+  // ══════════════════════════════════════════════════
+  "chaqueta-avs": {
+    subtitle: "Protección antifricción con ventilación avanzada para clima cálido",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE Nivel 2 en hombros, codos y espalda" },
+      { icon: "🌬️", text: "Sistema de ventilación avanzado para clima tropical" },
+      { icon: "💧", text: "100% impermeable con liner removible" },
+    ],
+    reviews: [
+      { name: "Sebastián R.", city: "Cali", rating: 5, text: "Excelente ventilación. En Cali con el calor es fundamental y esta chaqueta respira muy bien." },
+      { name: "Marcela V.", city: "Barranquilla", rating: 5, text: "La mejor chaqueta que he tenido. Las protecciones se sienten sólidas y no da calor." },
+      { name: "Camilo H.", city: "Cartagena", rating: 4, text: "Muy buena para ciudades calientes. El sistema de ventilación funciona de verdad." },
+    ],
+    faq: [
+      { q: "¿Es buena para clima caliente?", a: "Sí, cuenta con sistema de ventilación avanzado diseñado especialmente para clima tropical colombiano." },
+      { q: "¿Las protecciones son certificadas?", a: "Sí, todas las protecciones son CE 1621-1 Nivel 2 removibles en hombros, codos y espalda." },
+      { q: "¿Es impermeable?", a: "Sí, incluye liner impermeable removible con costuras termoselladas." },
+    ],
+    targetAudience: ["Motociclistas de ciudades calientes como Cali, Barranquilla o Cartagena", "Riders que buscan ventilación máxima sin sacrificar protección certificada", "Viajeros que recorren zonas tropicales y necesitan comodidad térmica", "Motociclistas que sudan mucho y evitan chaquetas cerradas convencionales"],
+    salesCount: 42,
+  },
+
+  "chaqueta-black-pro-chaqueta-antifriccion-de-moto-impermeable-sequoia-speed": {
+    subtitle: "Chaqueta premium antifricción con protecciones CE y liner impermeable removible",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE Nivel 2 en codos, hombros y espalda" },
+      { icon: "💧", text: "Liner impermeable removible con costuras termoselladas" },
+      { icon: "🔦", text: "Reflectivos frontales, traseros y en brazos" },
+    ],
+    reviews: [
+      { name: "Juan Pablo C.", city: "Bogotá", rating: 5, text: "Es mi segunda chaqueta Sequoia. La Black Pro es otro nivel. El material se siente premium y las protecciones son sólidas." },
+      { name: "Alejandro M.", city: "Medellín", rating: 5, text: "La compré para ir al trabajo en moto todos los días. Después de 6 meses sigue como nueva." },
+      { name: "Laura K.", city: "Pereira", rating: 4, text: "Excelente calidad. El liner impermeable funciona perfecto y se quita fácil cuando no llueve." },
+    ],
+    faq: [
+      { q: "¿El liner impermeable es removible?", a: "Sí, el liner se retira fácilmente mediante zipper. Úsala con o sin liner según el clima." },
+      { q: "¿Qué nivel de protección tienen las protecciones?", a: "Las protecciones son CE 1621-1 Nivel 2 en codos, hombros y espalda, todas removibles." },
+      { q: "¿Tiene ventilación?", a: "Sí, dos ventilaciones frontales grandes y una salida de aire en la espalda con tiradores." },
+      { q: "¿Se puede usar sin protecciones como chaqueta casual?", a: "Sí, al ser removibles puedes usarla como chaqueta de diario sin las protecciones." },
+    ],
+    targetAudience: ["Mensajeros y domiciliarios que necesitan protección diaria contra caídas y clima", "Motociclistas urbanos que recorren la ciudad en hora pico entre tráfico pesado", "Viajeros de ruta que hacen trayectos largos intermunicipales", "Repartidores de apps que trabajan bajo cualquier clima"],
+    salesCount: 85,
+  },
+
+  "chaqueta-black-pro-dama-chaqueta-de-proteccion-de-moto-para-damas-impermeable-sequoia-speed": {
+    subtitle: "Chaqueta de protección diseñada para la anatomía femenina",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE ajustadas al cuerpo femenino" },
+      { icon: "💧", text: "100% impermeable con costuras termoselladas" },
+      { icon: "👩", text: "Corte y tallaje diseñado específicamente para damas" },
+    ],
+    reviews: [
+      { name: "Valentina R.", city: "Bogotá", rating: 5, text: "Por fin una chaqueta de moto que le queda bien a una mujer. Sienta perfecto y protege de verdad." },
+      { name: "Natalia G.", city: "Medellín", rating: 5, text: "Me encanta que tiene protecciones reales y no es una chaqueta de hombre achicada. Se nota la diferencia." },
+      { name: "María José P.", city: "Cali", rating: 4, text: "Muy buena chaqueta. El corte es femenino sin sacrificar la protección. La uso todos los días." },
+    ],
+    faq: [
+      { q: "¿Qué diferencia tiene con la Black Pro normal?", a: "Está diseñada con corte y tallaje específico para la anatomía femenina, con ajuste en cintura y pecho." },
+      { q: "¿Tiene las mismas protecciones?", a: "Sí, incluye protecciones CE Nivel 2 removibles en codos, hombros y espalda." },
+      { q: "¿Sirve para dama de contextura grande?", a: "Sí, viene en tallas desde S hasta 3XL. Consulta la guía de tallas para elegir la correcta." },
+    ],
+    targetAudience: ["Mujeres motociclistas que buscan una chaqueta con corte femenino real, no versiones reducidas de hombre", "Damas que conducen moto a diario al trabajo y necesitan protección con estilo", "Motociclistas mujeres que hacen viajes de ruta y quieren comodidad prolongada", "Pasajeras frecuentes que quieren su propia chaqueta de protección certificada"],
+    salesCount: 52,
+  },
+
+  "chaqueta-carrera-blue-chaqueta-antifriccion-de-moto-impermeable-sequoia-speed": {
+    subtitle: "Máxima protección antifricción con diseño deportivo azul",
+    benefits: [
+      { icon: "🛡️", text: "Material antifricción de máxima resistencia" },
+      { icon: "💧", text: "100% impermeable con costuras selladas" },
+      { icon: "🌬️", text: "Ventilación optimizada para rutas largas" },
+    ],
+    reviews: [
+      { name: "Daniel F.", city: "Bogotá", rating: 5, text: "La Carrera Blue es espectacular. El color se mantiene y el material resiste todo el uso diario." },
+      { name: "Oscar R.", city: "Bucaramanga", rating: 5, text: "Llevo 8 meses usándola y sigue impecable. La protección se siente real." },
+      { name: "Sofía M.", city: "Pereira", rating: 4, text: "Bonito diseño y buena protección. La ventilación funciona bien en clima cálido." },
+    ],
+    faq: [
+      { q: "¿Es la misma chaqueta Carrera pero en azul?", a: "Sí, tiene las mismas especificaciones técnicas que la Carrera en otros colores." },
+      { q: "¿El color azul se destiñe?", a: "No, el material está diseñado para mantener el color con el uso diario y la exposición al sol." },
+      { q: "¿Incluye protección en espalda?", a: "Sí, incluye protecciones CE Nivel 2 removibles en codos, hombros y espalda." },
+    ],
+    targetAudience: ["Motociclistas deportivos que buscan un look diferenciador en la carretera", "Riders que prefieren colores llamativos para mayor visibilidad en la vía", "Viajeros frecuentes que hacen rutas intermunicipales los fines de semana", "Motociclistas jóvenes que quieren estilo deportivo con protección certificada"],
+    salesCount: 48,
+  },
+
+  "chaqueta-carrera-green-antifriccion-con-protecciones-certificadas-e-impermeable-100": {
+    subtitle: "Chaqueta deportiva antifricción en color verde con protecciones CE",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones certificadas CE 1621-1 Nivel 2" },
+      { icon: "💧", text: "Impermeable total con liner removible" },
+      { icon: "💪", text: "Resistente a la abrasión y roturas" },
+    ],
+    reviews: [
+      { name: "Esteban C.", city: "Bogotá", rating: 5, text: "El verde es muy bonito y se ve diferente a todas las demás chaquetas negras. Excelente calidad." },
+      { name: "Javier L.", city: "Medellín", rating: 5, text: "Resistente, impermeable y con buenas protecciones. No se puede pedir más." },
+      { name: "Andrea B.", city: "Cali", rating: 4, text: "Muy buena chaqueta. El material se siente sólido y las costuras son de calidad." },
+    ],
+    faq: [
+      { q: "¿El verde es visible de noche?", a: "Sí, además del color verde, incluye detalles reflectivos para mayor visibilidad nocturna." },
+      { q: "¿Es la misma calidad que la Carrera en otros colores?", a: "Sí, todas las Carrera comparten las mismas especificaciones técnicas y materiales." },
+      { q: "¿Puedo lavar la chaqueta en lavadora?", a: "Recomendamos lavado a mano con agua fría y jabón suave. Retira las protecciones antes de lavar." },
+    ],
+    targetAudience: ["Motociclistas que buscan destacarse en la vía con un color distinto al negro convencional", "Riders de aventura y enduro que recorren carreteras secundarias y trochas", "Motociclistas de grupos o clubes que quieren uniformidad con estilo llamativo", "Conductores que priorizan visibilidad diurna como factor de seguridad"],
+    salesCount: 38,
+  },
+
+  "chaqueta-carrera-red-antifriccion-protecciones-certificadas-e-impermeable": {
+    subtitle: "Versión roja de la icónica Carrera con protección antifricción total",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE removibles en hombros, codos y espalda" },
+      { icon: "🔴", text: "Color rojo de alta visibilidad en la vía" },
+      { icon: "💧", text: "Impermeable con costuras termoselladas" },
+    ],
+    reviews: [
+      { name: "Mateo V.", city: "Bogotá", rating: 5, text: "El rojo es brutal. Se ve increíble y la calidad es top. Las protecciones se sienten seguras." },
+      { name: "Camila H.", city: "Bucaramanga", rating: 5, text: "Me encanta que se ve deportiva y a la vez protege de verdad. La uso para todo." },
+      { name: "Nicolás G.", city: "Medellín", rating: 4, text: "Buena chaqueta, muy resistente. El color se mantiene bien después de varios meses." },
+    ],
+    faq: [
+      { q: "¿El rojo se decolora con el sol?", a: "No, el material mantiene su color con el uso diario y exposición al sol." },
+      { q: "¿Es unisex?", a: "El corte es unisex. Consulta la guía de tallas para encontrar tu talla ideal." },
+      { q: "¿Incluye protección dorsal?", a: "Sí, incluye protección CE Nivel 2 removible en la espalda." },
+    ],
+    targetAudience: ["Motociclistas apasionados que quieren máxima visibilidad con un color agresivo y deportivo", "Riders urbanos que buscan combinar estilo llamativo con protección certificada", "Conductores nocturnos que necesitan ser vistos fácilmente en la vía", "Motociclistas que participan en rodadas grupales y quieren un look distintivo"],
+    salesCount: 44,
+  },
+
+  "chaqueta-hydra-impermeable-tipo-touring": {
+    subtitle: "Chaqueta impermeable liviana ideal para lluvia y uso urbano",
+    benefits: [
+      { icon: "💧", text: "Impermeable total — ideal para lluvias fuertes" },
+      { icon: "🪶", text: "Liviana y cómoda para uso diario urbano" },
+      { icon: "🛡️", text: "Protecciones incluidas para seguridad básica" },
+    ],
+    reviews: [
+      { name: "Pedro A.", city: "Bogotá", rating: 5, text: "Perfecta para el clima de Bogotá. Liviana, impermeable y a buen precio." },
+      { name: "María F.", city: "Tunja", rating: 5, text: "La uso todos los días para ir a trabajar. No me ha fallado ni una sola vez con la lluvia." },
+      { name: "Santiago D.", city: "Pasto", rating: 4, text: "Buena relación calidad-precio. Es impermeable de verdad y se siente cómoda." },
+    ],
+    faq: [
+      { q: "¿Es solo impermeable o también antifricción?", a: "Es principalmente una chaqueta impermeable tipo touring. Incluye protecciones pero no es antifricción." },
+      { q: "¿Es pesada?", a: "No, es liviana y cómoda. Ideal para uso urbano diario." },
+      { q: "¿Se puede usar como cortaviento?", a: "Sí, funciona perfectamente como cortaviento además de impermeable." },
+    ],
+    targetAudience: ["Motociclistas de ciudades lluviosas como Bogotá, Tunja o Pasto que necesitan impermeabilidad diaria", "Conductores que buscan una chaqueta liviana para trayectos cortos urbanos", "Estudiantes universitarios que van a clase en moto bajo cualquier clima", "Motociclistas con presupuesto moderado que priorizan impermeabilidad sobre antifricción"],
+    salesCount: 68,
+  },
+
+  "chaqueta-impermeable-con-protecciones-removibles-certificadas-unisex": {
+    subtitle: "Chaqueta unisex con protecciones CE y 100% impermeable",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE removibles certificadas" },
+      { icon: "💧", text: "Impermeable total con costuras selladas" },
+      { icon: "👫", text: "Diseño unisex con amplia variedad de tallas y colores" },
+    ],
+    reviews: [
+      { name: "David C.", city: "Bogotá", rating: 5, text: "Compramos una para mi esposa y una para mí. Excelente que sea unisex y venga en tantos colores." },
+      { name: "Lorena P.", city: "Medellín", rating: 5, text: "Me sorprendió la calidad por el precio. Las protecciones se sienten firmes y es totalmente impermeable." },
+      { name: "Fernando J.", city: "Cali", rating: 4, text: "Buena chaqueta para el precio. Funciona bien bajo la lluvia y las protecciones dan confianza." },
+    ],
+    faq: [
+      { q: "¿Es realmente unisex?", a: "Sí, el diseño y tallaje funcionan tanto para hombres como para mujeres." },
+      { q: "¿Viene en varios colores?", a: "Sí, está disponible en múltiples combinaciones de color y talla." },
+      { q: "¿Las protecciones son de buena calidad?", a: "Sí, son protecciones CE certificadas removibles en hombros, codos y espalda." },
+    ],
+    targetAudience: ["Parejas motociclistas que buscan una misma chaqueta en tallas para ambos", "Motociclistas que quieren variedad de colores para combinar con su moto o casco", "Compradores primerizos que buscan buena relación calidad-precio con protección real", "Conductores casuales que no necesitan equipo de gama alta pero sí protección certificada"],
+    salesCount: 55,
+  },
+
+  "chaqueta-mesh-de-verano-antifriccion-en-malla-transpirable-100-impermeable": {
+    subtitle: "Chaqueta de malla transpirable para clima cálido con protección antifricción",
+    benefits: [
+      { icon: "🌬️", text: "Malla transpirable de alta ventilación para verano" },
+      { icon: "🛡️", text: "Protección antifricción real a pesar de la malla" },
+      { icon: "💧", text: "Liner impermeable removible incluido" },
+    ],
+    reviews: [
+      { name: "Roberto S.", city: "Cali", rating: 5, text: "En Cali con el calor esta chaqueta es la salvación. Ventila increíble y protege de verdad." },
+      { name: "Carolina A.", city: "Barranquilla", rating: 5, text: "La mejor opción para clima caliente. No da calor como las otras chaquetas de moto." },
+      { name: "Luis E.", city: "Medellín", rating: 4, text: "Buena ventilación y protección. Cuando llueve le pongo el liner y quedo protegido." },
+    ],
+    faq: [
+      { q: "¿La malla protege en caso de caída?", a: "Sí, es malla antifricción de alta resistencia. Combina ventilación con protección real." },
+      { q: "¿Funciona para lluvia?", a: "Incluye liner impermeable removible. Sin el liner es ideal para días secos y calurosos." },
+      { q: "¿Es buena para viajes largos en clima tropical?", a: "Sí, es ideal para rutas en clima cálido gracias a su ventilación máxima." },
+    ],
+    targetAudience: ["Motociclistas del Valle del Cauca y la costa que enfrentan calor extremo diariamente", "Repartidores de apps en ciudades calientes que necesitan frescura sin perder protección", "Viajeros de aventura que recorren tierra caliente en rutas largas", "Motociclistas que dejaron de usar chaqueta por el calor y buscan una alternativa transpirable"],
+    salesCount: 47,
+  },
+
+  "chaqueta-reflectiva-de-moto-tipo-cortaviento-con-protecciones-motociclista-para-damas-y-caballeros": {
+    subtitle: "Chaqueta reflectiva tipo cortaviento con protecciones para máxima visibilidad",
+    benefits: [
+      { icon: "🔦", text: "Reflectivos 360° para máxima visibilidad nocturna" },
+      { icon: "🛡️", text: "Protecciones incluidas para seguridad en carretera" },
+      { icon: "🌬️", text: "Tipo cortaviento: liviana y práctica" },
+    ],
+    reviews: [
+      { name: "Jorge H.", city: "Bogotá", rating: 5, text: "Los reflectivos son impresionantes. De noche los carros te ven a distancia. Muy segura." },
+      { name: "Adriana L.", city: "Manizales", rating: 5, text: "Perfecta para rodar de noche. Liviana y con los reflectivos te sientes mucho más segura." },
+      { name: "Manuel R.", city: "Pereira", rating: 4, text: "Buena chaqueta reflectiva. Las protecciones son un plus que no esperaba a este precio." },
+    ],
+    faq: [
+      { q: "¿Los reflectivos funcionan bien de noche?", a: "Sí, son reflectivos de alta visibilidad 360° que reflejan la luz de los vehículos." },
+      { q: "¿Es para hombre y mujer?", a: "Sí, es unisex con tallas para damas y caballeros." },
+      { q: "¿Es impermeable?", a: "Es tipo cortaviento con resistencia al agua, pero no es impermeable total para lluvia fuerte." },
+    ],
+    targetAudience: ["Motociclistas que ruedan de madrugada o de noche por carreteras oscuras", "Domiciliarios nocturnos que necesitan ser vistos por los conductores", "Ciclistas y motociclistas urbanos que transitan por vías sin buena iluminación", "Conductores que priorizan la seguridad vial y la visibilidad como primera medida"],
+    salesCount: 36,
+  },
+
+  "chaqueta-reflectiva-doble-faz-impermeable-de-moto-para-damas-y-caballeros": {
+    subtitle: "Chaqueta reversible: un lado reflectivo, otro lado casual",
+    benefits: [
+      { icon: "🔄", text: "Doble faz: úsala reflectiva o como chaqueta casual" },
+      { icon: "💧", text: "Impermeable en ambos lados" },
+      { icon: "🔦", text: "Reflectivos de alta visibilidad para la noche" },
+    ],
+    reviews: [
+      { name: "Ximena C.", city: "Bogotá", rating: 5, text: "Me encanta que puedo voltearla y usarla como chaqueta normal. Dos chaquetas en una." },
+      { name: "Cristian M.", city: "Medellín", rating: 5, text: "Genial la idea de doble faz. La uso reflectiva en moto y la volteo cuando llego." },
+      { name: "Patricia G.", city: "Cali", rating: 4, text: "Muy práctica. El lado reflectivo funciona muy bien de noche y el otro lado se ve bien para el día." },
+    ],
+    faq: [
+      { q: "¿Ambos lados son impermeables?", a: "Sí, la chaqueta es impermeable en ambas configuraciones." },
+      { q: "¿Cómo funciona el doble faz?", a: "Un lado tiene los reflectivos de alta visibilidad para moto. El otro lado es un diseño casual para uso diario." },
+      { q: "¿Incluye protecciones?", a: "Consulta las especificaciones técnicas del producto para detalles de protecciones incluidas." },
+    ],
+    targetAudience: ["Profesionales que van en moto al trabajo y quieren verse formales al llegar", "Motociclistas que buscan versatilidad: reflectiva en moto y casual al bajarse", "Personas que no quieren parecer motociclistas al llegar a reuniones o eventos", "Conductores prácticos que prefieren una sola prenda para múltiples situaciones"],
+    salesCount: 33,
+  },
+
+  "chaqueta-reflectiva-firefly-ii-con-protecciones-moto-motociclista-reflectiva-negragris-neon-moto-bicicleta-ciclismo": {
+    subtitle: "Máxima visibilidad nocturna con protecciones CE para motociclistas y ciclistas",
+    benefits: [
+      { icon: "🔦", text: "Reflectivos neón 360° para máxima visibilidad" },
+      { icon: "🛡️", text: "Protecciones CE certificadas incluidas" },
+      { icon: "🚴", text: "Sirve para moto y bicicleta" },
+    ],
+    reviews: [
+      { name: "Alejandro F.", city: "Bogotá", rating: 5, text: "La Firefly II es brutal de noche. Los reflectivos neón son otro nivel de visibilidad." },
+      { name: "Diana M.", city: "Medellín", rating: 5, text: "La uso para ir en bici al trabajo y me siento mucho más segura. Los carros me ven de lejos." },
+      { name: "Tomás R.", city: "Bucaramanga", rating: 4, text: "Excelente chaqueta reflectiva. Las protecciones son un plus importante para moto." },
+    ],
+    faq: [
+      { q: "¿Sirve para bicicleta también?", a: "Sí, el diseño es versátil para motociclistas y ciclistas que necesitan visibilidad." },
+      { q: "¿Qué tan visibles son los reflectivos?", a: "Son reflectivos neón 360° de alta visibilidad. Te hacen visible a distancia en la oscuridad." },
+      { q: "¿Es impermeable?", a: "Tiene resistencia al agua. Consulta las especificaciones para detalles de impermeabilidad." },
+    ],
+    targetAudience: ["Ciclistas urbanos que comparten vía con carros y buses en horarios nocturnos", "Motociclistas y ciclistas que alternan entre bici y moto durante la semana", "Repartidores en bicicleta eléctrica o moto que trabajan turnos nocturnos", "Deportistas de ruta que entrenan al amanecer o al anochecer en carreteras"],
+    salesCount: 30,
+  },
+
+  "chaqueta-sahara-protecciones-certificadas-100-impermeable": {
+    subtitle: "Chaqueta touring con protecciones certificadas y 100% impermeable",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE Nivel 2 certificadas en puntos críticos" },
+      { icon: "💧", text: "Impermeabilidad total con costuras termoselladas" },
+      { icon: "🏍️", text: "Diseño touring ideal para rutas largas" },
+    ],
+    reviews: [
+      { name: "Hernán S.", city: "Bogotá", rating: 5, text: "Hice Bogotá-Santa Marta con esta chaqueta. Impermeable de verdad y muy cómoda para ruta larga." },
+      { name: "Marcelo V.", city: "Armenia", rating: 5, text: "La Sahara es la mejor relación calidad-precio. Protecciones reales y totalmente impermeable." },
+      { name: "Isabel R.", city: "Medellín", rating: 4, text: "Buena chaqueta para touring. Cómoda, impermeable y con protecciones de calidad." },
+    ],
+    faq: [
+      { q: "¿Es buena para viajes largos?", a: "Sí, está diseñada para touring con comodidad para rutas de varias horas." },
+      { q: "¿Aguanta lluvia fuerte?", a: "Sí, es 100% impermeable con costuras termoselladas. Probada bajo lluvia intensa." },
+      { q: "¿Es pesada?", a: "Tiene un peso moderado equilibrando protección con comodidad para uso prolongado." },
+    ],
+    targetAudience: ["Viajeros de larga distancia que hacen rutas como Bogotá-Costa o Eje Cafetero", "Motociclistas de touring que priorizan comodidad en trayectos de varias horas", "Aventureros de fin de semana que exploran carreteras colombianas en moto", "Conductores que necesitan protección completa sin importar el clima en ruta"],
+    salesCount: 40,
+  },
+
+  "chaqueta-tt-protecciones-removibles-certificadas-100-impermeable": {
+    subtitle: "Chaqueta de protección premium con certificación CE y diseño touring",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE Nivel 2 removibles en todo el torso" },
+      { icon: "💧", text: "100% impermeable para cualquier clima" },
+      { icon: "🌬️", text: "Sistema de ventilación regulable" },
+    ],
+    reviews: [
+      { name: "Leonardo C.", city: "Bogotá", rating: 5, text: "La TT es de las mejores chaquetas que he tenido. Las protecciones son gruesas y la impermeabilidad es total." },
+      { name: "Gabriela P.", city: "Medellín", rating: 5, text: "Vale cada peso. La calidad del material y las costuras es notoria. Protege de verdad." },
+      { name: "Andrés J.", city: "Cali", rating: 4, text: "Muy buena chaqueta. Algo caliente en clima cálido pero la ventilación ayuda." },
+    ],
+    faq: [
+      { q: "¿Cuál es la diferencia con la Carrera?", a: "La TT tiene un diseño touring más robusto con protecciones de mayor cobertura." },
+      { q: "¿Tiene ventilación?", a: "Sí, incluye sistema de ventilación regulable con zippers." },
+      { q: "¿Las protecciones se pueden quitar?", a: "Sí, todas las protecciones CE son removibles mediante bolsillos internos." },
+    ],
+    targetAudience: ["Motociclistas experimentados que buscan el mayor nivel de protección disponible", "Viajeros de touring de larga distancia que recorren Colombia de punta a punta", "Riders que han tenido accidentes previos y ahora priorizan seguridad máxima", "Motociclistas que usan motos de alto cilindraje y necesitan equipo acorde"],
+    salesCount: 35,
+  },
+
+  // ══════════════════════════════════════════════════
+  // GUANTES
+  // ══════════════════════════════════════════════════
+  "guantes-cana-corta-de-cuero-raptor-para-moto-de-proteccion": {
+    subtitle: "Guantes de cuero caña corta con protección de nudillos reforzada",
+    benefits: [
+      { icon: "🧤", text: "Cuero genuino para máximo agarre y durabilidad" },
+      { icon: "🛡️", text: "Protección reforzada en nudillos y palma" },
+      { icon: "👆", text: "Caña corta para máxima libertad de movimiento" },
+    ],
+    reviews: [
+      { name: "Sergio R.", city: "Bogotá", rating: 5, text: "Los Raptor son increíbles. El cuero se ajusta perfecto a la mano y la protección es sólida." },
+      { name: "Valentina C.", city: "Medellín", rating: 5, text: "Cómodos y seguros. Me encantan para uso urbano diario. El cuero se va moldeando a la mano." },
+      { name: "Pablo M.", city: "Cali", rating: 4, text: "Buenos guantes de cuero. La caña corta es práctica para la ciudad." },
+    ],
+    faq: [
+      { q: "¿El cuero se estira con el uso?", a: "Sí, el cuero genuino se moldea gradualmente a la forma de tu mano para un ajuste perfecto." },
+      { q: "¿Sirven para clima lluvioso?", a: "Son de cuero, por lo que tienen resistencia al agua pero no son impermeables totales." },
+      { q: "¿Qué diferencia tienen con los Intruder y Predator?", a: "El Raptor es caña corta (muñeca), el Intruder caña media, y el Predator caña larga. La protección aumenta con la longitud." },
+    ],
+    targetAudience: ["Motociclistas deportivos que buscan cuero premium con libertad total en la muñeca", "Riders urbanos que quieren guantes rápidos de poner y quitar en paradas frecuentes", "Motociclistas que priorizan agarre y control preciso del acelerador y freno"],
+    salesCount: 18,
+  },
+
+  "guantes-cana-larga-de-cuero-predator-para-moto-de-proteccion": {
+    subtitle: "Guantes de cuero caña larga para máxima protección en muñeca y antebrazo",
+    benefits: [
+      { icon: "🧤", text: "Caña larga que protege muñeca y parte del antebrazo" },
+      { icon: "🛡️", text: "Protección reforzada en nudillos y palma" },
+      { icon: "💪", text: "Cuero genuino resistente a la abrasión" },
+    ],
+    reviews: [
+      { name: "Ricardo V.", city: "Bogotá", rating: 5, text: "Los Predator son los guantes más seguros que he tenido. La caña larga protege toda la muñeca." },
+      { name: "Juliana S.", city: "Pereira", rating: 5, text: "Excelente calidad de cuero. Se sienten premium y la protección es completa." },
+      { name: "Eduardo M.", city: "Bucaramanga", rating: 4, text: "Muy buenos guantes. La caña larga da mucha confianza. El cuero es de calidad." },
+    ],
+    faq: [
+      { q: "¿Qué tan larga es la caña?", a: "Cubre la muñeca y parte del antebrazo, brindando protección máxima en esa zona." },
+      { q: "¿Son cómodos para uso diario?", a: "Sí, el cuero se moldea a tu mano. Ideales para viajes largos y uso frecuente." },
+      { q: "¿Se pueden usar con chaqueta encima?", a: "Sí, la caña entra debajo del puño de la chaqueta para protección continua." },
+    ],
+    targetAudience: ["Motociclistas de ruta y carretera que necesitan protección extendida en la muñeca", "Riders de alto cilindraje que buscan la máxima cobertura en guantes de cuero", "Viajeros de touring que hacen trayectos largos y quieren protección total mano-antebrazo"],
+    salesCount: 14,
+  },
+
+  "guantes-cana-media-de-cuero-intruder-para-moto-de-proteccion": {
+    subtitle: "Guantes de cuero caña media: equilibrio perfecto entre protección y comodidad",
+    benefits: [
+      { icon: "🧤", text: "Caña media que protege la muñeca sin limitar movimiento" },
+      { icon: "🛡️", text: "Nudillos reforzados con protección de impacto" },
+      { icon: "👆", text: "Tacto preciso para controles del manubrio" },
+    ],
+    reviews: [
+      { name: "Martín G.", city: "Bogotá", rating: 5, text: "Los Intruder son el balance perfecto. Ni muy cortos ni muy largos. Cómodos y seguros." },
+      { name: "Ana María R.", city: "Medellín", rating: 5, text: "Me encantan estos guantes. El cuero es suave pero resistente, y la protección de nudillos es firme." },
+      { name: "Carlos E.", city: "Cali", rating: 4, text: "Buenos guantes para uso diario. La caña media es cómoda y protege bien la muñeca." },
+    ],
+    faq: [
+      { q: "¿Qué tan larga es la caña media?", a: "Cubre la muñeca completa sin extenderse al antebrazo. Equilibrio entre protección y libertad." },
+      { q: "¿Puedo usar el celular con estos guantes?", a: "Son de cuero genuino. Para uso de pantalla táctil recomendamos los guantes MX." },
+      { q: "¿Qué modelo me recomiendan para ciudad?", a: "El Intruder (caña media) es ideal para uso urbano diario. Protección completa con comodidad." },
+    ],
+    targetAudience: ["Motociclistas urbanos que buscan el equilibrio perfecto entre protección y practicidad", "Conductores diarios que quieren cuero de calidad sin la restricción de caña larga", "Motociclistas indecisos entre caña corta y larga que prefieren un punto medio versátil"],
+    salesCount: 16,
+  },
+
+  "guantes-mx-negros-con-proteccion-de-nudillos": {
+    subtitle: "Guantes MX livianos con protección de nudillos para uso diario",
+    benefits: [
+      { icon: "🧤", text: "Livianos y frescos para clima cálido" },
+      { icon: "🛡️", text: "Protección rígida de nudillos incluida" },
+      { icon: "👆", text: "Compatibles con pantalla táctil" },
+    ],
+    reviews: [
+      { name: "Simón R.", city: "Cali", rating: 5, text: "Perfectos para el calor de Cali. Livianos, frescos y con protección de nudillos. Los uso todos los días." },
+      { name: "Lina M.", city: "Barranquilla", rating: 5, text: "Lo mejor es que puedo usar el celular sin quitármelos. Y la protección de nudillos me da tranquilidad." },
+      { name: "José A.", city: "Bogotá", rating: 4, text: "Buenos guantes para la ciudad. Frescos y con buena protección. Buen precio también." },
+    ],
+    faq: [
+      { q: "¿Funcionan con pantalla táctil?", a: "Sí, los dedos son compatibles con pantallas táctiles de celular y GPS." },
+      { q: "¿Son buenos para clima caliente?", a: "Sí, son especialmente diseñados para ser frescos y ventilados en clima cálido." },
+      { q: "¿Son impermeables?", a: "No, estos guantes priorizan ventilación. Para lluvia recomendamos los guantes de cuero." },
+    ],
+    targetAudience: ["Domiciliarios y repartidores que necesitan usar el celular constantemente sin quitarse los guantes", "Motociclistas de clima cálido que no soportan guantes gruesos de cuero", "Conductores urbanos que buscan protección básica de nudillos a un precio accesible", "Usuarios de GPS en moto que necesitan interacción táctil frecuente"],
+    salesCount: 20,
+  },
+
+  "guantes-para-motociclista-moto-marca-sequoia-speed-para-hombre-o-mujer-2-bogota": {
+    subtitle: "Guantes económicos con protección básica para uso diario en moto",
+    benefits: [
+      { icon: "💰", text: "Mejor precio del mercado con protección incluida" },
+      { icon: "👫", text: "Unisex: disponible para hombre y mujer" },
+      { icon: "🧤", text: "Agarre seguro en manubrio mojado o seco" },
+    ],
+    reviews: [
+      { name: "Karen P.", city: "Bogotá", rating: 5, text: "Por el precio son excelentes. Los uso para ir al trabajo en moto y cumplen perfecto." },
+      { name: "Wilson R.", city: "Medellín", rating: 5, text: "Compré dos pares para tener de repuesto. Buena calidad para el precio." },
+      { name: "María L.", city: "Soacha", rating: 4, text: "Cumplen con lo básico. Protegen las manos y mejoran el agarre. Buenos para empezar." },
+    ],
+    faq: [
+      { q: "¿Incluyen protección?", a: "Sí, incluyen protección básica en nudillos y palma reforzada para agarre." },
+      { q: "¿Son para hombre y mujer?", a: "Sí, el diseño es unisex con tallas que funcionan para ambos." },
+      { q: "¿Sirven para lluvia?", a: "Tienen resistencia básica al agua pero no son impermeables completos." },
+    ],
+    targetAudience: ["Motociclistas nuevos que compran su primer par de guantes y buscan algo económico", "Conductores de moto de bajo cilindraje que necesitan protección básica sin gastar mucho", "Parejas que quieren comprar guantes iguales para ambos a buen precio"],
+    salesCount: 19,
+  },
+
+  // ══════════════════════════════════════════════════
+  // IMPERMEABLES
+  // ══════════════════════════════════════════════════
+  "combo-impermeable-hydra-zapatones-sequoia-suela-dura-forro-morral-moto-motociclismo": {
+    subtitle: "Kit impermeable completo: chaqueta Hydra + zapatones + forro morral",
+    benefits: [
+      { icon: "💧", text: "Kit completo para llegar seco de pies a cabeza" },
+      { icon: "🥾", text: "Zapatones con suela dura incluidos" },
+      { icon: "🎒", text: "Forro impermeable para morral incluido" },
+    ],
+    reviews: [
+      { name: "Carlos P.", city: "Bogotá", rating: 5, text: "Este combo es todo lo que necesitas para la lluvia. Chaqueta, zapatones y forro de morral. Completo." },
+      { name: "Daniela R.", city: "Medellín", rating: 5, text: "Lo compré para mi esposo que trabaja en moto. Llega seco todos los días. Excelente combo." },
+      { name: "Jorge E.", city: "Manizales", rating: 4, text: "Buen combo para la lluvia. Todo en un solo paquete y a buen precio." },
+    ],
+    faq: [
+      { q: "¿Qué incluye el combo exactamente?", a: "Incluye chaqueta impermeable Hydra, zapatones con suela dura y forro impermeable para morral." },
+      { q: "¿Es mejor comprar el combo o por separado?", a: "El combo tiene un precio especial que representa ahorro frente a comprar cada pieza por separado." },
+      { q: "¿Los zapatones se ponen sobre los zapatos?", a: "Sí, los zapatones van sobre tu calzado habitual para protegerlo de la lluvia." },
+    ],
+    targetAudience: ["Motociclistas urbanos que necesitan protección contra lluvia para el trayecto al trabajo", "Domiciliarios que cargan morral y quieren proteger tanto su cuerpo como su carga", "Compradores prácticos que prefieren un kit todo-en-uno en vez de comprar pieza por pieza"],
+    salesCount: 32,
+  },
+
+  "combo-impermeable-zapatones-sequoia-suela-dura-forro-morral-moto-guantes-motociclismo": {
+    subtitle: "Kit impermeable premium: chaqueta + pantalón + zapatones + guantes + forro morral",
+    benefits: [
+      { icon: "💧", text: "Protección total contra lluvia de cabeza a pies" },
+      { icon: "🧤", text: "Guantes impermeables incluidos en el kit" },
+      { icon: "📦", text: "5 piezas en un solo combo a precio especial" },
+    ],
+    reviews: [
+      { name: "Luis Fernando T.", city: "Bogotá", rating: 5, text: "El combo más completo. Chaqueta, pantalón, zapatones, guantes y forro de morral. No necesitas nada más." },
+      { name: "Martha G.", city: "Pereira", rating: 5, text: "Se lo compré a mi hijo que trabaja en Rappi. Llega seco de la cabeza a los pies." },
+      { name: "Fabián R.", city: "Cali", rating: 4, text: "Muy buen combo. Todas las piezas son de buena calidad. Los guantes son un plus." },
+    ],
+    faq: [
+      { q: "¿Qué incluye este combo?", a: "Incluye chaqueta impermeable, pantalón impermeable, zapatones suela dura, guantes impermeables y forro de morral." },
+      { q: "¿Los guantes funcionan para manejar moto?", a: "Sí, son guantes diseñados para motociclismo con agarre en manubrio mojado." },
+      { q: "¿Todo es de la misma talla?", a: "Selecciona tu talla y todo el combo viene coordinado. Los zapatones vienen en tallas de calzado." },
+    ],
+    targetAudience: ["Repartidores de Rappi, Didi o iFood que necesitan protección completa contra lluvia incluyendo manos", "Motociclistas que quieren la solución más completa posible en un solo combo", "Familiares que buscan un regalo integral para el motociclista de la casa", "Trabajadores motorizados que no pueden parar cuando llueve y necesitan cada parte del cuerpo seca"],
+    salesCount: 25,
+  },
+
+  "combo-impermeable-zapatones-sequoia-suela-dura-forro-morral-moto-motociclismo": {
+    subtitle: "Kit impermeable esencial: chaqueta + pantalón + zapatones + forro morral",
+    benefits: [
+      { icon: "💧", text: "Kit completo contra la lluvia para moto" },
+      { icon: "🥾", text: "Zapatones con suela dura antideslizante" },
+      { icon: "💰", text: "Ahorra comprando el combo completo" },
+    ],
+    reviews: [
+      { name: "Andrés V.", city: "Bogotá", rating: 5, text: "El combo esencial para cualquier motociclista en Colombia. No le falta nada." },
+      { name: "Carolina H.", city: "Medellín", rating: 5, text: "Mi esposo lo usa todos los días. Después de un año sigue funcionando perfecto." },
+      { name: "Óscar M.", city: "Bucaramanga", rating: 4, text: "Buen kit impermeable. Los zapatones de suela dura son los que más me gustan." },
+    ],
+    faq: [
+      { q: "¿Qué incluye este combo?", a: "Incluye chaqueta impermeable, pantalón impermeable, zapatones suela dura y forro impermeable para morral." },
+      { q: "¿Es diferente al combo con guantes?", a: "Sí, este combo no incluye guantes. Si necesitas guantes también, elige el combo premium." },
+      { q: "¿El forro de morral sirve para cualquier mochila?", a: "Sí, es un forro elástico que se ajusta a la mayoría de morrales y maletas de espalda." },
+    ],
+    targetAudience: ["Motociclistas que ya tienen guantes y solo necesitan el kit impermeable básico", "Conductores de moto con presupuesto moderado que quieren lo esencial contra la lluvia", "Estudiantes y trabajadores que se movilizan diario en moto en ciudades lluviosas"],
+    salesCount: 38,
+  },
+
+  "cubre-maletas-impermeable-sequoia-speed": {
+    subtitle: "Protege tu morral o maleta de la lluvia con este forro impermeable",
+    benefits: [
+      { icon: "🎒", text: "Protege morral, maleta o maletín de la lluvia" },
+      { icon: "📦", text: "Se ajusta a múltiples tamaños de maleta" },
+      { icon: "🪶", text: "Ultraliviano y fácil de guardar" },
+    ],
+    reviews: [
+      { name: "Santiago C.", city: "Bogotá", rating: 5, text: "Indispensable para llevar el portátil en moto. Protege perfecto el morral de la lluvia." },
+      { name: "Lucía R.", city: "Medellín", rating: 5, text: "Pequeño, práctico y funciona. Lo llevo siempre en el morral por si llueve." },
+      { name: "Juan M.", city: "Cali", rating: 4, text: "Cumple su función. Protege bien la maleta y es fácil de poner y quitar." },
+    ],
+    faq: [
+      { q: "¿Sirve para cualquier morral?", a: "Sí, es elástico y se ajusta a la mayoría de morrales y maletas de espalda." },
+      { q: "¿Es totalmente impermeable?", a: "Sí, protege tu morral y su contenido de la lluvia." },
+      { q: "¿Ocupa mucho espacio guardado?", a: "No, es ultraliviano y se pliega en un espacio muy reducido." },
+    ],
+    targetAudience: ["Profesionales que transportan portátil o documentos importantes en moto", "Estudiantes universitarios que llevan libros y electrónicos en el morral", "Motociclistas que ya tienen impermeable corporal pero necesitan proteger su equipaje"],
+    salesCount: 12,
+  },
+
+  "impermeable-tipo-sudadera-liviano-plegable": {
+    subtitle: "Impermeable ultraliviano tipo sudadera que se guarda en cualquier parte",
+    benefits: [
+      { icon: "🪶", text: "Ultraliviano y plegable — cabe en el bolsillo" },
+      { icon: "💧", text: "Impermeable para lluvias moderadas" },
+      { icon: "👕", text: "Diseño tipo sudadera cómodo y casual" },
+    ],
+    reviews: [
+      { name: "Andrés L.", city: "Bogotá", rating: 5, text: "Lo llevo siempre en la moto. Cuando llueve me lo pongo en 30 segundos y quedo protegido." },
+      { name: "Verónica S.", city: "Medellín", rating: 5, text: "Súper práctico. Se pliega tan pequeño que siempre lo llevo en el morral." },
+      { name: "Rafael M.", city: "Pereira", rating: 4, text: "Bueno para lluvias normales. No es para aguacero fuerte pero para la llovizna es perfecto." },
+    ],
+    faq: [
+      { q: "¿Sirve para lluvia fuerte?", a: "Es ideal para lluvias moderadas y lloviznas. Para lluvia fuerte recomendamos los combos impermeables." },
+      { q: "¿Cómo se guarda?", a: "Se pliega en sí mismo quedando del tamaño de un puño. Fácil de llevar siempre." },
+      { q: "¿Se pone por encima de otra chaqueta?", a: "Sí, el diseño tipo sudadera permite ponerse encima de tu ropa sin problemas." },
+    ],
+    targetAudience: ["Motociclistas que quieren un impermeable de emergencia siempre en la moto sin ocupar espacio", "Conductores que no quieren cargar equipo pesado pero necesitan protección contra lloviznas", "Usuarios de scooter y moto pequeña que buscan algo rápido de poner en caso de lluvia inesperada"],
+    salesCount: 45,
+  },
+
+  // ══════════════════════════════════════════════════
+  // PANTALONES
+  // ══════════════════════════════════════════════════
+  "pantalon-black-pro-pantalon-antifriccion-impermeable-para-motorizado-con-protecciones-certificadas": {
+    subtitle: "Pantalón premium antifricción con protecciones CE e impermeable",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE en rodillas removibles" },
+      { icon: "💧", text: "Impermeable con costuras termoselladas" },
+      { icon: "💪", text: "Material antifricción de alta resistencia" },
+    ],
+    reviews: [
+      { name: "Felipe H.", city: "Bogotá", rating: 5, text: "El compañero perfecto de la chaqueta Black Pro. Juntos dan protección total." },
+      { name: "Sandra G.", city: "Medellín", rating: 5, text: "Se siente la calidad. Las protecciones de rodilla son firmes y el material es grueso." },
+      { name: "Diego R.", city: "Cali", rating: 4, text: "Buen pantalón de protección. Cómodo para manejar y resistente." },
+    ],
+    faq: [
+      { q: "¿Hace juego con la chaqueta Black Pro?", a: "Sí, están diseñados para combinarse como traje completo de protección." },
+      { q: "¿Se puede usar sin las protecciones?", a: "Sí, las protecciones de rodilla son removibles." },
+      { q: "¿Es cómodo para manejar todo el día?", a: "Sí, el corte está diseñado para la posición de manejo en moto." },
+    ],
+    targetAudience: ["Motociclistas que ya tienen la chaqueta Black Pro y quieren completar el traje", "Conductores diarios que buscan protección de piernas con calidad premium", "Mensajeros motorizados que necesitan pantalón resistente a la abrasión para jornadas largas"],
+    salesCount: 28,
+  },
+
+  "pantalon-gas-black-impermeable-protecciones-certificadas-removibles-material-antifriccion": {
+    subtitle: "Pantalón antifricción GAS en negro con protecciones CE e impermeable",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones certificadas CE removibles en rodillas" },
+      { icon: "💧", text: "100% impermeable para cualquier clima" },
+      { icon: "💪", text: "Material antifricción resistente al asfalto" },
+    ],
+    reviews: [
+      { name: "Miguel R.", city: "Bogotá", rating: 5, text: "El GAS Black es excelente. Protecciones de verdad y totalmente impermeable." },
+      { name: "Camila V.", city: "Medellín", rating: 5, text: "Lo uso con la chaqueta Carrera y quedo protegida de todo. El material es muy resistente." },
+      { name: "Andrés P.", city: "Cali", rating: 4, text: "Buen pantalón. Las protecciones se sienten seguras y el negro combina con todo." },
+    ],
+    faq: [
+      { q: "¿Cuál es la diferencia entre GAS Black, Green y Ladies?", a: "Son el mismo modelo GAS con las mismas especificaciones pero en diferentes colores/cortes." },
+      { q: "¿Las protecciones cubren solo rodillas?", a: "Las protecciones principales están en las rodillas. Consulta las especificaciones para detalles completos." },
+      { q: "¿Se puede lavar en lavadora?", a: "Recomendamos lavado a mano. Retira las protecciones antes de lavar." },
+    ],
+    targetAudience: ["Motociclistas que prefieren negro clásico para combinar con cualquier chaqueta", "Conductores urbanos que buscan un pantalón versátil antifricción para uso diario", "Repartidores que necesitan un pantalón resistente y discreto para trabajar", "Motociclistas que quieren protección de rodilla certificada sin llamar la atención"],
+    salesCount: 24,
+  },
+
+  "pantalon-gas-green-proteccion-rodillas-certificadas-removibles-impermeable": {
+    subtitle: "Pantalón GAS en verde con protecciones CE e impermeable total",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE en rodillas certificadas y removibles" },
+      { icon: "💧", text: "Impermeable con costuras selladas" },
+      { icon: "🟢", text: "Color verde para un look diferenciador" },
+    ],
+    reviews: [
+      { name: "Esteban G.", city: "Bogotá", rating: 5, text: "Me gusta que es verde y diferente. Mismo nivel de protección que el negro." },
+      { name: "Natalia C.", city: "Pereira", rating: 5, text: "Lo combino con la chaqueta Carrera Green. Se ve espectacular y protege de verdad." },
+      { name: "Jorge L.", city: "Medellín", rating: 4, text: "Buen pantalón. El verde es un toque diferente que me gusta." },
+    ],
+    faq: [
+      { q: "¿Es igual al GAS Black pero en verde?", a: "Sí, mismas especificaciones técnicas y protecciones en color verde." },
+      { q: "¿Se puede combinar con otras chaquetas?", a: "Sí, aunque combina especialmente bien con la Chaqueta Carrera Green." },
+      { q: "¿El color verde se mantiene?", a: "Sí, el material está diseñado para mantener el color con el uso." },
+    ],
+    targetAudience: ["Motociclistas que ya tienen la chaqueta Carrera Green y buscan el pantalón a juego", "Riders que quieren un look coordinado y diferente al negro convencional", "Motociclistas de grupos o clubes que usan colores coordinados en sus rodadas"],
+    salesCount: 15,
+  },
+
+  "pantalon-gas-ladies-pantalon-de-proteccion-impermeable-con-protectores-certificados-removibles": {
+    subtitle: "Pantalón de protección GAS diseñado para la anatomía femenina",
+    benefits: [
+      { icon: "👩", text: "Corte específico para damas cómodo y seguro" },
+      { icon: "🛡️", text: "Protecciones CE removibles en rodillas" },
+      { icon: "💧", text: "100% impermeable para cualquier clima" },
+    ],
+    reviews: [
+      { name: "Valentina M.", city: "Bogotá", rating: 5, text: "Por fin un pantalón de moto que le queda bien a una mujer. Cómodo y con protección real." },
+      { name: "Mariana S.", city: "Medellín", rating: 5, text: "Lo uso con la Black Pro Dama. Es genial tener pantalón de protección con corte femenino." },
+      { name: "Andrea R.", city: "Cali", rating: 4, text: "Buen pantalón para damas. Las protecciones se sienten bien y el ajuste es correcto." },
+    ],
+    faq: [
+      { q: "¿Qué diferencia tiene con el GAS normal?", a: "Tiene corte y tallaje diseñado para la anatomía femenina, con mejor ajuste en cadera." },
+      { q: "¿Qué chaqueta combina bien?", a: "Combina perfectamente con la Chaqueta Black Pro Dama o cualquier otra chaqueta Sequoia." },
+      { q: "¿Las tallas son de mujer?", a: "Sí, el tallaje está adaptado para tallas femeninas." },
+    ],
+    targetAudience: ["Mujeres motociclistas cansadas de usar pantalones de hombre que no les quedan bien", "Damas que ya tienen la chaqueta Black Pro Dama y buscan completar su equipo", "Motociclistas mujeres que quieren protección certificada con ajuste correcto en cadera y piernas"],
+    salesCount: 17,
+  },
+
+  "pantalon-impermeable-tipo-sudadera-para-moto-con-forro-siliconado-interno": {
+    subtitle: "Pantalón impermeable liviano tipo sudadera con forro siliconado",
+    benefits: [
+      { icon: "💧", text: "Impermeable con forro siliconado interno" },
+      { icon: "👖", text: "Se pone sobre tu pantalón normal fácilmente" },
+      { icon: "🪶", text: "Liviano y práctico para llevar en la moto" },
+    ],
+    reviews: [
+      { name: "Ricardo G.", city: "Bogotá", rating: 5, text: "El forro siliconado hace que el agua resbale. Lo pongo encima del pantalón de oficina y listo." },
+      { name: "Claudia P.", city: "Medellín", rating: 5, text: "Muy práctico. Me lo pongo en 1 minuto cuando empieza a llover y quedo seca." },
+      { name: "Hernán M.", city: "Manizales", rating: 4, text: "Buen pantalón impermeable. El forro siliconado funciona bien. Fácil de guardar." },
+    ],
+    faq: [
+      { q: "¿Qué es el forro siliconado?", a: "Es un forro interno que repele el agua de forma más efectiva que los impermeables comunes." },
+      { q: "¿Se pone encima del pantalón normal?", a: "Sí, el diseño tipo sudadera permite colocarlo rápidamente sobre cualquier pantalón." },
+      { q: "¿Incluye protecciones?", a: "No incluye protecciones. Es un pantalón impermeable liviano para proteger contra la lluvia." },
+    ],
+    targetAudience: ["Oficinistas que van en moto al trabajo y necesitan proteger su pantalón formal de la lluvia", "Motociclistas que buscan un sobre-pantalón rápido de poner cuando empieza a llover", "Conductores que ya tienen chaqueta impermeable y solo les falta el pantalón complementario"],
+    salesCount: 34,
+  },
+
+  "pantalon-sahara-impermeable-protecciones-certificadas-removibles-material-antifriccion": {
+    subtitle: "Pantalón Sahara antifricción con protecciones CE e impermeable",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE certificadas en rodillas removibles" },
+      { icon: "💧", text: "Impermeable total con costuras termoselladas" },
+      { icon: "💪", text: "Material antifricción para máxima resistencia" },
+    ],
+    reviews: [
+      { name: "Fernando C.", city: "Bogotá", rating: 5, text: "Lo uso con la chaqueta Sahara. Juntos son un equipo completo de touring." },
+      { name: "Patricia V.", city: "Armenia", rating: 5, text: "El Sahara es excelente para rutas largas. Cómodo, impermeable y con buenas protecciones." },
+      { name: "Gustavo R.", city: "Medellín", rating: 4, text: "Buen pantalón touring. Resistente y cómodo para viajes largos." },
+    ],
+    faq: [
+      { q: "¿Hace juego con la chaqueta Sahara?", a: "Sí, están diseñados para usarse como traje completo de touring." },
+      { q: "¿Es bueno para rutas largas?", a: "Sí, el diseño touring prioriza comodidad para viajes de varias horas." },
+      { q: "¿Se puede usar como pantalón casual?", a: "Principalmente es un pantalón de protección para moto, pero sin las protecciones funciona como pantalón casual." },
+    ],
+    targetAudience: ["Viajeros de touring que ya tienen la chaqueta Sahara y quieren el traje completo", "Motociclistas de ruta que necesitan comodidad en piernas durante trayectos de 4+ horas", "Aventureros que recorren carreteras colombianas y enfrentan condiciones climáticas variables"],
+    salesCount: 18,
+  },
+
+  // ══════════════════════════════════════════════════
+  // TRAJES PARA MOTO
+  // ══════════════════════════════════════════════════
+  "combo-impermeable-hydra-zapatones-sequoia-suela-dura-forro-morral-guantes-moto-motociclismo": {
+    subtitle: "Kit impermeable premium con guantes: protección total contra la lluvia",
+    benefits: [
+      { icon: "💧", text: "Kit completo 5 piezas contra la lluvia" },
+      { icon: "🧤", text: "Incluye guantes impermeables para mejor agarre" },
+      { icon: "💰", text: "Ahorro significativo vs compra por separado" },
+    ],
+    reviews: [
+      { name: "Hernán T.", city: "Bogotá", rating: 5, text: "El combo más completo que hay. Con los guantes incluidos no necesitas nada más para la lluvia." },
+      { name: "Paula S.", city: "Medellín", rating: 5, text: "Lo compramos para los dos. Excelente kit a muy buen precio." },
+      { name: "Roberto J.", city: "Cali", rating: 4, text: "Todo en uno. Buen kit impermeable para motorizado." },
+    ],
+    faq: [
+      { q: "¿Qué incluye este combo premium?", a: "Chaqueta Hydra impermeable, pantalón impermeable, zapatones suela dura, guantes impermeables y forro de morral." },
+      { q: "¿Es el combo más completo?", a: "Sí, incluye guantes que los demás combos no tienen. Es el kit más completo contra la lluvia." },
+      { q: "¿Cuánto ahorro vs compra individual?", a: "El combo tiene un precio especial con ahorro significativo frente a comprar cada pieza por separado." },
+    ],
+    targetAudience: ["Motociclistas nuevos que necesitan equiparse completamente contra la lluvia desde cero", "Domiciliarios y repartidores que quieren la solución más completa con guantes incluidos", "Parejas que buscan un kit para compartir o regalar al motociclista de la familia", "Conductores de zonas de alta pluviosidad como el Eje Cafetero o Bogotá"],
+    salesCount: 22,
+  },
+
+  "traje-anti-friccion-black-pro-de-moto-impermeable-sequoia-speed": {
+    subtitle: "Traje completo Black Pro: chaqueta + pantalón antifricción con protecciones CE",
+    benefits: [
+      { icon: "🛡️", text: "Protección CE de cuerpo completo (torso + piernas)" },
+      { icon: "💧", text: "Traje 100% impermeable con liner removible" },
+      { icon: "💪", text: "Material antifricción premium Black Pro" },
+    ],
+    reviews: [
+      { name: "Juan Carlos M.", city: "Bogotá", rating: 5, text: "El traje Black Pro es lo mejor que he comprado para moto. Protección total de pies a cabeza." },
+      { name: "Alejandra S.", city: "Medellín", rating: 5, text: "La combinación de chaqueta + pantalón Black Pro es imbatible. Calidad premium." },
+      { name: "Diego V.", city: "Pereira", rating: 4, text: "Excelente traje. Se siente la protección y es completamente impermeable." },
+    ],
+    faq: [
+      { q: "¿Qué incluye el traje?", a: "Incluye chaqueta Black Pro y pantalón Black Pro con protecciones CE en hombros, codos, espalda y rodillas." },
+      { q: "¿Es mejor comprar el traje o las piezas por separado?", a: "El traje tiene precio especial y garantiza que ambas piezas combinen perfectamente." },
+      { q: "¿Se puede usar solo la chaqueta o solo el pantalón?", a: "Sí, cada pieza funciona de forma independiente." },
+    ],
+    targetAudience: ["Motociclistas que buscan protección premium de cuerpo completo en un solo paquete", "Conductores de moto de alto cilindraje que necesitan el máximo nivel de seguridad", "Viajeros de ruta que hacen trayectos intermunicipales frecuentes y priorizan protección total", "Motociclistas que prefieren ahorrar comprando chaqueta y pantalón juntos como traje"],
+    salesCount: 30,
+  },
+
+  "traje-impermeable-para-moto-tipo-sudadera-con-forro-de-silicon-interna": {
+    subtitle: "Traje impermeable liviano tipo sudadera: chaqueta + pantalón con forro siliconado",
+    benefits: [
+      { icon: "💧", text: "Forro siliconado interno para impermeabilidad superior" },
+      { icon: "👕", text: "Tipo sudadera: fácil de poner sobre tu ropa" },
+      { icon: "📦", text: "Compacto y fácil de guardar en la moto" },
+    ],
+    reviews: [
+      { name: "Sebastián P.", city: "Bogotá", rating: 5, text: "Lo mejor para la lluvia de Bogotá. Me lo pongo encima del traje formal y llego seco al trabajo." },
+      { name: "Mónica R.", city: "Manizales", rating: 5, text: "El forro siliconado funciona increíble. El agua resbala completamente." },
+      { name: "Iván G.", city: "Medellín", rating: 4, text: "Muy práctico para llevar siempre en la moto. Se pone rápido cuando empieza a llover." },
+    ],
+    faq: [
+      { q: "¿Incluye chaqueta y pantalón?", a: "Sí, el traje incluye chaqueta y pantalón tipo sudadera con forro siliconado interno." },
+      { q: "¿Qué ventaja tiene el forro siliconado?", a: "El silicón repele el agua de forma más efectiva que materiales impermeables comunes." },
+      { q: "¿Incluye protecciones?", a: "Es un traje impermeable liviano. No incluye protecciones anti-caída." },
+    ],
+    targetAudience: ["Ejecutivos y oficinistas que van en moto al trabajo con ropa formal y necesitan protegerla", "Motociclistas que buscan un traje impermeable compacto para guardar bajo el asiento", "Conductores que ya tienen chaqueta de protección y necesitan un sobre-traje solo para lluvia"],
+    salesCount: 40,
+  },
+
+  "traje-para-moto-carrera-traje-de-proteccion-anti-friccion-para-motociclistas": {
+    subtitle: "Traje completo Carrera: protección antifricción de cuerpo entero con CE",
+    benefits: [
+      { icon: "🛡️", text: "Protección CE completa en torso y piernas" },
+      { icon: "💪", text: "Material antifricción Carrera de alta resistencia" },
+      { icon: "💧", text: "Impermeable con liner removible" },
+    ],
+    reviews: [
+      { name: "Mauricio H.", city: "Bogotá", rating: 5, text: "El traje Carrera es protección total. Material de primera y protecciones CE reales." },
+      { name: "Laura T.", city: "Medellín", rating: 5, text: "Compramos el traje para viajes largos. La comodidad y protección son excelentes." },
+      { name: "Carlos S.", city: "Cali", rating: 4, text: "Muy buen traje. Las protecciones son sólidas y el material es resistente." },
+    ],
+    faq: [
+      { q: "¿El traje incluye chaqueta y pantalón?", a: "Sí, el traje Carrera incluye chaqueta y pantalón con protecciones CE coordinadas." },
+      { q: "¿Viene en varios colores?", a: "Sí, está disponible en las mismas opciones de color que la línea Carrera." },
+      { q: "¿Es bueno para viajes largos?", a: "Sí, la línea Carrera está diseñada para rutas largas con comodidad y protección." },
+    ],
+    targetAudience: ["Motociclistas deportivos que quieren traje completo coordinado de la línea Carrera", "Viajeros de ruta larga que necesitan protección cuerpo completo con estilo deportivo", "Riders que participan en rodadas grupales y quieren un look profesional completo", "Motociclistas que buscan ahorro comprando el traje en vez de chaqueta y pantalón por separado"],
+    salesCount: 20,
+  },
+
+  "traje-para-moto-mesh-traje-de-proteccion-anti-friccion-para-motociclistas": {
+    subtitle: "Traje de malla ventilada Mesh: protección antifricción para clima cálido",
+    benefits: [
+      { icon: "🌬️", text: "Malla ventilada para máximo flujo de aire" },
+      { icon: "🛡️", text: "Protección antifricción a pesar de la malla" },
+      { icon: "☀️", text: "Diseñado para clima tropical colombiano" },
+    ],
+    reviews: [
+      { name: "Roberto F.", city: "Cali", rating: 5, text: "Para el calor de Cali este traje Mesh es la solución. Ventila increíble y protege." },
+      { name: "Diana C.", city: "Barranquilla", rating: 5, text: "El mejor traje para la costa. No da calor y tiene protección real." },
+      { name: "Andrés R.", city: "Cartagena", rating: 4, text: "Muy bueno para clima caliente. La malla es de calidad y las protecciones funcionan." },
+    ],
+    faq: [
+      { q: "¿La malla protege en caso de caída?", a: "Sí, es malla antifricción de alta resistencia que combina ventilación con protección." },
+      { q: "¿Es bueno para viajes en clima caliente?", a: "Es el traje ideal para rutas en clima cálido gracias a su ventilación máxima." },
+      { q: "¿Incluye ambas piezas?", a: "Sí, incluye chaqueta y pantalón Mesh con protecciones." },
+    ],
+    targetAudience: ["Motociclistas de la costa colombiana y tierra caliente que necesitan traje completo sin morir de calor", "Viajeros que hacen rutas por clima tropical como la Ruta del Sol o hacia la costa", "Riders que dejaron de usar traje de protección por el calor y necesitan una alternativa ventilada"],
+    salesCount: 18,
+  },
+
+  "traje-para-moto-tt-traje-de-proteccion-anti-friccion-para-moto": {
+    subtitle: "Traje TT completo: máxima protección antifricción con CE para touring",
+    benefits: [
+      { icon: "🛡️", text: "Protecciones CE de máximo nivel en todo el cuerpo" },
+      { icon: "💪", text: "Material TT antifricción de alta gama" },
+      { icon: "💧", text: "100% impermeable para cualquier condición" },
+    ],
+    reviews: [
+      { name: "Leonardo G.", city: "Bogotá", rating: 5, text: "El traje TT es la máxima protección que puedes tener. Material premium y protecciones de verdad." },
+      { name: "Tatiana V.", city: "Medellín", rating: 5, text: "Hicimos un viaje largo y el traje TT aguantó lluvia, sol y todo. Excelente calidad." },
+      { name: "Héctor M.", city: "Armenia", rating: 4, text: "Traje de alta gama. Se nota la diferencia con productos más baratos." },
+    ],
+    faq: [
+      { q: "¿Es el traje de mayor protección?", a: "Sí, el TT ofrece la máxima protección antifricción y CE de nuestra línea de trajes." },
+      { q: "¿Es cómodo para viajes de todo el día?", a: "Sí, el diseño touring prioriza comodidad para uso prolongado." },
+      { q: "¿Incluye chaqueta y pantalón?", a: "Sí, el traje TT incluye chaqueta y pantalón con protecciones CE coordinadas." },
+    ],
+    targetAudience: ["Motociclistas de touring que exigen la máxima protección disponible para viajes largos", "Riders de motos adventure y gran turismo que recorren Colombia de punta a punta", "Motociclistas experimentados que no escatiman en seguridad y quieren lo mejor del catálogo"],
+    salesCount: 15,
+  },
+
+  // ══════════════════════════════════════════════════
+  // AIRBAG
+  // ══════════════════════════════════════════════════
+  "chaleco-airbag-motociclista-verde-reflectivo-alta-visibilidad": {
+    subtitle: "Chaleco airbag mecánico que se infla en caso de caída para proteger tu torso",
+    benefits: [
+      { icon: "🎈", text: "Sistema airbag mecánico que protege torso y cuello" },
+      { icon: "🔦", text: "Reflectivo verde de alta visibilidad" },
+      { icon: "🔄", text: "Reutilizable: se recarga con cartucho de CO2" },
+    ],
+    reviews: [
+      { name: "Alejandro D.", city: "Bogotá", rating: 5, text: "Tuve una caída y el airbag se activó perfectamente. Literalmente me salvó de lesiones graves." },
+      { name: "Marcela R.", city: "Medellín", rating: 5, text: "La seguridad no tiene precio. Este chaleco airbag da una tranquilidad enorme al manejar." },
+      { name: "Pedro J.", city: "Cali", rating: 4, text: "Excelente producto de seguridad. El reflectivo es un plus enorme para la visibilidad." },
+    ],
+    faq: [
+      { q: "¿Cómo funciona el airbag?", a: "Es mecánico con cable que se conecta a la moto. Al separarte de la moto se activa, inflando la protección." },
+      { q: "¿Se puede reutilizar después de activarse?", a: "Sí, solo necesitas reemplazar el cartucho de CO2. El chaleco se puede usar nuevamente." },
+      { q: "¿Se usa encima o debajo de la chaqueta?", a: "Se usa encima de la chaqueta o de tu ropa, como un chaleco adicional de seguridad." },
+    ],
+    targetAudience: ["Motociclistas de carretera que circulan a altas velocidades y quieren protección extra ante caídas", "Conductores que han sufrido accidentes previos y buscan máxima seguridad adicional", "Mensajeros y domiciliarios que pasan muchas horas al día en tráfico riesgoso", "Motociclistas precavidos que quieren visibilidad reflectiva y protección airbag en una sola prenda"],
+    salesCount: 11,
+  },
+
+  // ══════════════════════════════════════════════════
+  // RODILLERAS
+  // ══════════════════════════════════════════════════
+  "rodilleras-metalicas-dimo-para-moto-bicicleta-bmx-bicicross": {
+    subtitle: "Rodilleras metálicas de alto impacto para moto, BMX y bicicross",
+    benefits: [
+      { icon: "🛡️", text: "Protección metálica contra impactos fuertes" },
+      { icon: "🚴", text: "Versátil: moto, bicicleta, BMX, bicicross" },
+      { icon: "🔧", text: "Correas ajustables para ajuste seguro" },
+    ],
+    reviews: [
+      { name: "Samuel R.", city: "Bogotá", rating: 5, text: "Las uso para BMX y son brutales. La protección metálica da mucha confianza." },
+      { name: "Julián C.", city: "Medellín", rating: 5, text: "Excelentes rodilleras. Las ajusto fácil y protegen de verdad en las caídas." },
+      { name: "Camilo M.", city: "Cali", rating: 4, text: "Buenas rodilleras de protección. Funcionan bien para moto y bicicleta." },
+    ],
+    faq: [
+      { q: "¿Sirven para moto y bicicleta?", a: "Sí, son versátiles para motociclismo, BMX, bicicross y ciclismo." },
+      { q: "¿Se pueden usar debajo del pantalón?", a: "Son rodilleras metálicas externas. Se usan sobre el pantalón con correas ajustables." },
+      { q: "¿Son de talla única?", a: "Las correas permiten ajuste, pero verifica las medidas en las especificaciones." },
+    ],
+    targetAudience: ["Riders de BMX y bicicross que necesitan protección metálica para saltos y trucos", "Motociclistas que usan pantalones sin protección integrada y necesitan rodilleras externas", "Deportistas extremos que practican downhill, enduro o motocross recreativo"],
+    salesCount: 9,
+  },
+
+  // ══════════════════════════════════════════════════
+  // ACCESORIOS
+  // ══════════════════════════════════════════════════
+  "reserva-de-producto": {
+    subtitle: "Reserva tu producto favorito con una señal",
+    benefits: [
+      { icon: "🔒", text: "Asegura tu producto antes de que se agote" },
+      { icon: "💰", text: "Pago parcial, completas al recoger" },
+      { icon: "📦", text: "Te notificamos cuando esté listo" },
+    ],
+    reviews: [
+      { name: "Carolina M.", city: "Bogotá", rating: 5, text: "Reservé mi chaqueta y cuando llegó la pagué completa. Muy fácil el proceso." },
+      { name: "Andrés R.", city: "Medellín", rating: 5, text: "Buena opción para apartar el producto. El servicio al cliente es excelente." },
+      { name: "Luis G.", city: "Cali", rating: 4, text: "Práctico para asegurar tu talla cuando hay poco stock." },
+    ],
+    faq: [
+      { q: "¿Cómo funciona la reserva?", a: "Pagas una señal y te reservamos el producto. Completas el pago al recoger o al recibir." },
+      { q: "¿Se puede cancelar la reserva?", a: "Consulta las condiciones de cancelación contactándonos por WhatsApp." },
+      { q: "¿Cuánto tiempo dura la reserva?", a: "La reserva se mantiene por un tiempo limitado. Te notificamos cuando está listo." },
+    ],
+    targetAudience: ["Clientes que desean apartar producto antes del lanzamiento"],
+    salesCount: 5,
+  },
+};

@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #e63946;
+  --color-primary-dark: #c1121f;
+  --color-accent: #f77f00;
+  --color-accent-light: #fcbf49;
+  --color-surface: #1a1a1a;
+  --color-surface-light: #2a2a2a;
+  --color-surface-lighter: #3a3a3a;
+  --font-heading: var(--font-bebas);
+  --animate-fade-in: fade-in 0.5s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes slide-in-right {  from { transform: translateX(100%); }  to { transform: translateX(0); }}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(230, 57, 70, 0.15); }
+}
+
+
+@keyframes slide-msg-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-msg-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+  20%, 40%, 60%, 80% { transform: translateX(3px); }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: var(--font-bebas), system-ui, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* Hide scrollbar for carousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Premium button hover */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.btn-premium:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 30px rgba(230, 57, 70, 0.3);
+}
+.btn-premium::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 30%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.btn-premium:hover::after {
+  left: 120%;
+}
+
+/* Smooth parallax for editorial banner */
+.parallax-subtle {
+  will-change: transform;
+}
+
+/* Glow effect for trust icons */
+.trust-icon-glow {
+  transition: all 0.3s ease;
+}
+.trust-icon-glow:hover {
+  color: #e63946;
+  filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.4));
+}
+
+/* Card glass effect */
+.glass-card {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
