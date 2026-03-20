@@ -1,5 +1,6 @@
 "use client";
 import { ProductQuestions } from "@/components/ProductQuestions";
+import { productSEOContent } from "@/lib/product-seo-content";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -1546,6 +1547,19 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
           ))}
         </div>
       </section>
+
+
+      {/* ══════════ SEO CONTENT ══════════ */}
+      {productSEOContent[product.slug] && (
+        <section className="mt-12 mb-8 max-w-3xl mx-auto px-4">
+          <div className="border-t border-neutral-800 pt-8">
+            <p
+              className="text-sm text-neutral-400 leading-relaxed [&>strong]:text-neutral-200 [&>strong]:font-medium"
+              dangerouslySetInnerHTML={{ __html: productSEOContent[product.slug].paragraph }}
+            />
+          </div>
+        </section>
+      )}
 
       {/* ══════════ MOBILE STICKY CTA ══════════ */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-neutral-900/95 backdrop-blur-sm border-t border-neutral-800 p-3 flex items-center gap-3">
