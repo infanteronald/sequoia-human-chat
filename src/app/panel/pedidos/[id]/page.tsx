@@ -91,17 +91,17 @@ export default function OrderDetailPage() {
           </select>
           <a href={`/api/panel/orders/${id}/invoice`} target="_blank" className="px-3 py-2 bg-neutral-800 text-neutral-300 rounded-lg text-sm hover:bg-neutral-700">🧾 Factura</a>
           <a href={`/api/panel/orders/${id}/label`} target="_blank" className="px-3 py-2 bg-neutral-800 text-neutral-300 rounded-lg text-sm hover:bg-neutral-700">📄 Guía</a>
-          <button onClick={() => updateOrder({ status: "SHIPPED" })} className="px-3 py-2 bg-cyan-600 text-white rounded-lg text-sm hover:bg-cyan-500">🚚 Enviar</button>
+          <button onClick={() => updateOrder({ status: "SHIPPED" })} className="px-3 py-2 bg-neutral-700 text-white rounded-lg text-sm hover:bg-neutral-600">🚚 Enviar</button>
         </div>
       </div>
 
       {/* Fraud Alert */}
       {order.fraudScore >= 25 && (
-        <div className={`mb-4 p-3 rounded-lg border ${order.fraudScore >= 50 ? "bg-red-500/10 border-red-500/30" : "bg-yellow-500/10 border-yellow-500/30"}`}>
+        <div className={`mb-4 p-3 rounded-lg border ${order.fraudScore >= 50 ? "bg-red-500/10 border-red-500/30" : "bg-orange-500/10 border-orange-500/30"}`}>
           <div className="flex items-center gap-3">
             <span className="text-lg">⚠️</span>
             <div>
-              <p className={`text-sm font-medium ${order.fraudScore >= 50 ? "text-red-400" : "text-yellow-400"}`}>
+              <p className={`text-sm font-medium ${order.fraudScore >= 50 ? "text-red-400" : "text-orange-400"}`}>
                 Riesgo de fraude: {order.fraudScore}/100
               </p>
               {order.fraudFlags && (
@@ -111,7 +111,7 @@ export default function OrderDetailPage() {
               )}
             </div>
             <div className="ml-auto w-32 h-2 bg-neutral-800 rounded-full overflow-hidden">
-              <div className={`h-full rounded-full ${order.fraudScore >= 50 ? "bg-red-500" : "bg-yellow-500"}`}
+              <div className={`h-full rounded-full ${order.fraudScore >= 50 ? "bg-red-500" : "bg-orange-500"}`}
                 style={{ width: `${order.fraudScore}%` }} />
             </div>
           </div>
@@ -328,7 +328,7 @@ export default function OrderDetailPage() {
                 <div key={r.id} className="bg-neutral-800/50 rounded-lg p-3">
                   <div className="flex justify-between">
                     <p className="text-sm text-white">{r.reason}</p>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400">{r.status}</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-neutral-800 text-orange-400">{r.status}</span>
                   </div>
                   {r.refundAmount && <p className="text-xs text-neutral-400 mt-1">Reembolso: {formatPrice(r.refundAmount)}</p>}
                   <p className="text-xs text-neutral-500 mt-1">{new Date(r.createdAt).toLocaleDateString("es-CO")}</p>

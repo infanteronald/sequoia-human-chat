@@ -68,12 +68,12 @@ export default function FulfillmentPage() {
 
       {/* Kanban Counts */}
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
-        <KanbanCard label="Nuevos" count={counts.new} color="bg-yellow-500/20 text-yellow-400" />
-        <KanbanCard label="Pagados" count={counts.paid} color="bg-blue-500/20 text-blue-400" />
-        <KanbanCard label="Preparando" count={counts.preparing} color="bg-purple-500/20 text-purple-400" />
-        <KanbanCard label="Empacados" count={counts.packed} color="bg-indigo-500/20 text-indigo-400" />
-        <KanbanCard label="Enviados hoy" count={counts.shippedToday} color="bg-green-500/20 text-green-400" />
-        <KanbanCard label="⚠️ Retrasados" count={counts.delayed} color={counts.delayed > 0 ? "bg-red-500/20 text-red-400" : "bg-neutral-800 text-neutral-400"} />
+        <KanbanCard label="Nuevos" count={counts.new} color="bg-neutral-800 text-orange-400" />
+        <KanbanCard label="Pagados" count={counts.paid} color="bg-neutral-800 text-neutral-400" />
+        <KanbanCard label="Preparando" count={counts.preparing} color="bg-neutral-800 text-orange-400" />
+        <KanbanCard label="Empacados" count={counts.packed} color="bg-neutral-800 text-neutral-400" />
+        <KanbanCard label="Enviados hoy" count={counts.shippedToday} color="bg-neutral-800 text-green-400" />
+        <KanbanCard label="⚠️ Retrasados" count={counts.delayed} color={counts.delayed > 0 ? "bg-neutral-800 text-red-400" : "bg-neutral-800 text-neutral-400"} />
       </div>
 
       {showPicking ? (
@@ -128,9 +128,9 @@ export default function FulfillmentPage() {
                     </div>
                     <div className="flex gap-2">
                       {order.status === "PAID" && (
-                        <button onClick={() => markPreparing(order.id)} className="px-3 py-1 bg-purple-600 text-white rounded text-xs">En preparación</button>
+                        <button onClick={() => markPreparing(order.id)} className="px-3 py-1 bg-neutral-700 text-white rounded text-xs">En preparación</button>
                       )}
-                      <button onClick={() => markPacked(order.id)} className="px-3 py-1 bg-indigo-600 text-white rounded text-xs">📦 Empacado</button>
+                      <button onClick={() => markPacked(order.id)} className="px-3 py-1 bg-neutral-700 text-white rounded text-xs">📦 Empacado</button>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">

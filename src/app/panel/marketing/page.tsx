@@ -137,10 +137,10 @@ function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string
 function CampaignStatus({ status }: { status: string }) {
   const styles: Record<string, string> = {
     draft: "bg-neutral-700/30 text-neutral-400 border-neutral-700",
-    scheduled: "bg-blue-400/10 text-blue-400 border-blue-400/20",
-    sending: "bg-yellow-400/10 text-yellow-400 border-yellow-400/20",
-    sent: "bg-emerald-400/10 text-emerald-400 border-emerald-400/20",
-    paused: "bg-orange-400/10 text-orange-400 border-orange-400/20",
+    scheduled: "bg-neutral-800 text-neutral-400 border-neutral-800",
+    sending: "bg-neutral-800 text-orange-400 border-neutral-800",
+    sent: "bg-neutral-800 text-green-400 border-neutral-800",
+    paused: "bg-neutral-800 text-orange-400 border-neutral-800",
   };
   const labels: Record<string, string> = {
     draft: "Borrador",
@@ -159,9 +159,9 @@ function CampaignStatus({ status }: { status: string }) {
 /* ─── Type Badge ─── */
 function TypeBadge({ type }: { type: string }) {
   if (type === "whatsapp") {
-    return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-400/10 text-green-400">WhatsApp</span>;
+    return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral-800 text-green-400">WhatsApp</span>;
   }
-  return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-400/10 text-blue-400">Email</span>;
+  return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral-800 text-neutral-400">Email</span>;
 }
 
 /* ─── Main Page ─── */
@@ -471,7 +471,7 @@ export default function MarketingPage() {
                 <button
                   onClick={() => toggleAutomation(auto.id)}
                   className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ml-4 ${
-                    auto.enabled ? "bg-emerald-500" : "bg-neutral-700"
+                    auto.enabled ? "bg-white" : "bg-neutral-700"
                   }`}
                 >
                   <div

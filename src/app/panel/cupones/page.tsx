@@ -441,7 +441,7 @@ export default function CuponesPage() {
               <div key={coupon.id} className="bg-neutral-900 border border-neutral-800 rounded-xl p-5 hover:border-neutral-700 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 min-w-0">
-                    <div className={`shrink-0 px-3 py-1.5 rounded-lg font-mono font-bold text-sm ${coupon.isActive ? "bg-white/10 text-white" : "bg-neutral-800 text-neutral-500"}`}>
+                    <div className={`shrink-0 px-3 py-1.5 rounded-lg font-mono font-bold text-sm ${coupon.isActive ? "bg-neutral-800 text-white" : "bg-neutral-800 text-neutral-500"}`}>
                       {coupon.code}
                     </div>
                     <div className="min-w-0">
@@ -449,18 +449,18 @@ export default function CuponesPage() {
                         <span className="text-white font-medium text-sm">{typeLabel(coupon)} de descuento</span>
                         <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                           coupon.isActive
-                            ? "bg-emerald-500/15 text-emerald-400"
-                            : "bg-neutral-500/15 text-neutral-500"
+                            ? "bg-neutral-800 text-green-400"
+                            : "bg-neutral-800 text-neutral-400"
                         }`}>
                           {coupon.isActive ? "Activo" : "Inactivo"}
                         </span>
                         {coupon.freeShipping && (
-                          <span className="rounded-full px-2 py-0.5 text-xs font-medium bg-blue-500/15 text-blue-400">
+                          <span className="rounded-full px-2 py-0.5 text-xs font-medium bg-neutral-800 text-neutral-400">
                             Envio gratis
                           </span>
                         )}
                         {coupon.canCombine && (
-                          <span className="rounded-full px-2 py-0.5 text-xs font-medium bg-purple-500/15 text-purple-400">
+                          <span className="rounded-full px-2 py-0.5 text-xs font-medium bg-neutral-800 text-neutral-400">
                             Combinable
                           </span>
                         )}
@@ -479,7 +479,7 @@ export default function CuponesPage() {
                   </div>
                   <div className="flex items-center gap-2 shrink-0 ml-4">
                     <button onClick={() => toggleActive(coupon)}
-                      className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${coupon.isActive ? "bg-emerald-500" : "bg-neutral-700"}`}>
+                      className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${coupon.isActive ? "bg-white" : "bg-neutral-700"}`}>
                       <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${coupon.isActive ? "translate-x-[22px]" : "translate-x-0.5"}`} />
                     </button>
                     <button onClick={() => startEdit(coupon)} className="p-1.5 text-neutral-500 hover:text-white transition rounded-lg hover:bg-neutral-800">

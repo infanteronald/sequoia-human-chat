@@ -30,7 +30,7 @@ interface SitemapData {
 
 /* ─── Character count indicator ─── */
 function CharCount({ current, max }: { current: number; max: number }) {
-  const color = current === 0 ? "text-neutral-600" : current <= max ? "text-emerald-400" : "text-red-400";
+  const color = current === 0 ? "text-neutral-600" : current <= max ? "text-green-400" : "text-red-400";
   return <span className={`text-xs ${color}`}>{current}/{max}</span>;
 }
 
@@ -288,7 +288,7 @@ export default function SeoPage() {
                           <td className="px-4 py-2 text-neutral-400 text-sm">{r.hits}</td>
                           <td className="px-4 py-2 text-right">
                             <button onClick={() => setEditingRedirect(null)} className="text-neutral-500 hover:text-white text-sm mr-2">Cancelar</button>
-                            <button onClick={updateRedirect} className="text-emerald-400 hover:text-emerald-300 text-sm">Guardar</button>
+                            <button onClick={updateRedirect} className="text-white hover:text-neutral-300 text-sm">Guardar</button>
                           </td>
                         </>
                       ) : (
@@ -297,7 +297,7 @@ export default function SeoPage() {
                           <td className="px-4 py-3 text-neutral-300 text-sm font-mono">{r.to_path}</td>
                           <td className="px-4 py-3">
                             <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                              r.status_code === 301 ? "bg-blue-400/10 text-blue-400" : "bg-amber-400/10 text-amber-400"
+                              r.status_code === 301 ? "bg-neutral-800 text-neutral-400" : "bg-neutral-800 text-neutral-400"
                             }`}>
                               {r.status_code}
                             </span>
@@ -396,9 +396,9 @@ export default function SeoPage() {
                           <div className="flex items-center gap-2">
                             <span className="text-white text-sm font-medium truncate">{p.name}</span>
                             {p.metaTitle && p.metaDescription ? (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-400/10 text-emerald-400">SEO</span>
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-neutral-800 text-green-400">SEO</span>
                             ) : (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-400/10 text-amber-400">Incompleto</span>
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-neutral-800 text-orange-400">Incompleto</span>
                             )}
                           </div>
                           <span className="block text-xs text-neutral-500 mt-0.5 truncate">
@@ -429,7 +429,7 @@ export default function SeoPage() {
                     ? `Última generación: ${new Date(lastGenerated).toLocaleString("es-CO")}`
                     : "Genera el sitemap para actualizar las URLs"}
                 </p>
-                <a href="/sitemap.xml" target="_blank" className="text-emerald-400 text-sm hover:underline mt-1 inline-block">
+                <a href="/sitemap.xml" target="_blank" className="text-neutral-400 text-sm hover:underline mt-1 inline-block">
                   /sitemap.xml
                 </a>
               </div>

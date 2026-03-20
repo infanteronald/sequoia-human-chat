@@ -790,7 +790,7 @@ export default function WhatsAppSettingsPage() {
                       )}
                       <button
                         onClick={() => setNewCannedMedia(prev => prev.filter((_, j) => j !== i))}
-                        className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-600 rounded-full text-[10px] text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                        className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-neutral-700 rounded-full text-[10px] text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
                       >×</button>
                     </div>
                   ))}
@@ -986,7 +986,7 @@ export default function WhatsAppSettingsPage() {
                           {intg.connected && (
                             <button
                               onClick={() => disconnectIntegration(intg.id)}
-                              className="px-4 py-2 bg-red-900/30 hover:bg-red-900/50 text-red-400 border border-red-800/40 rounded-lg text-sm transition"
+                              className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-red-400 border border-neutral-800 rounded-lg text-sm transition"
                             >
                               Desconectar
                             </button>
@@ -1061,7 +1061,7 @@ export default function WhatsAppSettingsPage() {
             <div className="flex gap-2">
             <button
               onClick={() => setShowNewAiRule(true)}
-              className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-sm transition"
+              className="px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-lg text-sm transition"
             >
               + Nueva regla
             </button>
@@ -1090,7 +1090,7 @@ export default function WhatsAppSettingsPage() {
 
           {/* New Rule Form */}
           {showNewAiRule && (
-            <div className="bg-neutral-800/80 border border-blue-700/40 rounded-lg p-4 mb-4">
+            <div className="bg-neutral-800/80 border border-neutral-800 rounded-lg p-4 mb-4">
               <h4 className="text-sm font-bold text-white mb-3">Nueva regla</h4>
               <div className="space-y-3">
                 <div>
@@ -1098,7 +1098,7 @@ export default function WhatsAppSettingsPage() {
                   <select
                     value={newAiRule.category}
                     onChange={e => setNewAiRule(p => ({ ...p, category: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neutral-600"
                   >
                     <option value="Comercial">Comercial</option>
                     <option value="Técnica">Técnica</option>
@@ -1114,7 +1114,7 @@ export default function WhatsAppSettingsPage() {
                     value={newAiRule.title}
                     onChange={e => setNewAiRule(p => ({ ...p, title: e.target.value }))}
                     placeholder="Ej: Prohibido envío gratis"
-                    className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neutral-600"
                   />
                 </div>
                 <div>
@@ -1124,7 +1124,7 @@ export default function WhatsAppSettingsPage() {
                     onChange={e => setNewAiRule(p => ({ ...p, content: e.target.value }))}
                     rows={3}
                     placeholder="Describe la regla que la IA debe seguir..."
-                    className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500 resize-y"
+                    className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neutral-600 resize-y"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -1170,7 +1170,7 @@ export default function WhatsAppSettingsPage() {
                               value={editRuleContent}
                               onChange={e => setEditRuleContent(e.target.value)}
                               rows={4}
-                              className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-neutral-200 focus:outline-none focus:border-blue-500 resize-y"
+                              className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-neutral-200 focus:outline-none focus:border-neutral-600 resize-y"
                             />
                             <div className="flex gap-2 mt-2">
                               <button
@@ -1178,7 +1178,7 @@ export default function WhatsAppSettingsPage() {
                                   setAiRules(prev => prev.map(r => r.id === rule.id ? { ...r, content: editRuleContent } : r));
                                   setEditingRule(null);
                                 }}
-                                className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white text-xs rounded-md"
+                                className="px-3 py-1 bg-white text-neutral-900 hover:bg-neutral-100 text-xs rounded-md"
                               >
                                 Aplicar
                               </button>
@@ -1265,7 +1265,7 @@ export default function WhatsAppSettingsPage() {
 
                 {testLoading && (
                   <div className="flex items-center gap-3 py-8 justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-amber-400 border-t-transparent" />
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-neutral-400 border-t-transparent" />
                     <span className="text-neutral-400 text-sm">Generando prueba...</span>
                   </div>
                 )}
@@ -1305,7 +1305,7 @@ export default function WhatsAppSettingsPage() {
                         } catch { setTestResult({ question: "Error", answer: "No se pudo conectar" }); }
                         setTestLoading(false);
                       }}
-                      className="px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded-lg text-sm transition"
+                      className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-sm transition"
                     >
                       🔄 Repetir test
                     </button>
@@ -1333,7 +1333,7 @@ export default function WhatsAppSettingsPage() {
             <div className="relative">
               <button
                 onClick={() => setKbAddMode(kbAddMode ? "" : "manual")}
-                className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-sm transition"
+                className="px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-lg text-sm transition"
               >
                 + Agregar conocimiento
               </button>
@@ -1355,18 +1355,18 @@ export default function WhatsAppSettingsPage() {
 
           {/* Add Manual Article */}
           {kbAddMode === "manual" && (
-            <div className="bg-neutral-800/80 border border-blue-700/40 rounded-lg p-4 mb-4">
+            <div className="bg-neutral-800/80 border border-neutral-800 rounded-lg p-4 mb-4">
               <h4 className="text-sm font-bold text-white mb-3">Nuevo articulo</h4>
               <div className="space-y-3">
                 <input value={kbNewManual.title} onChange={e => setKbNewManual(p => ({...p, title: e.target.value}))} placeholder="Titulo del articulo"
-                  className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+                  className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neutral-600" />
                 <select value={kbNewManual.category} onChange={e => setKbNewManual(p => ({...p, category: e.target.value}))}
                   className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white">
                   <option value="General">General</option><option value="Productos">Productos</option><option value="Politicas">Politicas</option>
                   <option value="Envios">Envios</option><option value="Pagos">Pagos</option><option value="FAQ">FAQ</option>
                 </select>
                 <textarea value={kbNewManual.content} onChange={e => setKbNewManual(p => ({...p, content: e.target.value}))} rows={6} placeholder="Contenido del articulo..."
-                  className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500 resize-y" />
+                  className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neutral-600 resize-y" />
                 <div className="flex gap-2">
                   <button onClick={async () => {
                     if (!kbNewManual.title || !kbNewManual.content) return;
@@ -1381,7 +1381,7 @@ export default function WhatsAppSettingsPage() {
 
           {/* Upload File */}
           {kbAddMode === "file" && (
-            <div className="bg-neutral-800/80 border border-blue-700/40 rounded-lg p-4 mb-4">
+            <div className="bg-neutral-800/80 border border-neutral-800 rounded-lg p-4 mb-4">
               <h4 className="text-sm font-bold text-white mb-3">Subir archivo</h4>
               <p className="text-xs text-neutral-400 mb-3">Formatos: PDF, DOCX, TXT, CSV, MD</p>
               <input type="file" accept=".pdf,.docx,.txt,.csv,.md" onChange={async (e) => {
@@ -1402,11 +1402,11 @@ export default function WhatsAppSettingsPage() {
 
           {/* Add URL */}
           {kbAddMode === "url" && (
-            <div className="bg-neutral-800/80 border border-blue-700/40 rounded-lg p-4 mb-4">
+            <div className="bg-neutral-800/80 border border-neutral-800 rounded-lg p-4 mb-4">
               <h4 className="text-sm font-bold text-white mb-3">Agregar URL</h4>
               <div className="space-y-3">
                 <input value={kbNewUrl.url} onChange={e => setKbNewUrl(p => ({...p, url: e.target.value}))} placeholder="https://ejemplo.com/pagina"
-                  className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+                  className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-neutral-600" />
                 <select value={kbNewUrl.category} onChange={e => setKbNewUrl(p => ({...p, category: e.target.value}))}
                   className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white">
                   <option value="Web">Web</option><option value="Productos">Productos</option><option value="FAQ">FAQ</option><option value="General">General</option>
@@ -1462,12 +1462,12 @@ export default function WhatsAppSettingsPage() {
                       {kbEditId === item.id ? (
                         <div className="mt-2">
                           <textarea value={kbEditContent} onChange={e => setKbEditContent(e.target.value)} rows={6}
-                            className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-neutral-200 focus:outline-none focus:border-blue-500 resize-y" />
+                            className="w-full bg-neutral-900 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-neutral-200 focus:outline-none focus:border-neutral-600 resize-y" />
                           <div className="flex gap-2 mt-2">
                             <button onClick={async () => {
                               await fetch("/api/sequoia-chat/knowledge", { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({id: item.id, content: kbEditContent}) });
                               setKbEditId(null); fetchKB();
-                            }} className="px-3 py-1 bg-blue-700 hover:bg-blue-600 text-white text-xs rounded-md">Guardar</button>
+                            }} className="px-3 py-1 bg-white text-neutral-900 hover:bg-neutral-100 text-xs rounded-md">Guardar</button>
                             <button onClick={() => setKbEditId(null)} className="px-3 py-1 bg-neutral-700 hover:bg-neutral-600 text-white text-xs rounded-md">Cancelar</button>
                           </div>
                         </div>

@@ -8,9 +8,9 @@ const returnStatusLabels: Record<string, string> = {
   REQUESTED: "Solicitada", APPROVED: "Aprobada", RECEIVED: "Recibida", REFUNDED: "Reembolsada", REJECTED: "Rechazada",
 };
 const returnStatusColors: Record<string, string> = {
-  REQUESTED: "bg-yellow-500/20 text-yellow-400", APPROVED: "bg-blue-500/20 text-blue-400",
-  RECEIVED: "bg-purple-500/20 text-purple-400", REFUNDED: "bg-green-500/20 text-green-400",
-  REJECTED: "bg-red-500/20 text-red-400",
+  REQUESTED: "bg-neutral-800 text-orange-400", APPROVED: "bg-neutral-800 text-neutral-400",
+  RECEIVED: "bg-neutral-800 text-orange-400", REFUNDED: "bg-neutral-800 text-green-400",
+  REJECTED: "bg-neutral-800 text-red-400",
 };
 
 export default function DevolucionesPage() {
@@ -108,12 +108,12 @@ export default function DevolucionesPage() {
                 <td className="p-3 text-center">
                   {r.status === "REQUESTED" && (
                     <div className="flex gap-1 justify-center">
-                      <button onClick={() => updateStatus(r.id, "APPROVED")} className="text-xs px-2 py-1 bg-blue-600 text-white rounded">Aprobar</button>
-                      <button onClick={() => updateStatus(r.id, "REJECTED")} className="text-xs px-2 py-1 bg-red-600 text-white rounded">Rechazar</button>
+                      <button onClick={() => updateStatus(r.id, "APPROVED")} className="text-xs px-2 py-1 bg-neutral-700 text-white rounded">Aprobar</button>
+                      <button onClick={() => updateStatus(r.id, "REJECTED")} className="text-xs px-2 py-1 bg-neutral-700 text-white rounded">Rechazar</button>
                     </div>
                   )}
-                  {r.status === "APPROVED" && <button onClick={() => updateStatus(r.id, "RECEIVED")} className="text-xs px-2 py-1 bg-purple-600 text-white rounded">Recibida</button>}
-                  {r.status === "RECEIVED" && <button onClick={() => updateStatus(r.id, "REFUNDED")} className="text-xs px-2 py-1 bg-green-600 text-white rounded">Reembolsar</button>}
+                  {r.status === "APPROVED" && <button onClick={() => updateStatus(r.id, "RECEIVED")} className="text-xs px-2 py-1 bg-neutral-700 text-white rounded">Recibida</button>}
+                  {r.status === "RECEIVED" && <button onClick={() => updateStatus(r.id, "REFUNDED")} className="text-xs px-2 py-1 bg-neutral-700 text-white rounded">Reembolsar</button>}
                 </td>
                 <td className="p-3 text-right text-neutral-500 text-xs">{new Date(r.createdAt).toLocaleDateString("es-CO")}</td>
               </tr>

@@ -206,7 +206,7 @@ export default function ContenidoPage() {
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
                       post.status === "published"
-                        ? "bg-emerald-400/10 text-emerald-400"
+                        ? "bg-neutral-800 text-green-400"
                         : "bg-neutral-700 text-neutral-400"
                     }`}>
                       {post.status === "published" ? "Publicado" : "Borrador"}
@@ -231,13 +231,13 @@ export default function ContenidoPage() {
 
       {/* Delete confirmation */}
       {deleteConfirm !== null && (
-        <div className="mt-4 bg-neutral-900 border border-red-900/50 rounded-xl p-4 flex items-center justify-between">
+        <div className="mt-4 bg-neutral-900 border border-neutral-800 rounded-xl p-4 flex items-center justify-between">
           <span className="text-sm text-neutral-300">¿Eliminar este artículo? Esta acción no se puede deshacer.</span>
           <div className="flex gap-2">
             <button onClick={() => setDeleteConfirm(null)} className="px-3 py-1.5 text-sm bg-neutral-800 text-neutral-300 rounded-lg hover:bg-neutral-700 transition">
               Cancelar
             </button>
-            <button onClick={() => deletePost(deleteConfirm)} className="px-3 py-1.5 text-sm bg-red-600 text-white rounded-lg hover:bg-red-500 transition">
+            <button onClick={() => deletePost(deleteConfirm)} className="px-3 py-1.5 text-sm bg-neutral-800 text-red-400 rounded-lg hover:bg-neutral-700 transition">
               Eliminar
             </button>
           </div>
@@ -365,7 +365,7 @@ export default function ContenidoPage() {
                 <button
                   onClick={() => updateField("status", "published")}
                   className={`px-4 py-2 rounded-lg text-sm transition ${
-                    editing.status === "published" ? "bg-emerald-400/15 text-emerald-400" : "bg-neutral-800/50 text-neutral-500 hover:text-neutral-300"
+                    editing.status === "published" ? "bg-neutral-800 text-green-400" : "bg-neutral-800/50 text-neutral-500 hover:text-neutral-300"
                   }`}
                 >
                   Publicado

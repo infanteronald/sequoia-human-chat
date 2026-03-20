@@ -11,11 +11,11 @@ const statusLabels: Record<string, string> = {
   FRAUD_RISK: "Fraude", REFUNDED: "Reembolsado",
 };
 const statusColors: Record<string, string> = {
-  PENDING: "bg-yellow-500/20 text-yellow-400", PAID: "bg-blue-500/20 text-blue-400",
-  PREPARING: "bg-purple-500/20 text-purple-400", PACKED: "bg-indigo-500/20 text-indigo-400",
-  SHIPPED: "bg-cyan-500/20 text-cyan-400", DELIVERED: "bg-green-500/20 text-green-400",
-  RETURNED: "bg-orange-500/20 text-orange-400", CANCELLED: "bg-red-500/20 text-red-400",
-  FRAUD_RISK: "bg-red-600/20 text-red-400", REFUNDED: "bg-orange-500/20 text-orange-400",
+  PENDING: "bg-neutral-800 text-orange-400", PAID: "bg-neutral-800 text-neutral-400",
+  PREPARING: "bg-neutral-800 text-neutral-400", PACKED: "bg-neutral-800 text-neutral-400",
+  SHIPPED: "bg-neutral-800 text-neutral-400", DELIVERED: "bg-neutral-800 text-green-400",
+  RETURNED: "bg-neutral-800 text-orange-400", CANCELLED: "bg-neutral-800 text-red-400",
+  FRAUD_RISK: "bg-neutral-800 text-red-400", REFUNDED: "bg-neutral-800 text-orange-400",
 };
 
 const TAG_OPTIONS = ["VIP", "mayorista", "problema", "reventa", "fidelizado"];
@@ -52,7 +52,7 @@ export default function ClienteDetailPage() {
       <Link href="/panel/clientes" className="text-sm text-neutral-500 hover:text-white">&larr; Volver a clientes</Link>
       <div className="flex items-center gap-3 mt-2 mb-6">
         <h1 className="text-2xl font-bold text-white">{user.name || user.email}</h1>
-        {stats.isVIP && <span className="text-xs px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-full">⭐ VIP</span>}
+        {stats.isVIP && <span className="text-xs px-2 py-1 bg-neutral-800 text-orange-400 rounded-full">⭐ VIP</span>}
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">

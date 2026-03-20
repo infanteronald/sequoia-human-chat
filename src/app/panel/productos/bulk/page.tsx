@@ -242,7 +242,7 @@ export default function BulkEditorPage() {
               <span className="text-sm text-neutral-400">
                 {bulkAction === "delete" ? `¿Eliminar ${selected.size} productos?` : bulkAction === "activate" ? `¿Activar ${selected.size} productos?` : `¿Desactivar ${selected.size} productos?`}
               </span>
-              <button onClick={handleBulkAction} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${bulkAction === "delete" ? "bg-red-500 text-white hover:bg-red-600" : "bg-white text-neutral-900 hover:bg-neutral-100"}`}>Confirmar</button>
+              <button onClick={handleBulkAction} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${bulkAction === "delete" ? "bg-neutral-800 text-red-400 hover:bg-neutral-700" : "bg-white text-neutral-900 hover:bg-neutral-100"}`}>Confirmar</button>
               <button onClick={() => setBulkAction(null)} className="text-sm text-neutral-500 hover:text-white transition-colors">Cancelar</button>
             </div>
           </div>
@@ -296,7 +296,7 @@ export default function BulkEditorPage() {
                           {editingCell?.id === p.id && editingCell.field === "name" ? (
                             <input ref={inputRef} defaultValue={currentName} onBlur={e => handleCellBlur(p.id, "name", e.target.value, p.name)} onKeyDown={e => handleKeyDown(e, p.id, "name", (e.target as HTMLInputElement).value, p.name)} className="w-full bg-neutral-800 border border-neutral-600 rounded px-2 py-1 text-sm text-white focus:outline-none" />
                           ) : (
-                            <button onClick={() => handleCellClick(p.id, "name")} className={`text-sm text-left w-full truncate max-w-xs ${isEdited(p.id, "name") ? "text-blue-400" : "text-white"}`}>
+                            <button onClick={() => handleCellClick(p.id, "name")} className={`text-sm text-left w-full truncate max-w-xs ${isEdited(p.id, "name") ? "text-neutral-400" : "text-white"}`}>
                               {currentName}
                             </button>
                           )}
@@ -305,7 +305,7 @@ export default function BulkEditorPage() {
                           {editingCell?.id === p.id && editingCell.field === "price" ? (
                             <input ref={inputRef} type="number" defaultValue={currentPrice} onBlur={e => handleCellBlur(p.id, "price", e.target.value, p.price)} onKeyDown={e => handleKeyDown(e, p.id, "price", (e.target as HTMLInputElement).value, p.price)} className="w-28 bg-neutral-800 border border-neutral-600 rounded px-2 py-1 text-sm text-white text-right focus:outline-none" />
                           ) : (
-                            <button onClick={() => handleCellClick(p.id, "price")} className={`text-sm ${isEdited(p.id, "price") ? "text-blue-400" : "text-neutral-300"}`}>
+                            <button onClick={() => handleCellClick(p.id, "price")} className={`text-sm ${isEdited(p.id, "price") ? "text-neutral-400" : "text-neutral-300"}`}>
                               {formatPrice(currentPrice)}
                             </button>
                           )}
@@ -314,7 +314,7 @@ export default function BulkEditorPage() {
                           {editingCell?.id === p.id && editingCell.field === "compareAtPrice" ? (
                             <input ref={inputRef} type="number" defaultValue={currentCompare || ""} onBlur={e => handleCellBlur(p.id, "compareAtPrice", e.target.value || "0", p.compareAtPrice)} onKeyDown={e => handleKeyDown(e, p.id, "compareAtPrice", (e.target as HTMLInputElement).value || "0", p.compareAtPrice)} className="w-28 bg-neutral-800 border border-neutral-600 rounded px-2 py-1 text-sm text-white text-right focus:outline-none" />
                           ) : (
-                            <button onClick={() => handleCellClick(p.id, "compareAtPrice")} className={`text-sm ${isEdited(p.id, "compareAtPrice") ? "text-blue-400" : "text-neutral-500"}`}>
+                            <button onClick={() => handleCellClick(p.id, "compareAtPrice")} className={`text-sm ${isEdited(p.id, "compareAtPrice") ? "text-neutral-400" : "text-neutral-500"}`}>
                               {currentCompare ? formatPrice(currentCompare) : "—"}
                             </button>
                           )}
@@ -323,7 +323,7 @@ export default function BulkEditorPage() {
                           {editingCell?.id === p.id && editingCell.field === "stock" ? (
                             <input ref={inputRef} type="number" defaultValue={currentStock} onBlur={e => handleCellBlur(p.id, "stock", e.target.value, p.stock)} onKeyDown={e => handleKeyDown(e, p.id, "stock", (e.target as HTMLInputElement).value, p.stock)} className="w-20 bg-neutral-800 border border-neutral-600 rounded px-2 py-1 text-sm text-white text-right focus:outline-none" />
                           ) : (
-                            <button onClick={() => handleCellClick(p.id, "stock")} className={`text-sm ${isEdited(p.id, "stock") ? "text-blue-400" : currentStock <= 0 ? "text-red-400" : "text-neutral-300"}`}>
+                            <button onClick={() => handleCellClick(p.id, "stock")} className={`text-sm ${isEdited(p.id, "stock") ? "text-neutral-400" : currentStock <= 0 ? "text-red-400" : "text-neutral-300"}`}>
                               {currentStock}
                             </button>
                           )}

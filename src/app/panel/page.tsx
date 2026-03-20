@@ -3,11 +3,11 @@ import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
 
 const statusColors: Record<string, string> = {
-  PENDING: "bg-yellow-500/20 text-yellow-400", PAID: "bg-blue-500/20 text-blue-400",
-  PREPARING: "bg-purple-500/20 text-purple-400", PACKED: "bg-indigo-500/20 text-indigo-400",
-  SHIPPED: "bg-cyan-500/20 text-cyan-400", DELIVERED: "bg-green-500/20 text-green-400",
-  RETURNED: "bg-orange-500/20 text-orange-400", CANCELLED: "bg-red-500/20 text-red-400",
-  FRAUD_RISK: "bg-red-500/20 text-red-400", REFUNDED: "bg-orange-500/20 text-orange-400",
+  PENDING: "bg-neutral-800 text-orange-400", PAID: "bg-neutral-800 text-neutral-400",
+  PREPARING: "bg-neutral-800 text-orange-400", PACKED: "bg-neutral-800 text-neutral-400",
+  SHIPPED: "bg-neutral-800 text-neutral-400", DELIVERED: "bg-neutral-800 text-green-400",
+  RETURNED: "bg-neutral-800 text-orange-400", CANCELLED: "bg-neutral-800 text-red-400",
+  FRAUD_RISK: "bg-neutral-800 text-red-400", REFUNDED: "bg-neutral-800 text-orange-400",
 };
 const statusLabels: Record<string, string> = {
   PENDING: "Pendiente", PAID: "Pagado", PREPARING: "En preparación", PACKED: "Empacado",
@@ -67,12 +67,12 @@ export default async function DashboardPage() {
         <h1 className="text-2xl font-bold text-white">Dashboard</h1>
         <div className="flex gap-2">
           {unreadAlerts > 0 && (
-            <Link href="/panel/alertas" className="flex items-center gap-2 bg-red-500/20 text-red-400 px-3 py-1.5 rounded-lg text-sm">
+            <Link href="/panel/alertas" className="flex items-center gap-2 bg-neutral-800 text-red-400 px-3 py-1.5 rounded-lg text-sm">
               🔔 {unreadAlerts} alertas
             </Link>
           )}
           {delayedOrders > 0 && (
-            <Link href="/panel/fulfillment" className="flex items-center gap-2 bg-yellow-500/20 text-yellow-400 px-3 py-1.5 rounded-lg text-sm">
+            <Link href="/panel/fulfillment" className="flex items-center gap-2 bg-neutral-800 text-orange-400 px-3 py-1.5 rounded-lg text-sm">
               ⚠️ {delayedOrders} retrasados
             </Link>
           )}
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
         <Card label="Ventas hoy" value={formatPrice(Number(salesToday._sum.total || 0))} sub={`${salesToday._count} pedidos`} />
         <Card label="Ventas del mes" value={formatPrice(Number(salesMonth._sum.total || 0))} sub={`${salesMonth._count} pedidos`} />
         <Card label="Ticket promedio" value={formatPrice(avgTicketMonth)} />
-        <Card label="Pendientes" value={String(pendingOrders)} color={pendingOrders > 0 ? "text-yellow-400" : undefined} sub={`${todayOrders} hoy`} />
+        <Card label="Pendientes" value={String(pendingOrders)} color={pendingOrders > 0 ? "text-orange-400" : undefined} sub={`${todayOrders} hoy`} />
         <Card label="Productos activos" value={String(activeProducts)} sub={`${totalCustomers} clientes`} />
       </div>
 
@@ -93,7 +93,7 @@ export default async function DashboardPage() {
         <MiniCard label="Entregados (mes)" value={String(deliveredThisMonth)} color="text-green-400" />
         <MiniCard label="Cancelados (mes)" value={String(cancelledThisMonth)} color={cancelledThisMonth > 0 ? "text-red-400" : "text-green-400"} />
         <MiniCard label="Tasa cancelación" value={`${salesMonth._count > 0 ? Math.round((cancelledThisMonth / (salesMonth._count + cancelledThisMonth)) * 100) : 0}%`} color="text-neutral-300" />
-        <MiniCard label="Stock bajo" value={`${lowStock.length} variantes`} color={lowStock.length > 0 ? "text-yellow-400" : "text-green-400"} />
+        <MiniCard label="Stock bajo" value={`${lowStock.length} variantes`} color={lowStock.length > 0 ? "text-orange-400" : "text-green-400"} />
       </div>
 
       {/* Sales Chart */}
@@ -153,7 +153,7 @@ export default async function DashboardPage() {
                   <p className="text-sm font-medium text-white truncate max-w-[250px]">{v.product.name}</p>
                   <p className="text-xs text-neutral-500">{v.name} {v.sku ? `(${v.sku})` : ""}</p>
                 </div>
-                <span className={`text-sm font-bold ${v.stock === 0 ? "text-red-400" : "text-yellow-400"}`}>
+                <span className={`text-sm font-bold ${v.stock === 0 ? "text-red-400" : "text-orange-400"}`}>
                   {v.stock === 0 ? "Agotado" : `${v.stock} uds`}
                 </span>
               </div>

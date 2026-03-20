@@ -119,10 +119,10 @@ export default function WhatsAppAnalyticsPage() {
           <h3 className="text-white font-medium mb-4">Estado de conversaciones</h3>
           <div className="space-y-3">
             {[
-              { label: "Abiertas", value: data.status.open, color: "bg-green-500" },
-              { label: "Pendientes", value: data.status.pending, color: "bg-yellow-500" },
-              { label: "Resueltas", value: data.status.resolved, color: "bg-blue-500" },
-              { label: "En espera", value: data.status.snoozed, color: "bg-purple-500" },
+              { label: "Abiertas", value: data.status.open, color: "bg-emerald-500" },
+              { label: "Pendientes", value: data.status.pending, color: "bg-neutral-500" },
+              { label: "Resueltas", value: data.status.resolved, color: "bg-neutral-600" },
+              { label: "En espera", value: data.status.snoozed, color: "bg-neutral-500" },
             ].map(s => (
               <div key={s.label}>
                 <div className="flex justify-between text-sm mb-1">
@@ -175,15 +175,15 @@ export default function WhatsAppAnalyticsPage() {
                   {new Date(d.date).toLocaleDateString("es-CO", { day: "2-digit", month: "short" })}
                 </span>
                 <div className="flex-1 flex gap-0.5 h-4">
-                  <div className="bg-blue-600 rounded-sm" style={{ width: `${(d.inbound / maxDaily) * 100}%` }} title={`${d.inbound} entrantes`} />
-                  <div className="bg-green-600 rounded-sm" style={{ width: `${(d.outbound / maxDaily) * 100}%` }} title={`${d.outbound} salientes`} />
+                  <div className="bg-neutral-600 rounded-sm" style={{ width: `${(d.inbound / maxDaily) * 100}%` }} title={`${d.inbound} entrantes`} />
+                  <div className="bg-emerald-500 rounded-sm" style={{ width: `${(d.outbound / maxDaily) * 100}%` }} title={`${d.outbound} salientes`} />
                 </div>
                 <span className="text-[10px] text-neutral-500 w-12 text-right">{d.total}</span>
               </div>
             ))}
             <div className="flex gap-4 mt-3 text-[10px] text-neutral-500">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-blue-600 rounded-sm" /> Entrantes</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-green-600 rounded-sm" /> Salientes</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-neutral-600 rounded-sm" /> Entrantes</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-emerald-500 rounded-sm" /> Salientes</span>
             </div>
           </div>
         )}
@@ -201,41 +201,41 @@ export default function WhatsAppAnalyticsPage() {
             </div>
             <div className="bg-neutral-800/60 rounded-lg p-3 text-center">
               <p className="text-[10px] text-neutral-500 uppercase">Cache Hit Rate</p>
-              <p className="text-xl font-bold text-blue-400">{data.ai.cacheHitRate}%</p>
+              <p className="text-xl font-bold text-neutral-400">{data.ai.cacheHitRate}%</p>
               <p className="text-[10px] text-neutral-600">{data.ai.cacheHits} hits / {data.ai.cacheMisses} misses</p>
             </div>
             <div className="bg-neutral-800/60 rounded-lg p-3 text-center">
               <p className="text-[10px] text-neutral-500 uppercase">Conversaciones IA</p>
-              <p className="text-xl font-bold text-purple-400">{data.ai.totalAiConversations}</p>
+              <p className="text-xl font-bold text-neutral-400">{data.ai.totalAiConversations}</p>
               <p className="text-[10px] text-neutral-600">en el periodo</p>
             </div>
             <div className="bg-neutral-800/60 rounded-lg p-3 text-center">
               <p className="text-[10px] text-neutral-500 uppercase">Costo estimado</p>
-              <p className="text-xl font-bold text-amber-400">${data.ai.estimatedCostUSD}</p>
+              <p className="text-xl font-bold text-neutral-400">${data.ai.estimatedCostUSD}</p>
               <p className="text-[10px] text-neutral-600">USD en el periodo</p>
             </div>
           </div>
           {/* Savings comparison */}
           <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="bg-green-950/20 border border-green-800/30 rounded-lg p-3">
-              <p className="text-[10px] text-green-500 uppercase">Ahorro vs Intercom</p>
+            <div className="bg-neutral-800/60 border border-neutral-700 rounded-lg p-3">
+              <p className="text-[10px] text-neutral-500 uppercase">Ahorro vs Intercom</p>
               <p className="text-lg font-bold text-green-400">${data.ai.savingsVsIntercom} USD</p>
               <p className="text-[10px] text-neutral-600">Intercom cobraria ${data.ai.intercomEquivalent} USD ($0.99/resolucion)</p>
             </div>
-            <div className="bg-green-950/20 border border-green-800/30 rounded-lg p-3">
-              <p className="text-[10px] text-green-500 uppercase">Ahorro vs Zendesk</p>
+            <div className="bg-neutral-800/60 border border-neutral-700 rounded-lg p-3">
+              <p className="text-[10px] text-neutral-500 uppercase">Ahorro vs Zendesk</p>
               <p className="text-lg font-bold text-green-400">${data.ai.savingsVsZendesk} USD</p>
               <p className="text-[10px] text-neutral-600">Zendesk cobraria ${data.ai.zendeskEquivalent} USD ($1.50/resolucion)</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex-1 h-3 bg-neutral-800 rounded-full overflow-hidden flex">
-              <div className="bg-green-600 h-full" style={{ width: `${data.ai.cacheHitRate}%` }} title="Cache hits" />
-              <div className="bg-blue-600 h-full" style={{ width: `${100 - parseFloat(data.ai.cacheHitRate)}%` }} title="LLM calls" />
+              <div className="bg-emerald-500 h-full" style={{ width: `${data.ai.cacheHitRate}%` }} title="Cache hits" />
+              <div className="bg-neutral-600 h-full" style={{ width: `${100 - parseFloat(data.ai.cacheHitRate)}%` }} title="LLM calls" />
             </div>
             <div className="flex gap-3 text-[10px] text-neutral-500 shrink-0">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-green-600 rounded-sm" /> Cache</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-blue-600 rounded-sm" /> LLM</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-emerald-500 rounded-sm" /> Cache</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 bg-neutral-600 rounded-sm" /> LLM</span>
             </div>
           </div>
         </div>

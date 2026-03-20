@@ -19,12 +19,12 @@ interface Workflow {
 }
 
 const STEP_TYPES = [
-  { type: "trigger", label: "Trigger", icon: "⚡", color: "bg-amber-900/30 border-amber-700" },
-  { type: "condition", label: "Condición", icon: "🔀", color: "bg-blue-900/30 border-blue-700" },
-  { type: "check_response", label: "¿Respondió?", icon: "💬", color: "bg-cyan-900/30 border-cyan-700" },
-  { type: "ai_respond", label: "IA Responde", icon: "🤖", color: "bg-purple-900/30 border-purple-700" },
-  { type: "action", label: "Acción", icon: "⚙️", color: "bg-green-900/30 border-green-700" },
-  { type: "handoff", label: "Pasar a humano", icon: "👤", color: "bg-red-900/30 border-red-700" },
+  { type: "trigger", label: "Trigger", icon: "⚡", color: "bg-neutral-900 border-neutral-700" },
+  { type: "condition", label: "Condición", icon: "🔀", color: "bg-neutral-900 border-neutral-700" },
+  { type: "check_response", label: "¿Respondió?", icon: "💬", color: "bg-neutral-900 border-neutral-700" },
+  { type: "ai_respond", label: "IA Responde", icon: "🤖", color: "bg-neutral-900 border-neutral-700" },
+  { type: "action", label: "Acción", icon: "⚙️", color: "bg-neutral-900 border-neutral-700" },
+  { type: "handoff", label: "Pasar a humano", icon: "👤", color: "bg-neutral-900 border-neutral-700" },
   { type: "delay", label: "Esperar", icon: "⏱️", color: "bg-neutral-800 border-neutral-600" },
 ];
 
@@ -229,7 +229,7 @@ export default function WorkflowBuilderPage() {
         {hasBranching(step.type) && step.branches && (
           <div className="flex gap-4 mt-2 ml-4">
             {/* YES branch */}
-            <div className="flex-1 border-l-2 border-green-600 pl-3">
+            <div className="flex-1 border-l-2 border-neutral-600 pl-3">
               <div className="text-xs font-bold text-green-400 mb-2">
                 {step.type === "check_response" ? "✅ Respondió" : "✅ SÍ (match)"}
               </div>
@@ -254,7 +254,7 @@ export default function WorkflowBuilderPage() {
               </div>
             </div>
             {/* NO branch */}
-            <div className="flex-1 border-l-2 border-red-600 pl-3">
+            <div className="flex-1 border-l-2 border-neutral-700 pl-3">
               <div className="text-xs font-bold text-red-400 mb-2">
                 {step.type === "check_response" ? "❌ No respondió" : "❌ NO (sin match)"}
               </div>
@@ -305,7 +305,7 @@ export default function WorkflowBuilderPage() {
           <p className="text-sm text-neutral-500">Automatizaciones con branching para el chatbot</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={() => setEditing(newWorkflow())} className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-sm">+ Nuevo workflow</button>
+          <button onClick={() => setEditing(newWorkflow())} className="px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-lg text-sm">+ Nuevo workflow</button>
           <Link href="/panel/whatsapp" className="text-sm text-neutral-500 hover:text-white">Volver</Link>
         </div>
       </div>
@@ -344,7 +344,7 @@ export default function WorkflowBuilderPage() {
           </div>
 
           <div className="flex gap-2">
-            <button onClick={saveWorkflow} className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-lg text-sm">Guardar workflow</button>
+            <button onClick={saveWorkflow} className="px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-lg text-sm">Guardar workflow</button>
             <button onClick={() => setEditing(null)} className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg text-sm">Cancelar</button>
           </div>
         </div>
@@ -365,11 +365,11 @@ export default function WorkflowBuilderPage() {
                 <p className="text-sm font-medium text-white">{w.name}</p>
                 <p className="text-xs text-neutral-500">
                   {w.steps.length} pasos | Trigger: {TRIGGERS.find(t => t.value === w.trigger)?.label}
-                  {w.steps.some(s => hasBranching(s.type)) && <span className="text-cyan-400 ml-2">🔀 Con branching</span>}
+                  {w.steps.some(s => hasBranching(s.type)) && <span className="text-neutral-400 ml-2">🔀 Con branching</span>}
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => setEditing(w)} className="text-xs text-blue-400 hover:text-blue-300">Editar</button>
+                <button onClick={() => setEditing(w)} className="text-xs text-neutral-400 hover:text-neutral-300">Editar</button>
                 <button onClick={() => w.id && deleteWorkflow(w.id)} className="text-xs text-red-500 hover:text-red-400">Eliminar</button>
                 <button onClick={async () => {
                   await fetch("/api/sequoia-chat/workflows", { method: "PATCH", headers: {"Content-Type":"application/json"}, body: JSON.stringify({id: w.id, enabled: !w.enabled}) });
@@ -431,7 +431,7 @@ function ExecutionsViewer() {
               <span className="text-[10px] text-neutral-600">{new Date(ex.started_at).toLocaleString()}</span>
             </div>
           ))}
-          <button onClick={loadExecutions} className="text-[10px] text-blue-400 hover:text-blue-300">↻ Actualizar</button>
+          <button onClick={loadExecutions} className="text-[10px] text-neutral-400 hover:text-neutral-300">↻ Actualizar</button>
         </div>
       )}
     </div>

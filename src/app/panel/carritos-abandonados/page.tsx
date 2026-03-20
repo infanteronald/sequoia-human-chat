@@ -114,12 +114,12 @@ function StatCard({ icon, label, value, sub }: { icon: React.ReactNode; label: s
 /* ─── Status Badge ─── */
 function StatusBadge({ recovered, recoverySent }: { recovered: boolean; recoverySent: boolean }) {
   if (recovered) {
-    return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">Recuperado</span>;
+    return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-800 text-green-400 border border-neutral-800">Recuperado</span>;
   }
   if (recoverySent) {
-    return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-400/10 text-blue-400 border border-blue-400/20">Contactado</span>;
+    return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-800 text-neutral-400 border border-neutral-800">Contactado</span>;
   }
-  return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-400/10 text-yellow-400 border border-yellow-400/20">Abandonado</span>;
+  return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-800 text-orange-400 border border-neutral-800">Abandonado</span>;
 }
 
 /* ─── Filter Tabs ─── */
@@ -295,7 +295,7 @@ export default function CarritosAbandonadosPage() {
                       <span className="text-xs text-neutral-500">Enviado</span>
                     )}
                     {cart.recovered && (
-                      <span className="text-xs text-emerald-400">Recuperado</span>
+                      <span className="text-xs text-green-400">Recuperado</span>
                     )}
                   </td>
                 </tr>
@@ -315,7 +315,7 @@ export default function CarritosAbandonadosPage() {
           <button
             onClick={() => setAutoRecovery(!autoRecovery)}
             className={`relative w-11 h-6 rounded-full transition-colors ${
-              autoRecovery ? "bg-emerald-500" : "bg-neutral-700"
+              autoRecovery ? "bg-white" : "bg-neutral-700"
             }`}
           >
             <div

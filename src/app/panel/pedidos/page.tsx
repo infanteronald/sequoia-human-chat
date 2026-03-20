@@ -10,11 +10,11 @@ const statusLabels: Record<string, string> = {
   FRAUD_RISK: "Fraude", REFUNDED: "Reembolsado",
 };
 const statusColors: Record<string, string> = {
-  PENDING: "bg-yellow-500/20 text-yellow-400", PAID: "bg-blue-500/20 text-blue-400",
-  PREPARING: "bg-purple-500/20 text-purple-400", PACKED: "bg-indigo-500/20 text-indigo-400",
-  SHIPPED: "bg-cyan-500/20 text-cyan-400", DELIVERED: "bg-green-500/20 text-green-400",
-  RETURNED: "bg-orange-500/20 text-orange-400", CANCELLED: "bg-red-500/20 text-red-400",
-  FRAUD_RISK: "bg-red-600/20 text-red-400", REFUNDED: "bg-orange-500/20 text-orange-400",
+  PENDING: "bg-neutral-800 text-orange-400", PAID: "bg-neutral-800 text-neutral-400",
+  PREPARING: "bg-neutral-800 text-orange-400", PACKED: "bg-neutral-800 text-neutral-400",
+  SHIPPED: "bg-neutral-800 text-neutral-400", DELIVERED: "bg-neutral-800 text-green-400",
+  RETURNED: "bg-neutral-800 text-orange-400", CANCELLED: "bg-neutral-800 text-red-400",
+  FRAUD_RISK: "bg-neutral-800 text-red-400", REFUNDED: "bg-neutral-800 text-orange-400",
 };
 const allStatuses = Object.keys(statusLabels);
 
@@ -240,9 +240,9 @@ export default function PedidosPage() {
       {selected.size > 0 && (
         <div className="flex items-center gap-3 mb-4 bg-primary/10 border border-primary/30 rounded-lg px-4 py-2">
           <span className="text-sm text-primary font-medium">{selected.size} seleccionados</span>
-          <button onClick={() => batchAction("mark_paid")} className="px-3 py-1 bg-blue-600 text-white rounded text-xs">💰 Marcar pagado</button>
-          <button onClick={() => batchAction("mark_packed")} className="px-3 py-1 bg-indigo-600 text-white rounded text-xs">📦 Marcar empacado</button>
-          <button onClick={() => batchAction("mark_shipped")} className="px-3 py-1 bg-cyan-600 text-white rounded text-xs">🚚 Marcar enviado</button>
+          <button onClick={() => batchAction("mark_paid")} className="px-3 py-1 bg-neutral-700 text-white rounded text-xs">💰 Marcar pagado</button>
+          <button onClick={() => batchAction("mark_packed")} className="px-3 py-1 bg-neutral-700 text-white rounded text-xs">📦 Marcar empacado</button>
+          <button onClick={() => batchAction("mark_shipped")} className="px-3 py-1 bg-neutral-700 text-white rounded text-xs">🚚 Marcar enviado</button>
         </div>
       )}
 
@@ -288,7 +288,7 @@ export default function PedidosPage() {
                 <td className="p-3 text-neutral-400 text-xs">{o.city || "—"}</td>
                 <td className="p-3 text-center">
                   {o.fraudScore > 0 && (
-                    <span className={`text-xs font-bold ${o.fraudScore >= 50 ? "text-red-400" : o.fraudScore >= 25 ? "text-yellow-400" : "text-green-400"}`}>
+                    <span className={`text-xs font-bold ${o.fraudScore >= 50 ? "text-red-400" : o.fraudScore >= 25 ? "text-orange-400" : "text-green-400"}`}>
                       {o.fraudScore}
                     </span>
                   )}
