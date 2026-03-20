@@ -44,9 +44,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = product.metaTitle || product.name;
   const rawDesc = product.metaDescription || product.shortDescription || product.description || "";
-  const description = rawDesc
-    ? stripHtml(rawDesc).substring(0, 160)
-    : `Compra ${product.name} en Sequoia Speed. Protección certificada CE. Envío a toda Colombia.`;
+  const priceFormatted = new Intl.NumberFormat("es-CO").format(Number(product.price));
+  const baseDesc = rawDesc
+    ? stripHtml(rawDesc).substring(0, 120)
+    : `${product.name}. Protección certificada CE para motociclistas`;
+  const description = `${baseDesc} | Desde $${priceFormatted} COP · Envío Colombia · Pago contraentrega`;
 
   // noindex placeholder/non-product pages
   const noIndexSlugs = ["reserva-de-producto"];
@@ -61,7 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      type: "article",
+      type: "website",
       url: `https://sequoiaspeed.com.co/producto/${slug}`,
       images: product.images[0]?.url
         ? [{ url: product.images[0].url, width: 800, height: 800, alt: product.name }]
@@ -155,6 +157,18 @@ export default async function ProductPage({ params }: Props) {
               ? "https://schema.org/InStock"
               : "https://schema.org/OutOfStock",
           seller: { "@type": "Organization", name: "Sequoia Speed" },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            shippingDestination: { "@type": "DefinedRegion", addressCountry: "CO" },
+            deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" }, transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 5, unitCode: "DAY" } },
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "CO",
+            returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 30,
+            returnMethod: "https://schema.org/ReturnByMail",
+          },
         }))
       : [
           {
@@ -164,6 +178,18 @@ export default async function ProductPage({ params }: Props) {
             price,
             availability: "https://schema.org/InStock",
             seller: { "@type": "Organization", name: "Sequoia Speed" },
+            shippingDetails: {
+              "@type": "OfferShippingDetails",
+              shippingDestination: { "@type": "DefinedRegion", addressCountry: "CO" },
+              deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" }, transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 5, unitCode: "DAY" } },
+            },
+            hasMerchantReturnPolicy: {
+              "@type": "MerchantReturnPolicy",
+              applicableCountry: "CO",
+              returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+              merchantReturnDays: 30,
+              returnMethod: "https://schema.org/ReturnByMail",
+            },
           },
         ];
 

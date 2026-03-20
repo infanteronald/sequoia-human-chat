@@ -572,7 +572,7 @@ function ThumbnailCarousel({
                 : "border-transparent hover:border-neutral-500 opacity-60 hover:opacity-100"
             }`}
           >
-            <Image src={img.url} alt={img.alt || productName} fill className="object-cover" sizes="80px" />
+            <Image src={img.url} alt={img.alt || `${productName} vista ${i + 1}`} fill className="object-cover" sizes="80px" />
           </button>
         ))}
       </div>
@@ -842,6 +842,15 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
         </div>
       </div>
 
+      {/* ── Breadcrumbs ── */}
+      <nav aria-label="Breadcrumb" className="mb-4 text-xs text-neutral-500">
+        <ol className="flex items-center gap-1 flex-wrap">
+          <li><a href="/" className="hover:text-white transition">Inicio</a></li>
+          <li className="before:content-['/'] before:mx-1"><a href={`/categoria/${product.categorySlug}`} className="hover:text-white transition">{product.categoryName}</a></li>
+          <li className="before:content-['/'] before:mx-1 text-neutral-400 truncate max-w-[200px] md:max-w-none">{product.name}</li>
+        </ol>
+      </nav>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12">
         {/* ══════════ LEFT: Gallery + Q&A ══════════ */}
         <div>
@@ -859,13 +868,13 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
               {product.images.length > 0 ? (
                 <Image
                   src={currentImage?.url || "/products/placeholder.jpg"}
-                  alt={currentImage?.alt || product.name}
+                  alt={currentImage?.alt || `${product.name} - ${product.categoryName} para moto Sequoia Speed`}
                   fill
                   className={`object-cover transition-all duration-500 ${zoom ? "scale-[2.5]" : "scale-100"}`}
                   style={zoom ? { transformOrigin: `${position.x}% ${position.y}%` } : undefined}
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  quality={75}
+                  quality={80}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full text-neutral-500">Sin imagen</div>
@@ -1482,6 +1491,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
                     src={p.image}
                     alt={p.name}
                     fill
+                    loading="lazy"
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
@@ -1512,6 +1522,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
                     src={p.image}
                     alt={p.name}
                     fill
+                    loading="lazy"
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />

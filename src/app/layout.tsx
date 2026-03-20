@@ -83,8 +83,11 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${bebas.variable}`}>
       <head>
+        <link rel="alternate" hrefLang="es-CO" href="https://sequoiaspeed.com.co" />
+        <link rel="alternate" hrefLang="x-default" href="https://sequoiaspeed.com.co" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preload" as="image" type="image/webp" href="/hero-poster.webp" fetchPriority="high" />
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="theme-color" content="#f97316" />
         <link rel="apple-touch-icon" href="/logo.png" />

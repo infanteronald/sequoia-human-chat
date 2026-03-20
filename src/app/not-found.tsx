@@ -1,4 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "404 - Página No Encontrada | Sequoia Speed",
+  robots: { index: false, follow: true },
+};
 
 const mainCategories = [
   { name: "Chaquetas", slug: "chaquetas" },

@@ -22,6 +22,21 @@ export async function generateStaticParams() {
 }
 
 
+
+const categorySEOTitles: Record<string, string> = {
+  "chaquetas": "Chaquetas para Moto con Protección CE",
+  "impermeables": "Impermeables para Moto 100% Waterproof",
+  "guantes-para-moto-impermeables-cuero-o-tela-bogota": "Guantes para Moto de Cuero y Tela Impermeables",
+  "botas": "Botas para Moto Impermeables y de Protección",
+  "pantalones": "Pantalones para Moto con Protección Certificada",
+  "trajes-para-moto-antifriccion": "Trajes Antifricción para Moto con Protección CE",
+  "cascos": "Cascos para Moto Certificados",
+  "rodilleras": "Rodilleras y Protectores para Moto",
+  "airbag": "Chalecos Airbag para Motociclistas",
+  "accesorios": "Accesorios para Motociclistas",
+  "dotaciones-mensajeros-motorizados": "Dotaciones para Mensajeros y Motorizados",
+};
+
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { slug } = await params;
   const { page: pageStr } = await searchParams;
@@ -46,10 +61,17 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     totalProducts += subCount;
   }
 
-  const title = page > 1 ? `${category.name} - Página ${page}` : category.name;
+  const seoTitle = categorySEOTitles[slug] || category.name;
+  const title = page > 1 ? `${seoTitle} - Página ${page}` : seoTitle;
+  const lowestPrice = await prisma.product.findFirst({
+    where: { isActive: true, category: { slug } },
+    orderBy: { price: "asc" },
+    select: { price: true },
+  });
+  const priceText = lowestPrice ? ` desde $${new Intl.NumberFormat("es-CO").format(Number(lowestPrice.price))} COP` : "";
   const description =
     category.description ||
-    `Compra ${category.name} para moto en Sequoia Speed. Envío a toda Colombia.`;
+    `${seoTitle}${priceText}. Protección certificada CE ✔ Envío a toda Colombia ✔ Pago contraentrega. Compra en Sequoia Speed.`;
 
   return {
     title,

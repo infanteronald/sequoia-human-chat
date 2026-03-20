@@ -137,6 +137,54 @@ export default async function BlogPostPage({ params }: Props) {
     ],
   };
 
+
+  // HowTo schema for guide posts
+  const howToSchemas: Record<string, object> = {
+    "guia-completa-equipamiento-motociclista-colombia": {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Cómo elegir el equipamiento completo para moto en Colombia",
+      description: "Guía paso a paso para elegir casco, chaqueta, guantes, botas y pantalón de protección para motociclistas en Colombia.",
+      totalTime: "PT15M",
+      step: [
+        { "@type": "HowToStep", position: 1, name: "Elige un casco certificado", text: "Busca cascos con certificación NTC 4533, DOT o ECE 22.06. Mide el contorno de tu cabeza y verifica que quede firme sin puntos de presión." },
+        { "@type": "HowToStep", position: 2, name: "Selecciona una chaqueta con protecciones CE", text: "Busca chaquetas con protecciones certificadas CE en hombros, codos y espalda. Prefiere materiales como Cordura 600D con membrana impermeable." },
+        { "@type": "HowToStep", position: 3, name: "Elige guantes de protección", text: "Elige guantes con protección en nudillos y palma. Para lluvia, prefiere guantes con membrana impermeable y agarre antideslizante." },
+        { "@type": "HowToStep", position: 4, name: "Consigue botas reforzadas", text: "Busca botas con refuerzos en tobillo, suela antideslizante y protección contra torsión." },
+        { "@type": "HowToStep", position: 5, name: "Completa con pantalón de protección", text: "Elige pantalón con protección en rodillas y caderas para completar tu equipamiento de seguridad." },
+      ],
+    },
+    "como-elegir-chaqueta-moto-guia-experta": {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Cómo elegir la chaqueta de moto perfecta",
+      description: "Guía experta paso a paso para elegir la chaqueta de moto ideal según tu tipo de conducción, clima y presupuesto.",
+      totalTime: "PT10M",
+      step: [
+        { "@type": "HowToStep", position: 1, name: "Define tu tipo de conducción", text: "Identifica si conduces en ciudad, carretera o ambos. Cada estilo requiere características diferentes en ventilación, protección y resistencia." },
+        { "@type": "HowToStep", position: 2, name: "Verifica las protecciones certificadas", text: "Busca protecciones CE 1621-1 nivel 2 en codos, hombros y espalda. Las protecciones removibles son más versátiles." },
+        { "@type": "HowToStep", position: 3, name: "Elige el material adecuado", text: "Para máxima protección elige material antifricción. Para versatilidad, textil con membrana impermeable." },
+        { "@type": "HowToStep", position: 4, name: "Verifica la impermeabilidad", text: "Busca liner impermeable removible o costuras termoselladas. En Colombia el clima cambia rápido." },
+        { "@type": "HowToStep", position: 5, name: "Elige tu talla correcta", text: "Mide pecho, cintura y largo de brazo. La chaqueta debe quedar ajustada pero permitir movimiento completo." },
+      ],
+    },
+    "proteccion-lluvia-moto-guia-impermeable": {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Cómo protegerte de la lluvia en moto",
+      description: "Guía completa para elegir el impermeable ideal y protegerte de la lluvia mientras conduces moto en Colombia.",
+      totalTime: "PT8M",
+      step: [
+        { "@type": "HowToStep", position: 1, name: "Elige el tipo de impermeable", text: "Decide entre impermeable tipo sudadera (práctico), tipo traje (mayor cobertura) o chaqueta con liner integrado." },
+        { "@type": "HowToStep", position: 2, name: "Verifica costuras termoselladas", text: "Las costuras termoselladas evitan filtraciones. Sin ellas, el agua entra por las costuras aunque el material sea impermeable." },
+        { "@type": "HowToStep", position: 3, name: "Protege extremidades", text: "Complementa con zapatones impermeables y guantes waterproof para protección total contra la lluvia." },
+        { "@type": "HowToStep", position: 4, name: "Agrega visibilidad", text: "Elige impermeables con reflectivos o colores claros para mayor visibilidad en condiciones de lluvia." },
+      ],
+    },
+  };
+
+  const howToSchema = howToSchemas[post.slug];
+
   // Related blog posts (exclude current)
   const relatedPosts = blogPosts
     .filter((p) => p.slug !== post.slug)
@@ -146,6 +194,7 @@ export default async function BlogPostPage({ params }: Props) {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
+      {howToSchema && <JsonLd data={howToSchema} />}
 
       <nav className="flex items-center gap-2 text-sm text-neutral-400 mb-8 flex-wrap">
         <Link href="/" className="hover:text-white transition">Inicio</Link>
