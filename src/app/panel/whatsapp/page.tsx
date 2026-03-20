@@ -339,6 +339,8 @@ export default function WhatsAppPage() {
   const [showMsgSearch, setShowMsgSearch] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showAttachMenu, setShowAttachMenu] = useState(false);
+  const [showFollowupPicker, setShowFollowupPicker] = useState(false);
+  const [followupDateTime, setFollowupDateTime] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -697,6 +699,7 @@ export default function WhatsAppPage() {
         else if (showDatePicker) { setShowDatePicker(false); }
         else if (showBulkSend) { if (!bulkSending) setShowBulkSend(false); }
         else if (showEmojiPicker) { setShowEmojiPicker(false); }
+        else if (showFollowupPicker) { setShowFollowupPicker(false); }
         else if (showMsgSearch) { setShowMsgSearch(false); setMsgSearch(""); }
         else if (showContactInfo) { setShowContactInfo(false); }
         else if (showCanned) { setShowCanned(false); }
@@ -2539,29 +2542,43 @@ export default function WhatsAppPage() {
                       </div>
                     </div>
                   )}
-                  {/* Desinteresado toggle */}
+                  {/* Seguimiento toggle + Calendar */}
                   {selectedContact && (
                     <div className="flex items-center gap-2 mt-1.5">
                       <label className="flex items-center gap-1.5 cursor-pointer select-none">
                         <div
-                          className={`relative w-8 h-4 rounded-full transition-colors duration-200 ${selectedContact.cliente_desinteresado ? "bg-red-500" : `${t.inputBg} border ${t.inputBorder}`}`}
+                          className={`relative w-9 h-5 rounded-full transition-colors duration-200 ${!selectedContact.cliente_desinteresado ? "bg-green-500" : `${t.inputBg} border ${t.inputBorder}`}`}
                           onClick={async () => {
-                            const newVal = !selectedContact.cliente_desinteresado;
-                            setContacts(prev => prev.map(c => c.session_id === selectedContact.session_id ? { ...c, cliente_desinteresado: newVal, conversation_status: newVal ? 2 : 0 } : c));
-                            setSelectedContact(prev => prev ? { ...prev, cliente_desinteresado: newVal, conversation_status: newVal ? 2 : 0 } : prev);
+                            const newDesinteresado = !selectedContact.cliente_desinteresado;
+                            setContacts(prev => prev.map(c => c.session_id === selectedContact.session_id ? { ...c, cliente_desinteresado: newDesinteresado } : c));
+                            setSelectedContact(prev => prev ? { ...prev, cliente_desinteresado: newDesinteresado } : prev);
                             await fetch("/api/sequoia-chat/contacts/desinteresado", {
                               method: "PATCH",
                               headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ sessionId: selectedContact.session_id, desinteresado: newVal }),
+                              body: JSON.stringify({ sessionId: selectedContact.session_id, desinteresado: newDesinteresado }),
                             });
                           }}
                         >
-                          <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform duration-200 ${selectedContact.cliente_desinteresado ? "translate-x-4" : "translate-x-0.5"}`} />
+                          <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${!selectedContact.cliente_desinteresado ? "translate-x-4" : "translate-x-0.5"}`} />
                         </div>
-                        <span className={`text-[10px] ${selectedContact.cliente_desinteresado ? "text-red-400" : t.textMuted2}`}>
-                          {selectedContact.cliente_desinteresado ? "\u274c Cliente desinteresado" : "Cliente activo"}
+                        <span className={`text-[10px] ${!selectedContact.cliente_desinteresado ? "text-green-400" : t.textMuted2}`}>
+                          Seguimiento
                         </span>
                       </label>
+                      {/* Calendar button */}
+                      <button
+                        title={selectedContact.cliente_desinteresado ? "Activa el seguimiento para programar" : (selectedContact.followup_next_at ? new Date(selectedContact.followup_next_at).toLocaleString("es-CO", {day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}) : "Programar seguimiento")}
+                        disabled={!!selectedContact.cliente_desinteresado}
+                        onClick={() => {
+                          if (selectedContact.cliente_desinteresado) return;
+                          setFollowupDateTime(selectedContact.followup_next_at ? new Date(selectedContact.followup_next_at).toISOString().slice(0,16) : "");
+                          setShowFollowupPicker(v => !v);
+                        }}
+                        className={`flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] transition-colors ${selectedContact.cliente_desinteresado ? "opacity-30 cursor-not-allowed " + t.textMuted2 : selectedContact.followup_next_at ? "text-amber-400 hover:bg-amber-500/10" : t.textMuted2 + " hover:bg-neutral-700/30"}`}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        {selectedContact.followup_next_at && !selectedContact.cliente_desinteresado ? <span className="text-[9px]">{new Date(selectedContact.followup_next_at).toLocaleString("es-CO", {day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</span> : null}
+                      </button>
                       <label className="flex items-center gap-1.5 cursor-pointer">
                         <div
                           className={`relative w-7 h-4 rounded-full transition-colors duration-200 cursor-pointer ${selectedContact.ai_auto ? "bg-green-500" : "bg-gray-600"}`}
@@ -2582,6 +2599,50 @@ export default function WhatsAppPage() {
                           ✨ AutoPilot
                         </span>
                       </label>
+                    </div>
+                  )}
+                  {/* Followup date picker */}
+                  {showFollowupPicker && selectedContact && !selectedContact.cliente_desinteresado && (
+                    <div className={`mt-1 p-2 rounded-lg ${t.inputBg} border ${t.inputBorder}`}>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="datetime-local"
+                          value={followupDateTime}
+                          onChange={e => setFollowupDateTime(e.target.value)}
+                          className={`flex-1 px-2 py-1 rounded text-xs ${t.inputBg} border ${t.inputBorder} ${t.text} focus:outline-none`}
+                        />
+                        <button
+                          onClick={async () => {
+                            if (!followupDateTime) return;
+                            const dt = new Date(followupDateTime).toISOString();
+                            setSelectedContact(prev => prev ? { ...prev, followup_next_at: dt } : prev);
+                            setContacts(prev => prev.map(c => c.session_id === selectedContact.session_id ? { ...c, followup_next_at: dt } : c));
+                            setShowFollowupPicker(false);
+                            await fetch("/api/sequoia-chat/contacts/followup-schedule", {
+                              method: "PATCH",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ sessionId: selectedContact.session_id, followupAt: dt }),
+                            });
+                          }}
+                          className="px-2 py-1 rounded text-[10px] bg-green-600 text-white hover:bg-green-500 transition"
+                        >OK</button>
+                        {selectedContact.followup_next_at && (
+                          <button
+                            onClick={async () => {
+                              setSelectedContact(prev => prev ? { ...prev, followup_next_at: null } : prev);
+                              setContacts(prev => prev.map(c => c.session_id === selectedContact.session_id ? { ...c, followup_next_at: null } : c));
+                              setShowFollowupPicker(false);
+                              await fetch("/api/sequoia-chat/contacts/followup-schedule", {
+                                method: "PATCH",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ sessionId: selectedContact.session_id, clear: true }),
+                              });
+                            }}
+                            className="px-2 py-1 rounded text-[10px] text-red-400 hover:bg-red-500/10 transition"
+                          >Quitar</button>
+                        )}
+                        <button onClick={() => setShowFollowupPicker(false)} className={`px-2 py-1.5 rounded text-[11px] ${t.textMuted2} transition hover:opacity-70`}>Cancelar</button>
+                      </div>
                     </div>
                   )}
                 </div>
