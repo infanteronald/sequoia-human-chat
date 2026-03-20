@@ -169,18 +169,13 @@ export default function PagosPage() {
   }
 
   return (
-    <div className="flex-1 min-h-screen bg-[#0f1923] p-6 md:p-8">
+    <div className="flex-1 min-h-screen bg-neutral-950 p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-              <line x1="1" y1="10" x2="23" y2="10" />
-            </svg>
-            Métodos de Pago
-          </h1>
-          <p className="text-[#8899aa] mt-2">
+          <h1 className="text-2xl font-semibold text-white">Métodos de Pago</h1>
+          <p className="text-neutral-400 text-sm mt-1">Configura los métodos de pago del checkout.</p>
+          <p className="text-neutral-400 mt-2">
             Configura los métodos de pago que aparecerán en el checkout de tu tienda.
           </p>
         </div>
@@ -196,7 +191,7 @@ export default function PagosPage() {
             return (
               <div
                 key={method.id}
-                className="bg-[#1a2535] border border-[#2a3a4a] rounded-xl overflow-hidden transition-all duration-200"
+                className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all duration-200"
               >
                 {/* Card Header */}
                 <div className="flex items-center gap-4 p-5">
@@ -217,7 +212,7 @@ export default function PagosPage() {
                         {method.enabled ? "Activo" : "Inactivo"}
                       </span>
                     </div>
-                    <p className="text-[#667788] text-sm mt-0.5 truncate">{meta.description}</p>
+                    <p className="text-neutral-500 text-sm mt-0.5 truncate">{meta.description}</p>
                   </div>
 
                   {/* Toggle */}
@@ -238,7 +233,7 @@ export default function PagosPage() {
                   {/* Expand button */}
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : method.id)}
-                    className="text-[#667788] hover:text-white transition p-1"
+                    className="text-neutral-500 hover:text-white transition p-1"
                   >
                     <svg
                       width="20"
@@ -258,11 +253,11 @@ export default function PagosPage() {
 
                 {/* Expanded Config Panel */}
                 {isExpanded && (
-                  <div className="border-t border-[#2a3a4a] p-5 bg-[#151f2e]">
+                  <div className="border-t border-neutral-800 p-5 bg-neutral-900">
                     <div className="space-y-4">
                       {meta.fields.map((field) => (
                         <div key={field.key}>
-                          <label className="block text-sm text-[#8899aa] mb-1.5 font-medium">
+                          <label className="block text-sm text-neutral-400 mb-1.5 font-medium">
                             {field.label}
                           </label>
                           {field.type === "textarea" ? (
@@ -271,13 +266,13 @@ export default function PagosPage() {
                               onChange={(e) => updateField(method.id, field.key, e.target.value)}
                               placeholder={field.placeholder}
                               rows={3}
-                              className="w-full bg-[#1a2535] border border-[#2a3a4a] rounded-lg px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none placeholder:text-[#445566] resize-none"
+                              className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-white focus:border-neutral-600 focus:outline-none placeholder:text-neutral-600 resize-none"
                             />
                           ) : field.type === "select" ? (
                             <select
                               value={editConfigs[method.id]?.[field.key] || ""}
                               onChange={(e) => updateField(method.id, field.key, e.target.value)}
-                              className="w-full bg-[#1a2535] border border-[#2a3a4a] rounded-lg px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none"
+                              className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-white focus:border-neutral-600 focus:outline-none"
                             >
                               <option value="">Seleccionar...</option>
                               {field.options?.map((opt) => (
@@ -292,24 +287,24 @@ export default function PagosPage() {
                               value={editConfigs[method.id]?.[field.key] || ""}
                               onChange={(e) => updateField(method.id, field.key, e.target.value)}
                               placeholder={field.placeholder}
-                              className="w-full bg-[#1a2535] border border-[#2a3a4a] rounded-lg px-4 py-2.5 text-sm text-white focus:border-primary focus:outline-none placeholder:text-[#445566]"
+                              className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-sm text-white focus:border-neutral-600 focus:outline-none placeholder:text-neutral-600"
                             />
                           )}
                         </div>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-[#2a3a4a]">
+                    <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-neutral-800">
                       <button
                         onClick={() => setExpandedId(null)}
-                        className="px-4 py-2 text-sm text-[#8899aa] hover:text-white transition"
+                        className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition"
                       >
                         Cancelar
                       </button>
                       <button
                         onClick={() => saveConfig(method.id)}
                         disabled={isSaving}
-                        className="px-6 py-2 bg-primary hover:bg-primary/80 text-white text-sm font-medium rounded-lg transition disabled:opacity-50"
+                        className="px-6 py-2 bg-white hover:bg-neutral-200 text-neutral-900 text-sm font-medium rounded-lg transition disabled:opacity-50"
                       >
                         {isSaving ? "Guardando..." : "Guardar configuración"}
                       </button>
@@ -322,16 +317,16 @@ export default function PagosPage() {
         </div>
 
         {/* Help Note */}
-        <div className="mt-8 bg-[#1a2535] border border-[#2a3a4a] rounded-xl p-5">
+        <div className="mt-8 bg-neutral-900 border border-neutral-800 rounded-xl p-5">
           <h3 className="text-white font-medium flex items-center gap-2 mb-2">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-neutral-500">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
             </svg>
             ¿Cómo funciona?
           </h3>
-          <ul className="text-sm text-[#667788] space-y-1.5 ml-6 list-disc">
+          <ul className="text-sm text-neutral-500 space-y-1.5 ml-6 list-disc">
             <li>Activa los métodos de pago que quieres ofrecer en tu tienda.</li>
             <li>Configura los datos necesarios para cada método (cuentas bancarias, API keys, etc.).</li>
             <li>Los métodos activos aparecerán automáticamente en el checkout.</li>
