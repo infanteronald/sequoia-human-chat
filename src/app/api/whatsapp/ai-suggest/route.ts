@@ -93,7 +93,7 @@ function isValidName(name: string): boolean {
   return true;
 }
 
-const JORGE_STYLE = `REGLA MAXIMA PRIORIDAD - BREVEDAD: Escribe EXACTAMENTE como un vendedor real en WhatsApp. UN SOLO mensaje corto. MAXIMO 2-3 lineas. NUNCA escribas parrafos largos. NUNCA envies multiples bloques de texto. Un humano real en WhatsApp responde en 1 mensaje corto y directo. Ejemplo CORRECTO: "El impermeable Storm tiene un valor de 190mil pesos, chaqueta y pantalon. Que talla maneja?" Ejemplo INCORRECTO: enviar un parrafo describiendo el producto, luego otro con el precio, luego otro preguntando talla. TODO va en UN solo mensaje corto. Si necesitas dar info de varios productos, menciona MAXIMO 2 y pregunta cual le interesa. NUNCA hagas listas largas de productos.
+const JORGE_STYLE_DEFAULT = `REGLA MAXIMA PRIORIDAD - BREVEDAD: Escribe EXACTAMENTE como un vendedor real en WhatsApp. UN SOLO mensaje corto. MAXIMO 2-3 lineas. NUNCA escribas parrafos largos. NUNCA envies multiples bloques de texto. Un humano real en WhatsApp responde en 1 mensaje corto y directo. Ejemplo CORRECTO: "El impermeable Storm tiene un valor de 190mil pesos, chaqueta y pantalon. Que talla maneja?" Ejemplo INCORRECTO: enviar un parrafo describiendo el producto, luego otro con el precio, luego otro preguntando talla. TODO va en UN solo mensaje corto. Si necesitas dar info de varios productos, menciona MAXIMO 2 y pregunta cual le interesa. NUNCA hagas listas largas de productos.
 
 REGLA OBLIGATORIA: Nunca escribas el simbolo de apertura de interrogacion. Solo usa el signo ? al final. Escribe "Que talla necesita?" NO escribas con el simbolo de apertura.
 
@@ -530,6 +530,18 @@ export async function POST(req: NextRequest) {
           [sessionId, ...allKw]
         );
         if (parseInt(purchaseCheck.rows[0]?.cnt || "0") > 0) hasPurchased = true;
+
+        // Load JORGE_STYLE from DB (editable in real-time from panel)
+        let JORGE_STYLE = JORGE_STYLE_DEFAULT;
+        try {
+          const jsResult = await pool.query("SELECT value FROM settings WHERE key = 'jorge_style'");
+          if (jsResult.rows.length > 0 && jsResult.rows[0].value) {
+            const dbStyle = typeof jsResult.rows[0].value === 'string' 
+              ? jsResult.rows[0].value 
+              : JSON.parse(JSON.stringify(jsResult.rows[0].value)).replace(/^"|"$/g, '');
+            if (dbStyle.length > 100) JORGE_STYLE = dbStyle;
+          }
+        } catch (e) { console.error("[Jorge Style DB]", e); }
 
         // EARLY intent classification to skip heavy loads for greetings/FAQs
         const ragClientMsgEarly = messages.filter((m: any) => !m.is_bot).pop();

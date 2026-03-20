@@ -128,6 +128,9 @@ export default function WhatsAppSettingsPage() {
   const [rules, setRules] = useState<AutomationRule[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [canned, setCanned] = useState<CannedResponse[]>([]);
+  const [jorgeStyle, setJorgeStyle] = useState("");
+  const [jorgeStyleSaving, setJorgeStyleSaving] = useState(false);
+  const [jorgeStyleMsg, setJorgeStyleMsg] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
 
@@ -167,6 +170,16 @@ export default function WhatsAppSettingsPage() {
   const [tonePreset, setTonePreset] = useState("profesional");
     // Fetch knowledge base items on tab change
   useEffect(() => { if (tab === "knowledge") fetchKB(); }, [tab]);
+  
+  // Fetch jorge_style when knowledge tab opens
+  useEffect(() => {
+    if (tab === "knowledge" && !jorgeStyle) {
+      fetch("/api/sequoia-chat/settings/jorge-style")
+        .then(r => r.json())
+        .then(d => { if (d.content) setJorgeStyle(d.content); })
+        .catch(() => {});
+    }
+  }, [tab]);
   useEffect(() => {
     fetch("/api/sequoia-chat/settings?key=tone_preset").then(r => r.json()).then(d => {
       if (d.value) setTonePreset(typeof d.value === "string" ? d.value.replace(/"/g, "") : d.value);
@@ -1497,6 +1510,8 @@ export default function WhatsAppSettingsPage() {
           )}
         </div>
       )}
+
+
 
     </div>
   );
