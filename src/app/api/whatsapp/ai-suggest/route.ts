@@ -531,11 +531,19 @@ export async function POST(req: NextRequest) {
         );
         if (parseInt(purchaseCheck.rows[0]?.cnt || "0") > 0) hasPurchased = true;
 
-        const catalogText = await getCatalogText();
+        // EARLY intent classification to skip heavy loads for greetings/FAQs
+        const ragClientMsgEarly = messages.filter((m: any) => !m.is_bot).pop();
+        const clientQuestionEarly = ragClientMsgEarly?.mensaje || "";
+        const intentEarly = classifyIntent(clientQuestionEarly);
+        
+        // Only load full catalog for product queries and complex intents
+        const catalogText = (intentEarly === "product_query" || intentEarly === "complex") 
+          ? await getCatalogText() 
+          : "CATALOGO NO CARGADO - El cliente solo saluda o pregunta algo general. No necesitas info de productos.";
 
-        // Step 3: Search learned knowledge
+        // Step 3: Search learned knowledge (skip for greetings)
         const sources: string[] = [];
-        send("status", { step: "Buscando en respuestas aprendidas..." });
+        if (intentEarly !== "greeting") send("status", { step: "Buscando en respuestas aprendidas..." });
         const learnings = await pool.query(
           `SELECT ai_suggestion, final_message FROM ai_learning
            WHERE correction_type = 'modified'
@@ -564,12 +572,12 @@ export async function POST(req: NextRequest) {
             ).join("\n");
         }
 
-        // Step 4: Search historical chats
+        // Step 4: Search historical chats (skip for greetings/FAQs to save tokens)
         send("status", { step: "Buscando en histórico de chats..." });
         const lastClientMsg = messages.filter((m: any) => !m.is_bot).pop();
-        let historicalContext = "";
+        let historicalContext = ""; // Skipped for greetings and FAQs to save tokens
 
-        if (lastClientMsg) {
+        if (lastClientMsg && intentEarly !== "greeting" && intentEarly !== "faq") {
           const stopwords = new Set(["que","como","cual","donde","cuando","para","por","con","una","uno","los","las","del","pero","tiene","tienen","hay","ser","son","esta","esto","eso","esa","mas","muy","bien","hola","buenas","buenos","dias","tardes","noches","gracias","señor","señora","quiero","necesito","puede","puedo","favor"]);
           const keywords = lastClientMsg.mensaje
             .toLowerCase()
@@ -753,7 +761,7 @@ export async function POST(req: NextRequest) {
 
         send("status", { step: "Generando respuesta..." });
 
-        // Load custom AI rules from settings
+        // Load custom AI rules from settings (always load - they're small)
         let customRulesText = "";
         try {
           const rulesResult = await pool.query("SELECT value FROM settings WHERE key = 'ai_rules'");
@@ -766,11 +774,14 @@ export async function POST(req: NextRequest) {
           }
         } catch (e) { console.error("[AI Rules]", e); }
 
-        // Load relevant knowledge base articles via vector search (or fallback to all)
+        // Load relevant knowledge base articles (skip for greetings to save tokens)
         let knowledgeBaseText = "";
         try {
           let kbArticles: any[] = [];
-          if (clientQuestion && process.env.OPENAI_API_KEY) {
+          if (intentEarly === "greeting") {
+            // Greetings don't need KB - save ~2000 tokens
+            kbArticles = [];
+          } else if (clientQuestion && process.env.OPENAI_API_KEY) {
             // Vector search: find top 5 most relevant articles
             const { searchKB } = await import("@/lib/embeddings");
             kbArticles = await searchKB(clientQuestion, 5);
@@ -787,7 +798,17 @@ export async function POST(req: NextRequest) {
           }
         } catch (e) { console.error("[KB Load]", e); }
 
-        const systemPrompt = `${JORGE_STYLE}${customRulesText}${knowledgeBaseText}
+        // For greetings: minimal prompt (~2000 tokens instead of ~10000)
+        const systemPrompt = intentEarly === "greeting" 
+          ? `${JORGE_STYLE}${customRulesText}
+
+INFO DEL CLIENTE:
+- Nombre: ${contact?.nombre || "Desconocido"}
+- Nombre valido: ${isValidName(contact?.nombre || "") ? "SI - usa don/dona + nombre" : "NO - usa solo senor/senora, PROHIBIDO usar el nombre"}
+- Trato: ${detectGender(contact?.nombre || "")}
+
+INSTRUCCION: Responde al saludo brevemente como Jorge Cardozo. MAXIMO 1 oracion.`
+          : `${JORGE_STYLE}${customRulesText}${knowledgeBaseText}
 
 CATÁLOGO DE PRODUCTOS:
 ${productContext}
@@ -810,7 +831,7 @@ INSTRUCCION FINAL CRITICA (sigue esto al pie de la letra):
 2. Si el cliente muestra interes en un producto ("me interesa un impermeable", "quiero una chaqueta"), ofrece UN solo producto directo con precio y pregunta talla. NO digas "tenemos varios disponibles" ni "contamos con una linea de...". Ve DIRECTO al producto. Ejemplo: "Si senor, el impermeable Storm tiene un valor de 190mil pesos, chaqueta y pantalon. Que talla maneja?"
 3. MAXIMO 2 oraciones. PROHIBIDO listas con guiones. PROHIBIDO enumerar. PROHIBIDO frases introductorias como "tenemos varios", "contamos con", "le puedo ofrecer las siguientes opciones". Ve DIRECTO.
 4. Escribe como vendedor real en WhatsApp: corto, directo, sin relleno. Sin comillas, sin explicaciones, sin prefijos.
-REGLA CRÍTICA: Mira los mensajes del assistant en el historial. Si YA existe un mensaje tuyo anterior (cualquier mensaje de role assistant), ESTÁ PROHIBIDO saludar o presentarte de nuevo. NO escribas "Hola hablas con Jorge Cardozo" ni ningún saludo. Ve DIRECTO a responder la pregunta. Ejemplo correcto: "La chaqueta Black Pro tiene un valor de 390mil pesos". Ejemplo INCORRECTO: "Hola hablas con Jorge Cardozo La chaqueta Black Pro tiene un valor de 390mil pesos".`;
+REGLA CRÍTICA: Mira los mensajes del assistant en el historial. Si YA existe un mensaje tuyo anterior (cualquier mensaje de role assistant), ESTÁ PROHIBIDO saludar o presentarte de nuevo. NO escribas "Hola hablas con Jorge Cardozo" ni ningún saludo. Ve DIRECTO a responder la pregunta. Ejemplo correcto: "La chaqueta Black Pro tiene un valor de 390mil pesos". Ejemplo INCORRECTO: "Hola hablas con Jorge Cardozo La chaqueta Black Pro tiene un valor de 390mil pesos".`; // end of non-greeting prompt
 
         const response = await anthropic.messages.create({
           model: modelConfig.model as any,
