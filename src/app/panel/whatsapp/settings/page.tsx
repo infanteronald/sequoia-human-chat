@@ -1337,7 +1337,53 @@ export default function WhatsAppSettingsPage() {
       )}
       {/* Knowledge Base Tab */}
       {tab === "knowledge" && (
-        <div className="space-y-4">
+        <div className="space-y-6">
+          {/* ── Prompt del Asesor IA ── */}
+          <div className="bg-neutral-900/50 rounded-xl border border-neutral-800 p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-white">Prompt del Asesor IA</h3>
+                <p className="text-xs text-neutral-500 mt-1">Instrucciones base que la IA sigue en cada mensaje. Cambios en tiempo real, sin reiniciar.</p>
+              </div>
+              <button
+                disabled={jorgeStyleSaving}
+                onClick={async () => {
+                  setJorgeStyleSaving(true);
+                  setJorgeStyleMsg("");
+                  try {
+                    const res = await fetch("/api/sequoia-chat/settings/jorge-style", {
+                      method: "PUT",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ content: jorgeStyle }),
+                    });
+                    if (res.ok) setJorgeStyleMsg("Guardado correctamente");
+                    else setJorgeStyleMsg("Error al guardar");
+                  } catch { setJorgeStyleMsg("Error de conexion"); }
+                  setJorgeStyleSaving(false);
+                  setTimeout(() => setJorgeStyleMsg(""), 3000);
+                }}
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-neutral-700 text-white text-sm font-medium rounded-lg transition"
+              >
+                {jorgeStyleSaving ? "Guardando..." : "Guardar"}
+              </button>
+            </div>
+            {jorgeStyleMsg && (
+              <p className={`text-sm ${jorgeStyleMsg.includes("Error") ? "text-red-400" : "text-green-400"}`}>{jorgeStyleMsg}</p>
+            )}
+            <textarea
+              value={jorgeStyle}
+              onChange={e => setJorgeStyle(e.target.value)}
+              rows={30}
+              className="w-full bg-neutral-950 text-neutral-200 text-sm font-mono leading-relaxed p-4 rounded-lg border border-neutral-800 resize-y focus:outline-none focus:border-neutral-600 placeholder-neutral-600"
+              placeholder="Cargando prompt..."
+              spellCheck={false}
+            />
+            <p className="text-xs text-neutral-600">
+              {jorgeStyle.length.toLocaleString()} caracteres · ~{Math.round(jorgeStyle.length / 4).toLocaleString()} tokens aprox.
+            </p>
+          </div>
+
+          {/* ── Base de Conocimiento ── */}
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-lg font-semibold text-white">Base de Conocimiento</h3>
