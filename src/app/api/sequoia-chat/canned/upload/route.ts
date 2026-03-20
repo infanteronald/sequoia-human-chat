@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { writeFile, mkdir, unlink } from "fs/promises";
-import { exec } from "child_process";
+import { execFile } from "child_process";
 import { promisify } from "util";
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 import path from "path";
 
 export const runtime = "nodejs";
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         const webmPath = path.join(uploadDir, filename);
         const oggPath = path.join(uploadDir, oggFilename);
         try {
-          await execAsync(`ffmpeg -i "${webmPath}" -c:a libopus -b:a 48k "${oggPath}" -y`);
+          await execFileAsync("ffmpeg", ["-i", webmPath, "-c:a", "libopus", "-b:a", "48k", oggPath, "-y"]);
           await unlink(webmPath).catch(() => {});
           results.push({ url: `/uploads/canned/${oggFilename}`, type: "audio", name: file.name.replace(".webm", ".ogg") });
         } catch (e) {

@@ -6,10 +6,14 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const period = searchParams.get("period") || "7d";
   
-  let interval = "7 days";
-  if (period === "30d") interval = "30 days";
-  if (period === "90d") interval = "90 days";
-  if (period === "today") interval = "1 day";
+  // Allowlist to prevent SQL injection
+  const ALLOWED_INTERVALS: Record<string, string> = {
+    "7d": "7 days",
+    "30d": "30 days",
+    "90d": "90 days",
+    "today": "1 day",
+  };
+  const interval = ALLOWED_INTERVALS[period] || "7 days";
 
   try {
     // Overview stats

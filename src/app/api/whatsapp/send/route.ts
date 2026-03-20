@@ -144,6 +144,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, messageId: waMessageId });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[whatsapp-send]", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/sequoia-chat-db";
 import { analyzeSentiment } from "@/lib/sentiment";
@@ -39,7 +40,10 @@ async function processAutoAI(sessionId: string) {
     
     const res = await fetch("http://localhost:3001/api/whatsapp/ai-suggest", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "x-internal-secret": process.env.INTERNAL_API_SECRET || "",
+      },
       body: JSON.stringify({ sessionId }),
     });
 
@@ -107,7 +111,7 @@ async function processAutoAI(sessionId: string) {
   }
 }
 
-const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || "sequoia_whatsapp_verify_2026";
+const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || "";
 const PHONE_ID = process.env.WHATSAPP_PHONE_NUMBER_ID;
 const ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN;
 
@@ -244,7 +248,17 @@ async function sendWhatsApp(to: string, text: string) {
 // POST - Receive incoming messages
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rawBody = await req.text();
+    const APP_SECRET = process.env.WHATSAPP_APP_SECRET;
+    if (APP_SECRET) {
+      const signature = req.headers.get("x-hub-signature-256");
+      const expectedSig = "sha256=" + crypto.createHmac("sha256", APP_SECRET).update(rawBody).digest("hex");
+      if (signature !== expectedSig) {
+        console.warn("[Webhook] Invalid signature");
+        return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+      }
+    }
+    const body = JSON.parse(rawBody);
     const entry = body?.entry?.[0];
     const changes = entry?.changes?.[0];
     const value = changes?.value;
@@ -489,6 +503,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ status: "ok" });
   } catch (error: any) {
     console.error("[WA Webhook Error]", error);
-    return NextResponse.json({ status: "error", message: error.message });
+    return NextResponse.json({ status: "error", message: "Internal server error" });
   }
 }

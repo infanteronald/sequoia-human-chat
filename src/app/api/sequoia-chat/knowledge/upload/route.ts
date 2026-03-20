@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/sequoia-chat-db";
 import { writeFile, unlink, mkdir } from "fs/promises";
-import { exec } from "child_process";
+import { execFile } from "child_process";
 import { promisify } from "util";
 import path from "path";
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     try {
       if (ext === "pdf") {
         // Use pdftotext (poppler-utils) for PDF extraction
-        const { stdout } = await execAsync(`pdftotext "${tmpFile}" - 2>/dev/null`);
+        const { stdout } = await execFileAsync("pdftotext", [tmpFile, "-"]);
         extractedText = stdout;
       } else if (ext === "docx") {
         // Use mammoth for DOCX

@@ -109,7 +109,8 @@ export async function GET(req: NextRequest) {
       statusCounts: counts,
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[sequoia-chat GET]", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
@@ -131,7 +132,8 @@ export async function POST(req: NextRequest) {
     );
     return NextResponse.json(result.rows[0]);
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[sequoia-chat POST]", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
@@ -181,6 +183,7 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json(result.rows[0]);
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[sequoia-chat PATCH]", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

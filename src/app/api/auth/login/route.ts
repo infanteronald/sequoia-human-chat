@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     response.cookies.set("session-token", sessionToken, {
       httpOnly: true,
-      secure: false, // Cloudflare handles SSL termination
+      secure: true,
       sameSite: "lax",
       expires,
       path: "/",

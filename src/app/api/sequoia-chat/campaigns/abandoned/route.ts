@@ -5,7 +5,9 @@ import pool from "@/lib/sequoia-chat-db";
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const days = parseInt(searchParams.get("days") || "7");
+    const daysRaw = parseInt(searchParams.get("days") || "7");
+    // Clamp days to safe range to prevent SQL injection
+    const days = Math.max(1, Math.min(daysRaw, 365));
 
     // Find contacts who:
     // 1. Had AI conversations about products in the last N days

@@ -48,7 +48,10 @@ async function getAIResponse(sessionId: string, extraPrompt?: string): Promise<s
   try {
     const res = await fetch("http://localhost:3001/api/whatsapp/ai-suggest", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "x-internal-secret": process.env.INTERNAL_API_SECRET || "",
+      },
       body: JSON.stringify({ sessionId, extraPrompt }),
     });
     if (!res.ok) return "";

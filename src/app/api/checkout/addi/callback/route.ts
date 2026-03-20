@@ -27,6 +27,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
+    // Verify the amount matches to prevent tampering
+    if (approvedAmount !== undefined && approvedAmount !== null) {
+      const orderTotal = Number(order.total);
+      const callbackAmount = Number(approvedAmount);
+      if (Math.abs(orderTotal - callbackAmount) > 1) {
+        console.error("Addi callback: amount mismatch. Order:", orderTotal, "Callback:", callbackAmount);
+        return NextResponse.json({ error: "Amount mismatch" }, { status: 400 });
+      }
+    }
+
     // Map Addi status to our status
     const statusMap: Record<string, string> = {
       APPROVED: "APPROVED",

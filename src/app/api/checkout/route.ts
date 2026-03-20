@@ -20,8 +20,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Método de pago no disponible" }, { status: 400 });
     }
 
+    // Server-side price lookup to prevent price manipulation
+    const productIds = items.map((item: { id: string }) => item.id);
+    const products = await prisma.product.findMany({
+      where: { id: { in: productIds } },
+      select: { id: true, price: true },
+    });
+    const priceMap = new Map(products.map((p: { id: string; price: any }) => [p.id, Number(p.price)]));
+
+    // Validate all products exist
+    for (const item of items) {
+      if (!priceMap.has(item.id)) {
+        return NextResponse.json({ error: "Producto no encontrado: " + item.id }, { status: 400 });
+      }
+    }
+
     const subtotal = items.reduce(
-      (sum: number, item: { price: number; quantity: number }) => sum + item.price * item.quantity,
+      (sum: number, item: { id: string; price: number; quantity: number }) => sum + (priceMap.get(item.id) || 0) * item.quantity,
       0
     );
 

@@ -4,7 +4,7 @@ import pool from "@/lib/sequoia-chat-db";
 export async function POST(req: NextRequest) {
   try {
     const { type, data, secret } = await req.json();
-    if (secret !== "sequoia_import_2026") {
+    if (secret !== process.env.IMPORT_SECRET) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

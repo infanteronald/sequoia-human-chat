@@ -1,7 +1,8 @@
+import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/sequoia-chat-db";
 
-const VERIFY_TOKEN = process.env.META_VERIFY_TOKEN || process.env.WHATSAPP_VERIFY_TOKEN || "sequoia_whatsapp_verify_2026";
+const VERIFY_TOKEN = process.env.META_VERIFY_TOKEN || process.env.WHATSAPP_VERIFY_TOKEN || "";
 const PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || "";
 const IG_ACCESS_TOKEN = process.env.IG_ACCESS_TOKEN || "";
 
@@ -20,7 +21,17 @@ export async function GET(req: NextRequest) {
 // POST - Receive messages from Instagram/Facebook Messenger
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rawBody = await req.text();
+    const APP_SECRET = process.env.WHATSAPP_APP_SECRET || process.env.FB_APP_SECRET;
+    if (APP_SECRET) {
+      const signature = req.headers.get("x-hub-signature-256");
+      const expectedSig = "sha256=" + crypto.createHmac("sha256", APP_SECRET).update(rawBody).digest("hex");
+      if (signature !== expectedSig) {
+        console.warn("[Meta Channels] Invalid signature");
+        return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+      }
+    }
+    const body = JSON.parse(rawBody);
     const entry = body?.entry?.[0];
     if (!entry) return NextResponse.json({ status: "ok" });
 
@@ -53,7 +64,10 @@ export async function POST(req: NextRequest) {
         try {
           const aiRes = await fetch(`http://localhost:3001/api/whatsapp/ai-suggest`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+              "Content-Type": "application/json",
+              "x-internal-secret": process.env.INTERNAL_API_SECRET || "",
+            },
             body: JSON.stringify({ sessionId: `${channel}_${senderId}` }),
           });
           const text = await aiRes.text();
