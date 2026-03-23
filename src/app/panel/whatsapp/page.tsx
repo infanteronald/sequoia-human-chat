@@ -190,6 +190,7 @@ interface Message {
   fecha_creacion: string;
   status: number;
   private: boolean;
+  metadata?: { raw?: { referral?: { headline?: string; body?: string; source_url?: string; image_url?: string; thumbnail_url?: string; media_type?: string } } };
 }
 
 interface MediaItem {
@@ -1971,6 +1972,18 @@ export default function WhatsAppPage() {
                                 {msg.private && <p className="text-[10px] text-yellow-500 font-medium mb-1">📌 Nota interna</p>}
                                 {msg.is_bot && msg.nombre_agente && !msg.private && (
                                   <p className={`text-[10px] ${getAgentColor(msg.nombre_agente).text} font-medium mb-1`}>{msg.nombre_agente}</p>
+                                )}
+                                {/* Referral card from Meta ad */}
+                                {!msg.is_bot && msg.metadata?.raw?.referral?.headline && (
+                                  <div className="mb-2 rounded-lg overflow-hidden border border-blue-800/30 bg-blue-950/20">
+                                    {(msg.metadata.raw.referral.image_url || msg.metadata.raw.referral.thumbnail_url) && (
+                                      <img src={msg.metadata.raw.referral.image_url || msg.metadata.raw.referral.thumbnail_url} alt="" className="w-full h-20 object-cover" />
+                                    )}
+                                    <div className="px-2.5 py-1.5">
+                                      <p className="text-[10px] text-blue-400 font-medium">Anuncio Meta</p>
+                                      <p className="text-xs text-white font-medium">{msg.metadata.raw.referral.headline}</p>
+                                    </div>
+                                  </div>
                                 )}
                                 {msg.tipo_archivo && msg.ruta_archivo && (() => {
                                   // Resolve media URL: if it's a numeric Meta media ID, use proxy; otherwise use direct URL
