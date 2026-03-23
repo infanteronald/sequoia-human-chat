@@ -413,6 +413,26 @@ export async function POST(req: NextRequest) {
           }
         }
 
+        // Extract referral data from CTWA (Click-to-WhatsApp) ads
+        const referral = msg.referral;
+        if (referral) {
+          const referralData = {
+            headline: referral.headline || null,
+            body: referral.body || null,
+            source_url: referral.source_url || null,
+            source_type: referral.source_type || null,
+            source_id: referral.source_id || null,
+            image_url: referral.image_url || referral.thumbnail_url || null,
+            media_type: referral.media_type || null,
+            ctwa_clid: referral.ctwa_clid || null,
+          };
+          await pool.query(
+            "UPDATE contacts SET referral = $1 WHERE session_id = $2",
+            [JSON.stringify(referralData), from]
+          );
+          console.log(`[CTWA] Ad referral for ${from}: "${referral.headline}" from ${referral.source_type}`);
+        }
+
         // Save message
         await pool.query(
           `INSERT INTO messages (mensaje_id, session_id, mensaje, is_bot, tipo_archivo, ruta_archivo, fecha_creacion, wa_message_id, status, metadata)

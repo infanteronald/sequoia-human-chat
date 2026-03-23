@@ -445,7 +445,7 @@ export async function POST(req: NextRequest) {
 
         // Step 2: Load contact + catalog
         const contactResult = await pool.query(
-          "SELECT nombre, telefono, ciudad, pais FROM contacts WHERE session_id = $1",
+          "SELECT nombre, telefono, ciudad, pais, referral FROM contacts WHERE session_id = $1",
           [sessionId]
         );
         const contact = contactResult.rows[0];
@@ -831,6 +831,9 @@ ${conversationSummary ? "RESUMEN CONVERSACION ANTERIOR:\n" + conversationSummary
 - Trato: ${detectGender(contact?.nombre || "")}
 - Teléfono: ${contact?.telefono || sessionId}
 - Ciudad: ${contact?.ciudad || "No especificada"}
+${contact?.referral ? `- VIENE DE ANUNCIO META: "${contact.referral.headline || ''}"
+- Producto del anuncio: ${(contact.referral.body || '').substring(0, 200)}
+- INSTRUCCION: El cliente viene de un anuncio de ${contact.referral.headline}. Si su mensaje es generico ("precio", "informacion"), responde sobre ESE producto especifico del anuncio.` : ''}
 - Hora actual Colombia: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota", hour: "2-digit", minute: "2-digit", hour12: false })}
 ${learningContext}
 ${knowledgeContext}

@@ -157,6 +157,7 @@ interface Contact {
   keepalive_count?: number;
   followup_next_at?: string | null;
   followup_product?: string | null;
+  referral?: { headline?: string; body?: string; source_url?: string; source_type?: string; image_url?: string; media_type?: string } | null;
   labels?: Label[];
 }
 
@@ -2747,6 +2748,26 @@ export default function WhatsAppPage() {
                       </div>
                     ))}
                   </div>
+
+                  {/* Referral (from Meta ad) */}
+                  {selectedContact.referral && selectedContact.referral.headline && (
+                    <div className={`mt-4 p-3 rounded-lg border border-blue-800/40 bg-blue-950/30`}>
+                      <p className="text-[10px] text-blue-400 uppercase font-medium mb-2">Viene de anuncio Meta</p>
+                      {selectedContact.referral.image_url && (
+                        <img src={selectedContact.referral.image_url} alt="" className="w-full h-24 object-cover rounded-md mb-2" />
+                      )}
+                      <p className="text-sm text-white font-medium">{selectedContact.referral.headline}</p>
+                      {selectedContact.referral.body && (
+                        <p className={`text-xs ${t.textMuted} mt-1 line-clamp-3`}>{selectedContact.referral.body.substring(0, 150)}...</p>
+                      )}
+                      {selectedContact.referral.source_url && (
+                        <a href={selectedContact.referral.source_url} target="_blank" rel="noopener"
+                          className="text-[10px] text-blue-400 hover:text-blue-300 mt-2 block truncate">
+                          {selectedContact.referral.source_url}
+                        </a>
+                      )}
+                    </div>
+                  )}
 
                   <div className={`mt-6 pt-4 border-t ${t.sidebarBorder}`}>
                     <a href={`https://wa.me/${selectedContact.session_id}`} target="_blank" rel="noopener"
