@@ -740,15 +740,39 @@ export async function POST(req: NextRequest) {
           }
         }
 
+        // Inject referral context into first user message so AI knows which product the client is asking about
+        if (contact?.referral?.headline && merged.length > 0) {
+          const firstUserIdx = merged.findIndex(m => m.role === "user");
+          if (firstUserIdx !== -1) {
+            const firstMsg = merged[firstUserIdx];
+            const refPrefix = `[El cliente llegó por un anuncio de Meta del producto: "${contact.referral.headline}"]\n`;
+            if (typeof firstMsg.content === "string") {
+              if (!firstMsg.content.includes("[El cliente llegó por un anuncio")) {
+                firstMsg.content = refPrefix + firstMsg.content;
+              }
+            } else if (Array.isArray(firstMsg.content)) {
+              const firstText = firstMsg.content.find((b: any) => b.type === "text");
+              if (firstText && !firstText.text.includes("[El cliente llegó por un anuncio")) {
+                firstText.text = refPrefix + firstText.text;
+              }
+            }
+          }
+        }
+
         // Step 6: Generate with Claude
         // RAG: Get relevant products instead of full catalog
         const ragClientMsg = messages.filter((m: any) => !m.is_bot).pop();
         const clientQuestion = ragClientMsg?.mensaje || "";
         let productContext = catalogText; // fallback to full catalog
         
-        if (clientQuestion && isProductRelated(clientQuestion)) {
+        // Use referral headline for search when client message is generic (from ads)
+        const searchQuery = (contact?.referral?.headline && !isProductRelated(clientQuestion))
+          ? contact.referral.headline  // "Nueva Chaqueta Black Pro" → search catalog for this
+          : clientQuestion;
+        
+        if (searchQuery && (isProductRelated(searchQuery) || contact?.referral?.headline)) {
           try {
-            const relevantProducts = await searchProducts(clientQuestion, 5);
+            const relevantProducts = await searchProducts(searchQuery, 5);
             if (relevantProducts.length > 0) {
               productContext = formatProductsForPrompt(relevantProducts);
             }
@@ -832,8 +856,7 @@ ${conversationSummary ? "RESUMEN CONVERSACION ANTERIOR:\n" + conversationSummary
 - Teléfono: ${contact?.telefono || sessionId}
 - Ciudad: ${contact?.ciudad || "No especificada"}
 ${contact?.referral ? `- VIENE DE ANUNCIO META: "${contact.referral.headline || ''}"
-- Producto del anuncio: ${(contact.referral.body || '').substring(0, 200)}
-- INSTRUCCION: El cliente viene de un anuncio de ${contact.referral.headline}. Si su mensaje es generico ("precio", "informacion"), responde sobre ESE producto especifico del anuncio.` : ''}
+- Producto del anuncio: ${(contact.referral.body || '').substring(0, 200)}` : ''}
 - Hora actual Colombia: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota", hour: "2-digit", minute: "2-digit", hour12: false })}
 ${learningContext}
 ${knowledgeContext}
@@ -842,7 +865,8 @@ ${historicalContext}
 STICKERS/GIFS: Si el ultimo mensaje del cliente es un sticker, GIF o reaccion, NO respondas nada sobre stickers. Simplemente ignóralos y NO generes respuesta (responde con texto vacio). Los stickers son normales en WhatsApp, no hace falta comentar que no puedes verlos.
 
 INSTRUCCION FINAL CRITICA (sigue esto al pie de la letra):
-1. Si el cliente pregunta por un TIPO de producto ("tienen impermeables?", "venden chaquetas?", "pantalones de moto?") sin decir cual quiere ni presupuesto, responde SOLO: "Si senor, busca algun estilo en particular?" y NADA MAS.
+0. REGLA MAXIMA - ANUNCIOS META: Si en INFO DEL CLIENTE aparece "VIENE DE ANUNCIO META", el cliente llego por un anuncio de un producto ESPECIFICO. Cuando su mensaje sea generico ("precio", "informacion", "cuanto vale", "q precio tiene"), responde con el precio DIRECTO del producto mencionado en el anuncio. NUNCA preguntes "busca algun estilo en particular?" a un cliente que viene de un anuncio — el YA eligio producto. Busca el producto del headline del anuncio en el CATALOGO y da precio + pregunta talla.
+1. Si el cliente pregunta por un TIPO de producto ("tienen impermeables?", "venden chaquetas?", "pantalones de moto?") sin decir cual quiere ni presupuesto Y NO viene de un anuncio, responde SOLO: "Si senor, busca algun estilo en particular?" y NADA MAS.
 2. Si el cliente muestra interes en un producto ("me interesa un impermeable", "quiero una chaqueta"), ofrece UN solo producto directo con precio y pregunta talla. NO digas "tenemos varios disponibles" ni "contamos con una linea de...". Ve DIRECTO al producto. Ejemplo: "Si senor, el impermeable Storm tiene un valor de 190mil pesos, chaqueta y pantalon. Que talla maneja?"
 3. MAXIMO 2 oraciones. PROHIBIDO listas con guiones. PROHIBIDO enumerar. PROHIBIDO frases introductorias como "tenemos varios", "contamos con", "le puedo ofrecer las siguientes opciones". Ve DIRECTO.
 4. Escribe como vendedor real en WhatsApp: corto, directo, sin relleno. Sin comillas, sin explicaciones, sin prefijos.
