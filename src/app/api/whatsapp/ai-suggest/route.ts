@@ -740,20 +740,42 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        // Inject referral context into first user message so AI knows which product the client is asking about
+        // Inject referral context + image into first user message so AI knows which product
         if (contact?.referral?.headline && merged.length > 0) {
           const firstUserIdx = merged.findIndex(m => m.role === "user");
           if (firstUserIdx !== -1) {
             const firstMsg = merged[firstUserIdx];
-            const refPrefix = `[El cliente llegó por un anuncio de Meta del producto: "${contact.referral.headline}"]\n`;
+            const refPrefix = `[El cliente llegó por un anuncio de Meta del producto: "${contact.referral.headline}". IDENTIFICA el producto de la imagen del anuncio y responde con su precio del catálogo.]\n`;
+            
+            // Download referral image (thumbnail) for vision identification
+            const refImageUrl = contact.referral.image_url || contact.referral.thumbnail_url;
+            let refImageBlock: ContentBlock | null = null;
+            if (refImageUrl) {
+              try {
+                const imgRes = await fetch(refImageUrl, { signal: AbortSignal.timeout(5000) });
+                if (imgRes.ok) {
+                  const buf = Buffer.from(await imgRes.arrayBuffer());
+                  const mime = imgRes.headers.get("content-type") || "image/jpeg";
+                  const validMime = (mime.startsWith("image/") ? mime : "image/jpeg") as "image/jpeg" | "image/png" | "image/gif" | "image/webp";
+                  refImageBlock = { type: "image", source: { type: "base64", media_type: validMime, data: buf.toString("base64") } };
+                  console.log("[Referral Vision] Downloaded ad image:", buf.length, "bytes");
+                }
+              } catch (e) { console.error("[Referral Vision] Failed to download:", e); }
+            }
+
+            // Convert first message to multimodal blocks with image
             if (typeof firstMsg.content === "string") {
               if (!firstMsg.content.includes("[El cliente llegó por un anuncio")) {
-                firstMsg.content = refPrefix + firstMsg.content;
+                const blocks: ContentBlock[] = [];
+                if (refImageBlock) blocks.push(refImageBlock);
+                blocks.push({ type: "text", text: refPrefix + firstMsg.content });
+                firstMsg.content = blocks;
               }
             } else if (Array.isArray(firstMsg.content)) {
               const firstText = firstMsg.content.find((b: any) => b.type === "text");
               if (firstText && !firstText.text.includes("[El cliente llegó por un anuncio")) {
                 firstText.text = refPrefix + firstText.text;
+                if (refImageBlock) firstMsg.content.unshift(refImageBlock);
               }
             }
           }
