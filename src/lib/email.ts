@@ -168,7 +168,7 @@ export function orderConfirmationEmail(data: OrderEmailData) {
 
     <!-- CTA -->
     <div style="text-align:center;margin-top:28px;">
-      <a href="${STORE_URL}/mis-pedidos" style="display:inline-block;padding:12px 32px;background-color:${PRIMARY_COLOR};color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;letter-spacing:0.5px;">VER MI PEDIDO</a>
+      <a href="${STORE_URL}/mi-cuenta/pedidos" style="display:inline-block;padding:12px 32px;background-color:${PRIMARY_COLOR};color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;letter-spacing:0.5px;">VER MI PEDIDO</a>
     </div>
   `;
 
@@ -198,7 +198,7 @@ export function paymentConfirmedEmail(data: { orderNumber: string; customerName:
     </p>
 
     <div style="text-align:center;margin-top:28px;">
-      <a href="${STORE_URL}/mis-pedidos" style="display:inline-block;padding:12px 32px;background-color:${PRIMARY_COLOR};color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;">VER MI PEDIDO</a>
+      <a href="${STORE_URL}/mi-cuenta/pedidos" style="display:inline-block;padding:12px 32px;background-color:${PRIMARY_COLOR};color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;">VER MI PEDIDO</a>
     </div>
   `;
 
@@ -235,7 +235,7 @@ export function orderShippedEmail(data: { orderNumber: string; customerName: str
     </p>
 
     <div style="text-align:center;margin-top:28px;">
-      <a href="${STORE_URL}/mis-pedidos" style="display:inline-block;padding:12px 32px;background-color:${PRIMARY_COLOR};color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;">RASTREAR MI PEDIDO</a>
+      <a href="${STORE_URL}/mi-cuenta/pedidos" style="display:inline-block;padding:12px 32px;background-color:${PRIMARY_COLOR};color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:700;">RASTREAR MI PEDIDO</a>
     </div>
   `;
 
