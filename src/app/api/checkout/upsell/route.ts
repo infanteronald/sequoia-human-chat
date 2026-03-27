@@ -30,8 +30,8 @@ export async function GET(req: NextRequest) {
       take: 20,
     });
 
-    // Shuffle and take 3
-    const shuffled = products.sort(() => Math.random() - 0.5).slice(0, 3);
+    // Shuffle and take 4
+    const shuffled = products.sort(() => Math.random() - 0.5).slice(0, 4);
     const formatted = shuffled.map((p) => ({
       id: p.id,
       name: p.name,

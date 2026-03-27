@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 
 const messages = [
   "Envío a toda Colombia — Bogotá 1-2 días",
-  "Cambios de talla gratis en los primeros 15 días",
+  "Pago contra entrega disponible",
   "Pago contra entrega disponible",
 ];
 

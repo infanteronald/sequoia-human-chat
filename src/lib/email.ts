@@ -325,6 +325,7 @@ export async function sendEmail(to: string, subject: string, html: string) {
   }
 }
 
+
 /* ═══ CONVENIENCE FUNCTIONS ═══ */
 export async function sendOrderConfirmation(email: string, data: OrderEmailData) {
   const { subject, html } = orderConfirmationEmail(data);

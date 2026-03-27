@@ -935,7 +935,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
         </div>
 
         {/* ══════════ RIGHT: Product Info ══════════ */}
-        <div className="space-y-5">
+        <div className="space-y-5 md:sticky md:top-20 md:self-start">
           {/* Title */}
           <div>
             {product.reference && (
@@ -966,6 +966,11 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
                   AHORRAS {formatPrice(savings.saved)} ({savings.percent}%)
                 </span>
               </div>
+            )}
+            {product.price >= 100000 && (
+              <p className="text-xs text-green-400 mt-1">
+                💳 Desde {formatPrice(Math.ceil(product.price / 12))}/mes con Addi — Sin tarjeta
+              </p>
             )}
           </div>
 
@@ -1026,15 +1031,10 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
             </div>
           )}
 
-          {product.humanDescription && (
-            <div className="bg-neutral-800/30 rounded-xl p-4 border-l-2 border-primary">
-              <h3 className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">En pocas palabras</h3>
-              <p className="text-sm text-neutral-200 leading-relaxed italic">"{product.humanDescription}"</p>
-            </div>
-          )}
+          {/* En pocas palabras - removed for brevity */}
 
           {product.shortDescription && (
-            <div className="text-neutral-400 text-sm leading-relaxed prose prose-invert prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: product.shortDescription }} />
+            <div className="text-neutral-400 text-sm leading-relaxed prose prose-invert prose-sm max-w-none [&_*]:!bg-transparent [&_span]:!text-neutral-400" dangerouslySetInnerHTML={{ __html: product.shortDescription }} />
           )}
 
           {/* Variants */}
@@ -1207,7 +1207,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
 
             {/* Microcopy */}
             <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-400">
-              <span className="flex items-center gap-1"><CheckIcon /> Cambios de talla gratis</span>
+              <span className="flex items-center gap-1"><CheckIcon /> Garantía de fábrica</span>
               <span className="flex items-center gap-1"><CheckIcon /> Envíos a todo Colombia</span>
               <span className="flex items-center gap-1"><CheckIcon /> Pago contra entrega</span>
               <span className="flex items-center gap-1"><CheckIcon /> Garantía de fábrica</span>
@@ -1238,18 +1238,18 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
           )}
 
           {/* ── Materials & Features Visual Block ── */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-neutral-800/40 rounded-xl p-4 text-center space-y-2">
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-neutral-800/40 rounded-lg p-3 text-center space-y-1">
               <ShieldIcon />
               <p className="text-xs font-medium text-white">Protecciones CE</p>
               <p className="text-[11px] text-neutral-400">Certificadas removibles</p>
             </div>
-            <div className="bg-neutral-800/40 rounded-xl p-4 text-center space-y-2">
+            <div className="bg-neutral-800/40 rounded-lg p-3 text-center space-y-1">
               <DropIcon />
               <p className="text-xs font-medium text-white">Costuras selladas</p>
               <p className="text-[11px] text-neutral-400">Impermeabilidad real</p>
             </div>
-            <div className="bg-neutral-800/40 rounded-xl p-4 text-center space-y-2">
+            <div className="bg-neutral-800/40 rounded-lg p-3 text-center space-y-1">
               <FabricIcon />
               <p className="text-xs font-medium text-white">Alta resistencia</p>
               <p className="text-[11px] text-neutral-400">Lona antifricción</p>
@@ -1281,7 +1281,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
           )}
 
           {product.crashProtection && (
-            <div className="bg-gradient-to-br from-amber-500/5 to-red-500/5 border border-amber-500/20 rounded-xl p-5 space-y-3">
+            <div className="bg-gradient-to-br from-amber-500/5 to-red-500/5 border border-amber-500/20 rounded-xl p-4 space-y-2">
               <div className="flex items-center gap-2">
                 <HeroIcon name="shield-solid" className="w-6 h-6 text-green-500" />
                 <h3 className="text-base font-bold text-white">{product.crashProtection.title}</h3>
@@ -1375,7 +1375,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
             <div className="border-t border-neutral-800 pt-5">
               <h3 className="font-heading text-xl mb-3">DESCRIPCIÓN</h3>
               <div
-                className="text-sm text-neutral-300 space-y-2 prose prose-invert prose-sm max-w-none"
+                className="text-sm text-neutral-300 space-y-2 prose prose-invert prose-sm max-w-none [&_*]:!bg-transparent [&_*]:!color-inherit [&_*]:!font-family-inherit [&_span]:!text-neutral-300 [&_p]:!text-neutral-300"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
             </div>
@@ -1417,7 +1417,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
                     <li><strong>Bogotá:</strong> Entrega en 1–2 días hábiles</li>
                     <li><strong>Otras ciudades:</strong> 2–4 días hábiles</li>
                     <li><strong>Envío gratis</strong> en compras superiores a $300.000</li>
-                    <li><strong>Cambios de talla:</strong> Gratis dentro de los primeros 15 días</li>
+                    <li><strong>Garantía:</strong> Garantía de fábrica en todos los productos</li>
                     <li><strong>Devoluciones:</strong> Aceptamos devoluciones en los primeros 30 días</li>
                   </ul>
                 `,
@@ -1442,7 +1442,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
                     </div>
                     <div>
                       <p class="font-medium text-white">¿Puedo cambiar de talla?</p>
-                      <p>Sí, ofrecemos cambios de talla gratuitos dentro de los primeros 15 días.</p>
+                      <p>Todos nuestros productos incluyen garantía de fábrica.</p>
                     </div>
                   </div>
                 `,
@@ -1467,7 +1467,7 @@ export function ProductDetail({ product, questions = [], relatedProducts = [], c
             {[
               "Pago seguro con encriptación SSL",
               "Garantía de fábrica en todos los productos",
-              "Cambios de talla sin costo",
+              "Garantía de fábrica",
               "Envíos a toda Colombia",
             ].map((text, i) => (
               <div key={i} className="flex items-center gap-2 text-sm text-neutral-300">

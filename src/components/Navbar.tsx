@@ -53,7 +53,7 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="/mi-cuenta"
+              href="/login"
               className="text-neutral-300 hover:text-white transition"
               aria-label="Mi cuenta"
             >

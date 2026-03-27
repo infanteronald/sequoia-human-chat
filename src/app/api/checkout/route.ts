@@ -96,7 +96,23 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const orderNumber = `SS-${Date.now().toString(36).toUpperCase()}`;
+    // Sequential order number (Shopify style)
+    const lastOrder = await prisma.order.findFirst({
+      orderBy: { createdAt: "desc" },
+      select: { orderNumber: true },
+    });
+    let nextNum = 1001;
+    if (lastOrder?.orderNumber) {
+      const match = lastOrder.orderNumber.match(/^(\d+)$/);
+      if (match) {
+        nextNum = parseInt(match[1], 10) + 1;
+      } else {
+        // Legacy format: count existing orders + 1001
+        const count = await prisma.order.count();
+        nextNum = count + 1;
+      }
+    }
+    const orderNumber = String(nextNum);
 
     // Map checkout method id to PaymentMethod enum
     const methodMap: Record<string, string> = {

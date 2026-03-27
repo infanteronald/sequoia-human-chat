@@ -134,7 +134,7 @@ const nextConfig: NextConfig = {
       // ============================================================
       { source: '/sequoia-speed-colombia-indumentaria-para-moto', destination: '/', permanent: true },
       { source: '/inicio', destination: '/', permanent: true },
-      { source: '/mi-cuenta', destination: '/', permanent: true },
+      // { source: '/mi-cuenta', destination: '/', permanent: true }, // REMOVED - breaks login redirect
       { source: '/tienda', destination: '/', permanent: true },
       { source: '/mapa-del-sitio', destination: '/', permanent: true },
       { source: '/contactenos', destination: '/contacto', permanent: true },
