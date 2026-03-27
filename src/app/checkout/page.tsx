@@ -249,7 +249,8 @@ export default function CheckoutPage() {
             });
             const boldData = await boldRes.json();
             if (boldData.orderId) {
-              dispatch({ type: "CLEAR" }); localStorage.removeItem("checkout-form");
+              // Don't clear cart yet - only clear after confirmed payment
+              localStorage.setItem("pending-order", data.orderNumber);
               const script = document.createElement("script");
               script.src = "https://checkout.bold.co/library/boldPaymentButton.js";
               const boldTimeout = setTimeout(() => { alert("Error cargando Bold. Serás redirigido."); window.location.href = "/checkout/confirmacion?order=" + data.orderNumber + "&method=bold&total=" + total; }, 10000);
@@ -257,7 +258,25 @@ export default function CheckoutPage() {
               script.onload = () => {
                 clearTimeout(boldTimeout);
                 try {
-                  const checkout = new (window as any).BoldCheckout({ orderId: boldData.orderId, currency: boldData.currency, amount: boldData.amount, apiKey: boldData.apiKey, integritySignature: boldData.integritySignature, description: boldData.description, redirectionUrl: boldData.redirectionUrl, renderMode: "embedded" });
+                  const checkout = new (window as any).BoldCheckout({
+                    orderId: boldData.orderId,
+                    currency: boldData.currency,
+                    amount: boldData.amount,
+                    apiKey: boldData.apiKey,
+                    integritySignature: boldData.integritySignature,
+                    description: boldData.description,
+                    redirectionUrl: boldData.redirectionUrl,
+                    renderMode: "embedded",
+                  });
+                  // Listen for Bold window close (rejected/cancelled)
+                  const checkBoldClosed = setInterval(() => {
+                    const boldFrame = document.querySelector("iframe[src*='bold']");
+                    if (!boldFrame && !window.location.href.includes("bold-resultado")) {
+                      clearInterval(checkBoldClosed);
+                      alert("El pago no se completó. Tu carrito se conserva para que puedas intentar de nuevo.");
+                      setLoading(false);
+                    }
+                  }, 1000);
                   checkout.open();
                 } catch (sdkErr) { console.error("BoldCheckout SDK error:", sdkErr); window.location.href = "/checkout/confirmacion?order=" + data.orderNumber + "&method=bold&total=" + total; }
               };
