@@ -269,14 +269,17 @@ export default function CheckoutPage() {
                     renderMode: "embedded",
                   });
                   // Listen for Bold window close (rejected/cancelled)
+                  let boldWasOpen = false;
                   const checkBoldClosed = setInterval(() => {
-                    const boldFrame = document.querySelector("iframe[src*='bold']");
-                    if (!boldFrame && !window.location.href.includes("bold-resultado")) {
+                    const boldFrame = document.querySelector("iframe[src*='bold']") || document.querySelector("[class*='bold']") || document.querySelector("#bold-checkout-modal");
+                    if (boldFrame) {
+                      boldWasOpen = true;
+                    } else if (boldWasOpen && !window.location.href.includes("bold-resultado")) {
                       clearInterval(checkBoldClosed);
                       alert("El pago no se completó. Tu carrito se conserva para que puedas intentar de nuevo.");
                       setLoading(false);
                     }
-                  }, 1000);
+                  }, 1500);
                   checkout.open();
                 } catch (sdkErr) { console.error("BoldCheckout SDK error:", sdkErr); window.location.href = "/checkout/confirmacion?order=" + data.orderNumber + "&method=bold&total=" + total; }
               };
